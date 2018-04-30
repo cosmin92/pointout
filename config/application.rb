@@ -27,5 +27,12 @@ module Pointout
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Don't generate helper specs and assets
+    config.generators do |generator|
+      generator.helper_specs false
+      generator.assets false
+    end
+  
   end
 end

@@ -33,6 +33,15 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Devise gem provide to a flexible authentication
+gem 'devise', '~> 4.4', '>= 4.4.3'
+
+# Carrierwavwe gem provides a simple and extremely flexible way to upload files from Ruby applications
+gem 'carrierwave', '~> 1.2', '>= 1.2.2'
+
+# Minimagik gem is used to manipulate images with minimal use of memory via ImageMagick / GraphicsMagick
+gem 'mini_magick', '~> 4.8'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
