@@ -1,8 +1,11 @@
 class Signaler < ApplicationRecord
 
   mount_uploader :profile_picture, ProfilePictureUploader
-  # Include default devise modules. Others available are: :confirmable, :lockable, :timeoutable and :omniauthable
+
+  # Include default devise modules.
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
+  # Include oauth devise modules.
+  devise :omniauthable, omniauth_providers: [:amazon, :github, :google_oauth2]
 
   validates :release_date, :expiration_date, presence: :true
   validates :first_name,  presence: true, length: { minimum: 1, maximum: 30 }
@@ -15,7 +18,7 @@ class Signaler < ApplicationRecord
   validates :id_card_number,  presence: true, length: { minimum: 8, maximum: 20 }
   validates :municipality,  presence: true, length: { minimum: 2, maximum: 30 }
   validate :expiration_date_cannot_be_earlier_than_release_date
-  
+
   validates_integrity_of  :profile_picture
   validates_processing_of :profile_picture
 

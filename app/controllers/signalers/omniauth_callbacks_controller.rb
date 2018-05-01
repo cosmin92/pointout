@@ -1,30 +1,45 @@
 # frozen_string_literal: true
 
 class Signalers::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  # You should configure your model like this:
-  # devise :omniauthable, omniauth_providers: [:twitter]
 
-  # You should also create an action method in this controller like this:
-  # def twitter
-  # end
+    # amazon callback
+    def amazon
+      @signaler = Signaler.find_signaler_email(request.env['omniauth.auth'])
+      if !@signaler.nil? && @signaler.persisted?
+        sign_in_and_redirect @signaler
+        set_flash_message(:notice, :success, kind: "Amazon") if is_navigational_format?
+      else
+        flash[:alert] = "There was a problem signing you in through Amazon. Please register or try signing in later."
+        redirect_to new_signaler_registration_url
+      end
+    end
 
-  # More info at:
-  # https://github.com/plataformatec/devise#omniauth
+    # github callback
+    def github
+      @signaler = Signaler.find_signaler_email(request.env['omniauth.auth'])
+      if !@signaler.nil? && @signaler.persisted?
+        sign_in_and_redirect @signaler
+        set_flash_message(:notice, :success, kind: "Github") if is_navigational_format?
+      else
+        flash[:alert] = "There was a problem signing you in through Github. Please register or try signing in later."
+        redirect_to new_signaler_registration_url
+      end
+    end
 
-  # GET|POST /resource/auth/twitter
-  # def passthru
-  #   super
-  # end
+    # google callback
+    def google_oauth2
+      @signaler = Signaler.find_signaler_email(request.env['omniauth.auth'])
+      if !@signaler.nil? && @signaler.persisted?
+        sign_in_and_redirect @signaler
+        set_flash_message(:notice, :success, kind: "Google") if is_navigational_format?
+      else
+        flash[:alert] = "There was a problem signing you in through Google. Please register or try signing in later."
+        redirect_to new_signaler_registration_url
+      end
+    end
 
-  # GET|POST /users/auth/twitter/callback
-  # def failure
-  #   super
-  # end
-
-  # protected
-
-  # The path used when OmniAuth fails
-  # def after_omniauth_failure_path_for(scope)
-  #   super(scope)
-  # end
+    def failure
+      flash[:alert] = "There was a problem signing you in. Please register or try signing in later."
+      redirect_to new_signaler_registration_url
+    end
 end

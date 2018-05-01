@@ -36,11 +36,24 @@ gem 'jbuilder', '~> 2.5'
 # Devise gem provide to a flexible authentication
 gem 'devise', '~> 4.4', '>= 4.4.3'
 
+# Use Omniauth Facebook plugin
+gem 'omniauth-amazon'
+
+# Use Omniauth Github plugin
+gem 'omniauth-github', '~> 1.1', '>= 1.1.2'
+
+# Use Omniauth Google plugin
+gem 'omniauth-google-oauth2', '~> 0.4.1'
+
 # Carrierwavwe gem provides a simple and extremely flexible way to upload files from Ruby applications
 gem 'carrierwave', '~> 1.2', '>= 1.2.2'
 
 # Minimagik gem is used to manipulate images with minimal use of memory via ImageMagick / GraphicsMagick
 gem 'mini_magick', '~> 4.8'
+
+
+
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
