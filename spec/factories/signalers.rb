@@ -7,7 +7,7 @@ FactoryBot.define do
     password "passwordsicura"
     password_confirmation 'passwordsicura'
     profile_picture { Rack::Test::UploadedFile.new(Rails.root.join('spec', 'support', 'images', 'profile_picture.png'), 'image/png') }
-    
+
     #residence
     street "via Giolitti"
     number "35A"

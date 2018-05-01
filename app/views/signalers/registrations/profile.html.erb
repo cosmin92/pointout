@@ -1,0 +1,22 @@
+<h1>Profile</h1>
+<%= link_to('Logout', destroy_signaler_session_path, method: :delete) %>
+<% if current_signaler.profile_picture.url.present? %>
+    <p>
+        <%= image_tag(current_signaler.profile_picture_url) %>
+    </p>
+<% end %>
+<p>
+    <%= current_signaler.full_name %>
+</p>
+<p>
+    <%= current_signaler.email %>
+</p>
+<p>
+    <%= current_signaler.created_at %>
+</p>
+
+
+<hr>
+<h3>Residence</h3>
+<hr>
+<h3>Identity card</h3>

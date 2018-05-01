@@ -54,6 +54,7 @@ group :development, :test do
 
   # use RSpec for unit tests
   gem 'rspec-rails'
+  gem 'rails-controller-testing'
   # user Factory bot for ese manitain datatabase
   gem "factory_bot_rails", "~> 4.0"
 end
