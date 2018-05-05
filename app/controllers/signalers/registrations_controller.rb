@@ -5,7 +5,7 @@ class Signalers::RegistrationsController < Devise::RegistrationsController
   before_action :configure_account_update_params, only: [:update]
   prepend_before_action :authenticate_scope!, only: [:profile, :timeline, :edit, :update, :destroy]
 
-  layout("signaler_autentication")
+  layout "signaler_autentication", :only => [:new]
   
   # GET /resource/sign_up
   # def new

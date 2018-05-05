@@ -1,16 +1,53 @@
-<h2>Resend unlock instructions</h2>
+<div class="container">
+  <div class="row justify-content-center" style="padding-top:100px; padding-bottom:100px;">
+    <div class="col-4">
 
-<%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
-  <%= devise_error_messages! %>
+      <div class="card">
+          <article class="card-body">
+            <%= link_to "Log in", new_session_path(resource_name), :class =>"float-right btn btn-outline-primary mt-1" %>
+            <h4 class="card-title mb-4 mt-1">Unlock</h4>
+            <%- if devise_mapping.omniauthable? %>
+              <p>
+                <%= link_to signaler_amazon_omniauth_authorize_path, :class=> "btn btn-block btn-amazon" do %>
+                  <i class="fab fa-amazon"></i> &nbsp; Login via Amazon
+                <% end %>
+                <%= link_to signaler_github_omniauth_authorize_path, :class=> "btn btn-block btn-github" do %>
+                  <i class="fab fa-github"></i> &nbsp; Login via GitHub
+                <% end %>
+                <%= link_to signaler_github_omniauth_authorize_path, :class=> "btn btn-block btn-google-plus" do %>
+                  <i class="fab fa-google-plus"></i> &nbsp; Login via Google+
+                  <% end %>
+              </p>
+              <hr class="hr-text" data-content="Or">
+            <% end -%>
+            <h4 class="card-title mb-4 mt-1">Resend unlock instructions</h4>
+            <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
+            <% errors = resource.errors.messages %>
+            <div class="form-group input-icon">
+              <% field_class = errors.has_key?(:email) ? "form-control is-invalid" : "form-control" %>
+              <i class="fa fa-user"></i>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => field_class, :placeholder => "Enter email" %>
+              <% if errors.has_key?(:email) %>
+                <div class="invalid-feedback">
+                  Please enter a valid email
+                </div>
+              <% end %>
+            </div><!-- form-group// -->
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <%= f.submit "Resend unlock instructions", :class => "btn btn-primary btn-block" %>
+                </div><!-- form-group// -->
+              </div>
 
-  <div class="actions">
-    <%= f.submit "Resend unlock instructions" %>
-  </div>
-<% end %>
-
-<%= render "signalers/shared/links" %>
+              <div class="col-md-12 text-right">
+                <%= link_to "Sign up", new_registration_path(resource_name), :class => "btn btn-outline-primary" %>
+              </div>
+            </div><!-- .row// -->
+            <% end %>
+          </article>
+      </div><!-- card.// -->
+    </div><!-- col-8//-->
+  </div><!-- row justify-content-center end-->
+</div><!-- container.//-->

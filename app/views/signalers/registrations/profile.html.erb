@@ -1,22 +1,65 @@
-<h1>Profile</h1>
-<%= link_to('Logout', destroy_signaler_session_path, method: :delete) %>
-<% if current_signaler.profile_picture.url.present? %>
-    <p>
-        <%= image_tag(current_signaler.profile_picture_url) %>
-    </p>
-<% end %>
-<p>
-    <%= current_signaler.full_name %>
-</p>
-<p>
-    <%= current_signaler.email %>
-</p>
-<p>
-    <%= current_signaler.created_at %>
-</p>
+<div class="container">
+    <div class="row">
+    <div class="col-3">
+        <div class="profile-sidebar">
+            <!-- SIDEBAR USERPIC -->
+            <div class="profile-userpic">
+                <% if current_signaler.profile_picture.url.present? %>
+                    <%= image_tag(current_signaler.profile_picture.dim_x200.url, :class => "rounded mx-auto d-block") %>
+                <% else %>
+                    <img src="https://profile.actionsprout.com/default.jpeg" class="rounded mx-auto d-block">
+                <% end %>
+            </div><!-- END SIDEBAR USERPIC -->
+            <!-- SIDEBAR USER TITLE -->
+            <div class="profile-usertitle">
+                <div class="profile-usertitle-name">
+                    <%= current_signaler.full_name %>
+                </div>
+                <div class="profile-usertitle-job">
+                    Join on:<%= current_signaler.created_at.strftime("%B %e, %Y") %><br>
+                    Last update:<%= current_signaler.updated_at.strftime("%B %e, %Y") %>
+                </div>
+            </div><!-- END SIDEBAR USER TITLE -->
 
+            <!-- SIDEBAR BUTTONS -->
+            <div class="profile-userbuttons">
+                <button type="button" class="btn btn-success btn-sm">Follow</button>
+            </div><!-- END SIDEBAR BUTTONS -->
+        </div>
+    </div>
 
-<hr>
-<h3>Residence</h3>
-<hr>
-<h3>Identity card</h3>
+    <div class="col-9">
+        <div id="exTab1">
+            <ul class="nav nav-pills">
+                <li class="active">
+                    <a href="#1a" data-toggle="tab">Overview</a>
+                </li>
+                <li>
+                    <a href="#2a" data-toggle="tab">Using nav-pills</a>
+                </li>
+                <li>
+                    <a href="#3a" data-toggle="tab">Applying clearfix</a>
+                </li>
+                <li>
+                    <a href="#4a" data-toggle="tab">Background color</a>
+                </li>
+            </ul>
+
+            <div class="tab-content clearfix">
+                <div class="tab-pane active" id="1a">
+                    <h3>Content's background color is the same for the tab</h3>
+                </div>
+                <div class="tab-pane" id="2a">
+                    <h3>We use the class nav-pills instead of nav-tabs which automatically creates a background color for the tab</h3>
+                </div>
+                <div class="tab-pane" id="3a">
+                    <h3>We applied clearfix to the tab-content to rid of the gap between the tab and the content</h3>
+                </div>
+                <div class="tab-pane" id="4a">
+                    <h3>We use css to change the background color of the content to be equal to the tab</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

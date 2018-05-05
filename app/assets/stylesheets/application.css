@@ -10,6 +10,396 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
+ *= require bootstrap-custom
+ *= require fonts/fontawesome/css/fontawesome-all.min
+ *= require plugins/fancybox/fancybox.min
+ *= require plugins/owlcarousel/assets/owl.carousel.min
+ *= require plugins/owlcarousel/assets/owl.theme.default
+ *= require plugins/prism/prism
+ *= require uikit
+ *= require responsive
+ *= require toastr
  *= require_self
  */
+
+pre {
+    max-height: 30rem;
+    overflow: auto;
+}
+
+.section-content {
+    padding-left: 12rem;
+    transition-property: padding-left;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    transition-duration: .5s;
+}
+
+body.push-side .section-content {
+    padding-left: 0rem;
+}
+
+.doc-page-header {
+    background-color: #563d7c;
+    min-height: 50px;
+    position: sticky;
+    top: 0;
+    z-index: 990;
+}
+
+.push-side .sidebar {
+    right: auto;
+    left: -12rem;
+}
+
+.doc-nav-wrap .btn {
+    background-color: transparent;
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    color: orange;
+    z-index: 99;
+}
+
+.sidebar .btn-collapse {
+    display: none;
+}
+
+.push-side .sidebar .btn-toggle {
+    right: -38px;
+    background-color: orange;
+    color: #fff;
+}
+
+.sidebar {
+    box-shadow: 0 0 15px #e4e4e4;
+    position: fixed;
+    left: 0;
+    right: auto;
+    height: 100%;
+    z-index: 99;
+    width: 12rem;
+    transition-property: all;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    transition-duration: .5s;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+}
+
+.header-aside {
+    position: relative;
+    padding: 18px 12px;
+    height: 60px;
+    color: #563d7c;
+    border-bottom: 1px solid #eee;
+}
+
+.doc-menu {
+    list-style: none;
+    font-size: 13px;
+    margin-top: 7px;
+}
+
+.doc-menu li a {
+    padding: 10px 15px;
+    display: block;
+    color: #333;
+}
+
+.doc-menu li a:hover {
+    background-color: #eee;
+    color: #666;
+}
+
+.title-doc {
+    font-size: 36px;
+    margin-top: 60px;
+    font-weight: 300;
+    margin-bottom: 0;
+}
+
+.subtitle-doc {
+    font-size: 13px;
+    color: #999;
+    font-weight: 400;
+    display: inline-block;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    margin-top: 45px;
+}
+
+.subtitle-doc a {
+    padding-left: 10px;
+    color: #666;
+}
+
+.subtitle-doc a:hover {
+    color: blue;
+}
+
+.btn-getcode {
+    padding: 3px 7px;
+    font-size: 12px;
+    background-color: orange;
+    color: #fff;
+    float: right;
+}
+
+.intro {
+    background-color: #563d7c;
+}
+
+.inner-main {
+    padding: 45px;
+}
+
+code {
+    padding: 0;
+}
+
+@media (max-width: 768px) {
+    .sidebar .btn-toggle {
+        display: none !important;
+    }
+    .sidebar .btn-collapse {
+        display: block !important;
+    }
+}
+
+.fancybox-slide>* {
+    max-width: 80%;
+}
+
+.img-logo {
+    height: 36px;
+    width: auto;
+}
+
+/* HR with centered text*/
+
+.hr-text {
+    line-height: 1em;
+    position: relative;
+    outline: 0;
+    border: 0;
+    color: black;
+    text-align: center;
+    height: 1.5em;
+    opacity: .5;
+}
+
+.hr-text:before {
+    content: '';
+    /* use the linear-gradient for the fading effect*/
+    /* use a solid background color for a solid bar*/
+    background: linear-gradient(to right, transparent, #818078, transparent);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+}
+
+.hr-text:after {
+    content: attr(data-content);
+    position: relative;
+    display: inline-block;
+    color: black;
+    padding: 0 .5em;
+    line-height: 1.5em;/* this is really the only tricky part, you need to specify the background color of the container element...*/
+    color: #818078;
+    background-color: #fcfcfa;
+}
+
+/* HR with centered left*/
+
+.hr-text-left {
+    line-height: 1em;
+    position: relative;
+    outline: 0;
+    border: 0;
+    color: black;
+    text-align: left;
+    height: 1.5em;
+    opacity: .7;
+}
+
+.hr-text-left:before {
+    content: '';
+    /* use the linear-gradient for the fading effect*/
+    /* use a solid background color for a solid bar*/
+    background: linear-gradient(to right, transparent, #818078, transparent);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+}
+
+.hr-text-left:after {
+    content: attr(data-content);
+    position: relative;
+    display: inline-block;
+    color: black;
+    padding: 0 .5em;
+    line-height: 1.5em;
+    /* this is really the only tricky part, you need to specify the background color of the container element...*/
+    color: #818078;
+    background-color: #fcfcfa;
+}
+
+/* Input date*/
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="month"] {
+    -webkit-appearance: listbox;
+    border-radius: 0px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 6px;
+    padding-right: 0px;
+}
+
+/*Image upload*/
+
+.profile_picture_h1 {
+    font-size: 20px;
+    text-align: center;
+    margin: 0;
+}
+
+.profile_picture_h1 small {
+    display: block;
+    font-size: 15px;
+    padding-top: 8px;
+    color: gray;
+}
+
+.profile_picture-upload {
+    position: relative;
+    max-width: 205px;
+    margin: 50px auto;
+}
+
+.profile_picture-upload .profile_picture-edit {
+    position: absolute;
+    right: 12px;
+    z-index: 1;
+    top: 10px;
+}
+
+.profile_picture-upload .profile_picture-edit input {
+    display: none;
+}
+
+.profile_picture-upload .profile_picture-edit input+label {
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 0;
+    border-radius: 100%;
+    background: #FFFFFF;
+    border: 1px solid transparent;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    font-weight: normal;
+    transition: all 0.2s ease-in-out;
+}
+
+.profile_picture-upload .profile_picture-edit input+label:hover {
+    background: #f1f1f1;
+    border-color: #d6d6d6;
+}
+
+.profile_picture-upload .profile_picture-edit input+label:after {
+    content: "\f040";
+    font-family: 'FontAwesome';
+    color: #757575;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: auto;
+}
+
+.profile_picture-upload .profile_picture-preview {
+    width: 192px;
+    height: 192px;
+    position: relative;
+    border-radius: 100%;
+    border: 6px solid #F8F8F8;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.profile_picture-upload .profile_picture-preview>div {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Signaler Profile */
+.profile-sidebar {
+    padding: 20px 0 10px 0;
+    background: #fff;
+}
+
+.profile-userpic img {
+    float: none;
+    margin: 0 auto;
+    width: 50%;
+    height: 50%;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    border-radius: 50% !important;
+}
+
+.profile-usertitle {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.profile-usertitle-name {
+    color: #5a7391;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.profile-usertitle-job {
+    text-transform: uppercase;
+    color: #5b9bd1;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.profile-userbuttons {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.profile-userbuttons .btn {
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 6px 15px;
+    margin-right: 5px;
+}
+
+.profile-userbuttons .btn:last-child {
+    margin-right: 0px;
+}
+
+
+.edit_input{
+    border: none;
+    border-bottom: 1px solid #ACACAC;
+    border-radius: 0%;
+}

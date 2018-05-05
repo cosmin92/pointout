@@ -51,6 +51,9 @@ gem 'carrierwave', '~> 1.2', '>= 1.2.2'
 # Minimagik gem is used to manipulate images with minimal use of memory via ImageMagick / GraphicsMagick
 gem 'mini_magick', '~> 4.8'
 
+# Tast Rails gem is a plugin for flash messages
+gem 'toastr_rails'
+
 
 
 

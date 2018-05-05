@@ -1,26 +1,58 @@
-<h2>Log in</h2>
+<div class="container">
+  <div class="row justify-content-center" style="padding-top:100px; padding-bottom:100px;">
+    <div class="col-4">
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+      <div class="card">
+        <article class="card-body">
+          <%= link_to "Sign up", new_registration_path(resource_name), :class => "float-right btn btn-outline-primary" %>
+          <h4 class="card-title mb-4 mt-1">Sign in</h4>
+          <%- if devise_mapping.omniauthable? %>
+            <p>
+              <%= link_to signaler_amazon_omniauth_authorize_path, :class=> "btn btn-block btn-amazon" do %>
+                <i class="fab fa-amazon"></i> &nbsp; Login via Amazon
+              <% end %>
+              <%= link_to signaler_github_omniauth_authorize_path, :class=> "btn btn-block btn-github" do %>
+                <i class="fab fa-github"></i> &nbsp; Login via GitHub
+              <% end %>
+              <%= link_to signaler_github_omniauth_authorize_path, :class=> "btn btn-block btn-google-plus" do %>
+                <i class="fab fa-google-plus"></i> &nbsp; Login via Google+
+              <% end %>
+            </p>
+            <hr class="hr-text" data-content="Or">
+          <% end -%>
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="form-group input-icon">
+              <i class="fa fa-user"></i>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control", :placeholder => "Email or login" %>
+          </div><!-- form-group// -->
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+          <div class="form-group input-icon">
+            <i class="fa fa-lock"></i>
+            <%= f.password_field :password, autocomplete: "off", :class => "form-control", :placeholder => "******" %>
+          </div><!-- form-group// -->
 
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end -%>
+          <label class="form-check form-text text-muted">
+            <%= f.check_box :remember_me, :class => "form-check-input" %>
+            <span class="form-check-label">
+              Remember me
+            </span>
+          </label><!-- form-check.// -->
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
+          <div class="row">
+            <div class="col-md-6"><br>
+              <div class="form-group">
+                <%= f.submit "Log in", :class => "btn btn-primary btn-block" %>
+              </div><!-- form-group// -->
+            </div>
+            <div class="col-md-6 text-right"><br>
+              <%= link_to "Forgot your password?", new_password_path(resource_name), :class => "small" %>
+            </div>
+          </div><!-- .row// -->
+          <% end %>
+        </article>
+      </div><!-- card.// -->
 
-<%= render "signalers/shared/links" %>
+    </div><!-- col-8//-->
+  </div><!-- row justify-content-center end-->
+</div><!-- container.//-->
+

@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class Signalers::SessionsController < Devise::SessionsController
-  before_action :authenticate_signaler!, only: [:profile, :timeline]
-  layout("signaler_autentication")
+  layout "signaler_autentication"
 
   # GET /resource/sign_in
   # def new
