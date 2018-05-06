@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180430083142) do
+ActiveRecord::Schema.define(version: 20180505175339) do
 
   create_table "signalers", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -41,6 +41,15 @@ ActiveRecord::Schema.define(version: 20180430083142) do
     t.index ["id_card_number"], name: "index_signalers_on_id_card_number", unique: true
     t.index ["phone"], name: "index_signalers_on_phone", unique: true
     t.index ["reset_password_token"], name: "index_signalers_on_reset_password_token", unique: true
+  end
+
+  create_table "tipologies", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "logo"
+    t.integer "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

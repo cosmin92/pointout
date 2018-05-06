@@ -18,7 +18,7 @@
 !/tmp/.keep
 
 # I carrierwave tmp uplodas files
-/public/uploads/tmp/*
+/public/uploads/*
 
 /node_modules
 /yarn-error.log
