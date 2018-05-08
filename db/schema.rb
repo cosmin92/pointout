@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180505175339) do
+ActiveRecord::Schema.define(version: 20180506130642) do
+
+  create_table "reports", force: :cascade do |t|
+    t.string "object", null: false
+    t.text "description", null: false
+    t.string "images"
+    t.string "address", null: false
+    t.decimal "longitude", precision: 10, scale: 6, null: false
+    t.decimal "latitude", precision: 10, scale: 6, null: false
+    t.string "report_type", default: "Segnalation", null: false
+    t.string "intervention_type", default: "Ordinary", null: false
+    t.string "state", default: "Pending", null: false
+    t.integer "signaler_id"
+    t.integer "tipology_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address"], name: "index_reports_on_address"
+    t.index ["longitude", "latitude"], name: "index_reports_on_longitude_and_latitude"
+    t.index ["object"], name: "index_reports_on_object"
+    t.index ["signaler_id"], name: "index_reports_on_signaler_id"
+    t.index ["tipology_id"], name: "index_reports_on_tipology_id"
+  end
 
   create_table "signalers", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -44,12 +65,13 @@ ActiveRecord::Schema.define(version: 20180505175339) do
   end
 
   create_table "tipologies", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.string "logo"
+    t.string "name", null: false
+    t.text "description", null: false
+    t.string "logo", null: false
     t.integer "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tipologies_on_name"
   end
 
 end

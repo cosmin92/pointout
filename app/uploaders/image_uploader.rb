@@ -1,4 +1,4 @@
-class LogoUploader < CarrierWave::Uploader::Base
+class ImageUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
@@ -45,14 +45,10 @@ class LogoUploader < CarrierWave::Uploader::Base
     process resize_to_fit: [200, 200]
   end
 
-  version :dim_x300 do
-    process resize_to_fit: [300, 300]
-  end
-
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_whitelist
-    %w(jpg jpeg png)
+    %w(jpg jpeg gif png)
   end
 
   # Override the filename of the uploaded files:

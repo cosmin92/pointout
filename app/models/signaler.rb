@@ -23,7 +23,7 @@ class Signaler < ApplicationRecord
   validates_processing_of :profile_picture
 
   # Associations
-  #has_many :reports, dependent: :destroy
+  has_many :reports, dependent: :destroy
   #has_many :observations, :dependent => :destroy
 
   #has_many :interventions, :dependent => :destroy

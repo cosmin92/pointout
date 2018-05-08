@@ -1,7 +1,7 @@
 class Tipology < ApplicationRecord
     mount_uploader :logo, LogoUploader
     # Assocaitions
-    # has_many :reports
+    has_many :reports
     # has_many :occupations
     # has_many :groups, through: :occupations
     # belongs_to :forwarder
@@ -16,5 +16,19 @@ class Tipology < ApplicationRecord
 
     validates_integrity_of  :logo
     validates_processing_of :logo
+
+    # Callbacks
+    before_destroy :set_all_report_to_unknown_tipology
+
+
+
+    private
+
+    def set_all_report_to_unknown_tipology
+        unknown = Tipology.where(:name => "Unknown")
+        self.reports.each do |report|
+            report.tipology = unknown
+        end
+    end
 
 end

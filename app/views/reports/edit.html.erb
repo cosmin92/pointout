@@ -1,0 +1,70 @@
+<h1>Editing Report</h1>
+
+<%= form_with(model: @report, local: true) do |form| %>
+    <% if @report.errors.any? %>
+        <div id="error_explanation">
+            <h2>
+                <%= pluralize(@report.errors.count, "error") %> prohibited this report from being saved:</h2>
+
+            <ul>
+                <% @report.errors.full_messages.each do |message| %>
+                    <li>
+                        <%= message %>
+                    </li>
+                    <% end %>
+            </ul>
+        </div>
+        <% end %>
+
+            <div class="field">
+                <%= form.label :object %>
+                    <%= form.text_field :object, id: :report_object %>
+            </div>
+
+            <div class="field">
+                <%= form.label :description %>
+                    <%= form.text_area :description, id: :report_description %>
+            </div>
+
+            <div class="field">
+                <%= form.label :images %>
+                    <%= form.text_field :images, id: :report_images %>
+            </div>
+
+            <div class="field">
+                <%= form.label :address %>
+                    <%= form.text_field :address, id: :report_address %>
+            </div>
+
+            <div class="field">
+                <%= form.label :longitude %>
+                    <%= form.text_field :longitude, id: :report_longitude %>
+            </div>
+
+            <div class="field">
+                <%= form.label :latitude %>
+                    <%= form.text_field :latitude, id: :report_latitude %>
+            </div>
+
+            <div class="field">
+                <%= form.label :report_type %>
+                    <%= form.text_field :report_type, id: :report_report_type %>
+            </div>
+
+            <div class="field">
+                <%= form.label :intervention_type %>
+                    <%= form.check_box :intervention_type, id: :report_intervention_type %>
+            </div>
+
+            <div class="field">
+                <%= form.label :state %>
+                    <%= form.text_field :state, id: :report_state %>
+            </div>
+
+            <div class="actions">
+                <%= form.submit %>
+            </div>
+            <% end %>
+
+<%= link_to 'Show', @report %> |
+<%= link_to 'Back', reports_path %>

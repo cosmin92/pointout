@@ -6,6 +6,8 @@ if Rails.env.test? || Rails.env.cucumber?
 
     # make sure uploader is auto-loaded
     ProfilePictureUploader
+    LogoUploader
+    ImageUploader
 
     CarrierWave::Uploader::Base.descendants.each do |klass|
         next if klass.anonymous?

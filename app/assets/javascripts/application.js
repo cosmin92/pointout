@@ -17,6 +17,8 @@
 //= require plugins/prism/prism
 //= require script
 //= require toastr
+//= require rails-ujs
+//= require turbolinks
 
 
 function readURL(input) {

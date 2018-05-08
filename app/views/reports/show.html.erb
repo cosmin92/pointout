@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Object:</strong>
+  <%= @report.object %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @report.description %>
+</p>
+
+<p>
+  <strong>Images:</strong>
+  <% @report.images.each do |image| %>
+    <%= image_tag(image.url) %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @report.address %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @report.longitude %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @report.latitude %>
+</p>
+
+<p>
+  <strong>Report type:</strong>
+  <%= @report.report_type %>
+</p>
+
+<p>
+  <strong>Intervention type:</strong>
+  <%= @report.intervention_type %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @report.state %>
+</p>
+
+<%= link_to 'Edit', edit_report_path(@report) %> |
+<%= link_to 'Back', reports_path %>

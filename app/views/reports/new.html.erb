@@ -1,0 +1,68 @@
+<h1>New Report</h1>
+
+<%= form_with(model: @report, local: true, :html => { :multipart => true }) do |form| %>
+    <% if @report.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@report.errors.count, "error") %> prohibited this report from being saved:</h2>
+            <ul>
+                <% @report.errors.full_messages.each do |message| %>
+                    <li><%= message %> </li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+        <%= form.label :object %>
+        <%= form.text_field :object, id: :report_object %>
+    </div>
+
+    <div class="field">
+        <%= form.label :description %>
+        <%= form.text_area :description, id: :report_description %>
+    </div>
+
+    <div class="field">
+        <%= form.label :images %>
+        <%= form.file_field :images, id: :report_images, multiple: true %>
+    </div>
+
+    <div class="field">
+        <%= form.label :address %>
+        <%= form.text_field :address, id: :report_address %>
+    </div>
+
+    <div class="field">
+        <%= form.label :longitude %>
+        <%= form.text_field :longitude, id: :report_longitude %>
+    </div>
+
+    <div class="field">
+        <%= form.label :latitude %>
+        <%= form.text_field :latitude, id: :report_latitude %>
+    </div>
+
+    <div class="field">
+        <%= form.label :report_type %><br>
+        <%= form.radio_button :report_type, "Segnalation", id: :report_report_type, checked: true %>Segnalation<br>
+        <%= form.radio_button :report_type, "Suggestion", id: :report_report_type %>Suggestion<br>
+        <%= form.radio_button :report_type, "Complaint", id: :report_report_type %>Complaint<br>
+    </div>
+
+    <div class="field">
+        <%= form.label :intervention_type %><br>
+        <%= form.radio_button :intervention_type, "Ordinary", id: :report_intervention_type, checked: true %>Ordinary<br>
+        <%= form.radio_button :intervention_type, "Immediate", id: :report_intervention_type %>Immediate<br>
+    </div>
+
+    <div class="field">
+        <%= form.label :tipology_id %>
+        <%= form.collection_select :tipology_id, Tipology.order(:name), :id, :name, include_blank: true, id: :report_tipology_id %>
+    </div>
+
+    <div class="actions">
+        <%= form.submit %>
+    </div>
+    <% end %>
+
+<%= link_to 'Back', reports_path %>

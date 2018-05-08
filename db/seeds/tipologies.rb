@@ -6,6 +6,12 @@
 #   :logo,
 #)
 
+@unknown = Tipology.create(
+    :name => "Unknown",
+    :description => "A questa tipologia di problemi, aggiunta di default, vengono assegnati tutti i report la cui tipologia viene cancellata. Oppure è utile per per quei ti ti problematiche di cui non si sa anticipatamente la tipologia di appartenenza",
+    :logo => File.open(File.join(Rails.root, 'public/images/tipologies/unknown.png'))
+)
+
 @illuminazione_pubblica = Tipology.create(
     :name => "Illuminazione pubblica",
     :description => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam risus risus, porta cursus placerat eget, suscipit ac risus. Integer eu ligula ac eros sagittis dictum. Aenean quis tincidunt tellus. Suspendisse nec augue malesuada, auctor nulla ac, convallis est. Integer accumsan et tortor nec tempor. Praesent eget pharetra nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin congue magna quis libero sagittis convallis. Morbi eu eleifend magna. Pellentesque varius justo nec justo tincidunt sollicitudin.",
