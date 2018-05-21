@@ -1,0 +1,42 @@
+<header class="section-header bg-secondary">
+    <div class="container">
+        <nav class="navbar navbar-landing navbar-expand-lg navbar-dark bg-secondary">
+            <a class="navbar-brand mr-auto" href="/">
+                <%= image_tag '/logos/logo.png', :alt => "pointOut logo", :title => "Pint out" %></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbar1">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><%= link_to 'Home', root_path, :class => "nav-link" %></li>
+                    <li class="nav-item"><a href="/#resources" class="nav-link page-scroll">Resources</a></li>
+                    <li class="nav-item"><a href="/#howto" class="nav-link page-scroll">How to</a></li>
+                    <li class="nav-item"><a href="/#contacts" class="nav-link page-scroll"> Contacts </a></li>
+                    <li class="nav-item"><%= link_to 'About', static_pages_about_path, :class => "nav-link" %></li>
+                    <% if !signaler_signed_in? %>
+                        <li class="nav-item"><%= link_to 'Login', new_signaler_session_path, :class => "btn ml-3 btn-warning" %></li>
+                    <% else %>
+                    <li class="nav-item dropdown" style="border-left:1px solid #555;margin-left:15px; ">
+                        <a href="#" data-toggle="dropdown" class="nav-link" style="margin-left:10px;" data-offset="20,10">
+                            <div class="icontext">
+                                <div class="icon-wrap"> <%= image_tag current_signaler.profile_picture.dim_x25, :style=> "border-radius:100%;" %> </div>
+                                <div class="text-wrap">
+                                        <div><%= current_signaler.first_name%> <i class="fa fa-caret-down"></i> </div>
+                                </div>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><%= link_to 'New Report', new_report_path, :class => "dropdown-item signaler_dropdown-item" %></li>
+                            <div class="dropdown-divider"></div>
+                            <li><%= link_to 'Timeline', signalers_timeline_path, :class => "dropdown-item signaler_dropdown-item" %></li>
+                            <div class="dropdown-divider"></div>
+                            <li><%= link_to 'Profile', signalers_profile_path, :class => "dropdown-item signaler_dropdown-item" %></li>
+                            <li><%= link_to 'Update Profile', edit_signaler_registration_path, :class => "dropdown-item signaler_dropdown-item" %></li>
+                            <div class="dropdown-divider"></div>
+                            <li><%= link_to("Logout", destroy_signaler_session_path, method: :delete, :class => "dropdown-item signaler_dropdown-item") %></li>
+                        </ul>
+                    </li>
+                    <% end %>
+                </ul>
+            </div>
+        </nav>
+		</div><!--end container -->
+</header>

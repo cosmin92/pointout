@@ -296,7 +296,7 @@ RSpec.describe Signaler, type: :model do
 
   end # end Methods
 
-  xcontext "Associations" do
+  context "Associations" do
     it "has many reports" do
       association = Signaler.reflect_on_association(:reports)
       expect(association.macro).to eq(:has_many)
@@ -309,11 +309,6 @@ RSpec.describe Signaler, type: :model do
       
     it "has many interventions" do
       association = Signaler.reflect_on_association(:interventions)
-      expect(association.macro).to eq(:has_many)
-    end
-
-    it "has many opinions" do
-      association = Signaler.reflect_on_association(:opinions)
       expect(association.macro).to eq(:has_many)
     end
   end # end Associations

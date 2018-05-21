@@ -12,242 +12,41 @@
  *
  *= require bootstrap-custom
  *= require fonts/fontawesome/css/fontawesome-all.min
- *= require plugins/fancybox/fancybox.min
- *= require plugins/owlcarousel/assets/owl.carousel.min
- *= require plugins/owlcarousel/assets/owl.theme.default
- *= require plugins/prism/prism
  *= require uikit
- *= require responsive
- *= require toastr
+ *= require custom
+ *= require plugins/leaflet/leaflet 
+ *= require plugins/leaflet/leaflet-sidebar
  *= require_self
  */
 
-pre {
-    max-height: 30rem;
-    overflow: auto;
+.bg-secondary {
+    background-color: #0c1a1e !important;
 }
 
-.section-content {
-    padding-left: 12rem;
-    transition-property: padding-left;
-    transition-timing-function: ease;
-    transition-delay: 0s;
-    transition-duration: .5s;
-}
+/* ============== SIGNALER NAVBAR ===========================*/
 
-body.push-side .section-content {
-    padding-left: 0rem;
-}
-
-.doc-page-header {
-    background-color: #563d7c;
-    min-height: 50px;
-    position: sticky;
-    top: 0;
-    z-index: 990;
-}
-
-.push-side .sidebar {
-    right: auto;
-    left: -12rem;
-}
-
-.doc-nav-wrap .btn {
-    background-color: transparent;
-    position: absolute;
-    top: 12px;
-    right: 10px;
-    color: orange;
-    z-index: 99;
-}
-
-.sidebar .btn-collapse {
-    display: none;
-}
-
-.push-side .sidebar .btn-toggle {
-    right: -38px;
-    background-color: orange;
-    color: #fff;
-}
-
-.sidebar {
-    box-shadow: 0 0 15px #e4e4e4;
-    position: fixed;
-    left: 0;
-    right: auto;
-    height: 100%;
-    z-index: 99;
-    width: 12rem;
-    transition-property: all;
-    transition-timing-function: ease;
-    transition-delay: 0s;
-    transition-duration: .5s;
-    background-color: #fff;
-    border-right: 1px solid #ddd;
-}
-
-.header-aside {
-    position: relative;
-    padding: 18px 12px;
-    height: 60px;
-    color: #563d7c;
-    border-bottom: 1px solid #eee;
-}
-
-.doc-menu {
-    list-style: none;
-    font-size: 13px;
-    margin-top: 7px;
-}
-
-.doc-menu li a {
-    padding: 10px 15px;
-    display: block;
-    color: #333;
-}
-
-.doc-menu li a:hover {
-    background-color: #eee;
-    color: #666;
-}
-
-.title-doc {
-    font-size: 36px;
-    margin-top: 60px;
-    font-weight: 300;
-    margin-bottom: 0;
-}
-
-.subtitle-doc {
-    font-size: 13px;
-    color: #999;
+.signaler_menu {
+    font-family: -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.9rem;
     font-weight: 400;
-    display: inline-block;
-    padding-bottom: 5px;
-    text-transform: uppercase;
-    margin-bottom: 25px;
-    margin-top: 45px;
-}
-
-.subtitle-doc a {
-    padding-left: 10px;
-    color: #666;
-}
-
-.subtitle-doc a:hover {
-    color: blue;
-}
-
-.btn-getcode {
-    padding: 3px 7px;
-    font-size: 12px;
-    background-color: orange;
-    color: #fff;
-    float: right;
-}
-
-.intro {
-    background-color: #563d7c;
-}
-
-.inner-main {
-    padding: 45px;
-}
-
-code {
-    padding: 0;
-}
-
-@media (max-width: 768px) {
-    .sidebar .btn-toggle {
-        display: none !important;
-    }
-    .sidebar .btn-collapse {
-        display: block !important;
-    }
-}
-
-.fancybox-slide>* {
-    max-width: 80%;
-}
-
-.img-logo {
-    height: 36px;
-    width: auto;
-}
-
-/* HR with centered text*/
-
-.hr-text {
-    line-height: 1em;
-    position: relative;
-    outline: 0;
-    border: 0;
-    color: black;
-    text-align: center;
-    height: 1.5em;
-    opacity: .5;
-}
-
-.hr-text:before {
-    content: '';
-    /* use the linear-gradient for the fading effect*/
-    /* use a solid background color for a solid bar*/
-    background: linear-gradient(to right, transparent, #818078, transparent);
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 100%;
-    height: 1px;
-}
-
-.hr-text:after {
-    content: attr(data-content);
-    position: relative;
-    display: inline-block;
-    color: black;
-    padding: 0 .5em;
-    line-height: 1.5em;/* this is really the only tricky part, you need to specify the background color of the container element...*/
-    color: #818078;
-    background-color: #fcfcfa;
-}
-
-/* HR with centered left*/
-
-.hr-text-left {
-    line-height: 1em;
-    position: relative;
-    outline: 0;
-    border: 0;
-    color: black;
+    line-height: 1.0;
+    color: #000;
     text-align: left;
-    height: 1.5em;
-    opacity: .7;
+    background-color: #000;
+    padding-right: 20px;
 }
 
-.hr-text-left:before {
-    content: '';
-    /* use the linear-gradient for the fading effect*/
-    /* use a solid background color for a solid bar*/
-    background: linear-gradient(to right, transparent, #818078, transparent);
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 100%;
-    height: 1px;
+.signaler_dropdown-item{
+    font-size: 0.9rem;
+}
+.signaler_dropdown-item a {
+
+    padding: 8px;
 }
 
-.hr-text-left:after {
-    content: attr(data-content);
-    position: relative;
-    display: inline-block;
-    color: black;
-    padding: 0 .5em;
-    line-height: 1.5em;
-    /* this is really the only tricky part, you need to specify the background color of the container element...*/
-    color: #818078;
-    background-color: #fcfcfa;
+.radius_btn {
+    padding: .25rem .25rem;
+    font-size: .8rem;
 }
 
 /* Input date*/
@@ -286,7 +85,7 @@ input[type="month"] {
 
 .profile_picture-upload .profile_picture-edit {
     position: absolute;
-    right: 12px;
+    right: 24px;
     z-index: 1;
     top: 10px;
 }
@@ -307,6 +106,8 @@ input[type="month"] {
     cursor: pointer;
     font-weight: normal;
     transition: all 0.2s ease-in-out;
+    padding: 5px 8px;
+    color: #999;
 }
 
 .profile_picture-upload .profile_picture-edit input+label:hover {
@@ -315,11 +116,10 @@ input[type="month"] {
 }
 
 .profile_picture-upload .profile_picture-edit input+label:after {
-    content: "\f040";
     font-family: 'FontAwesome';
     color: #757575;
     position: absolute;
-    top: 10px;
+    top: 0px;
     left: 0;
     right: 0;
     text-align: center;
@@ -402,4 +202,157 @@ input[type="month"] {
     border: none;
     border-bottom: 1px solid #ACACAC;
     border-radius: 0%;
+}
+
+
+
+/*=========================== MAP INDEX ==================================*/
+body {
+    padding: 0;
+    margin: 0;
+}
+
+
+#map {
+    height: 90vh;
+    font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+.lorem {
+    font-style: italic;
+    color: #AAA;
+}
+
+.sidebar {
+    position: fixed;
+    top: 110px;
+    bottom: 10px;
+    transition: width 500ms;
+}
+
+
+
+/* ==================== FOOTER ============================== */
+footer {
+    background-color: #0c1a1e;
+    min-height: 350px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.footerleft {
+    margin-top: 50px;
+    padding: 0 36px;
+}
+
+.logofooter {
+    margin-bottom: 10px;
+    font-size: 25px;
+    color: #fff;
+    font-weight: 700;
+}
+
+.footerleft p {
+    color: #fff;
+    font-size: 12px !important;
+    font-family: 'Open Sans', sans-serif;
+    margin-bottom: 15px;
+}
+
+.footerleft p i {
+    width: 20px;
+    color: #999;
+}
+
+.paddingtop-bottom {
+    margin-top: 50px;
+}
+
+.footer-ul {
+    list-style-type: none;
+    padding-left: 0px;
+    margin-left: 2px;
+}
+
+.footer-ul li {
+    line-height: 29px;
+    font-size: 12px;
+}
+
+.footer-ul li a {
+    color: #a0a3a4;
+    transition: color 0.2s linear 0s, background 0.2s linear 0s;
+}
+
+.footer-ul i {
+    margin-right: 10px;
+}
+
+.footer-ul li a:hover {
+    transition: color 0.2s linear 0s, background 0.2s linear 0s;
+    color: #ff670f;
+}
+
+.social:hover {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -o-transform: scale(1.1);
+}
+
+.icon-ul {
+    list-style-type: none !important;
+    margin: 0px;
+    padding: 0px;
+}
+
+.icon-ul li {
+    line-height: 75px;
+    width: 100%;
+    float: left;
+}
+
+.icon {
+    float: left;
+    margin-right: 5px;
+}
+
+.copyright {
+    min-height: 40px;
+    background-color: #000000;
+}
+
+.copyright > p {
+    text-align: left;
+    color: #FFF;
+    padding: 10px 0;
+    margin-bottom: 0px;
+}
+
+.heading7 {
+    font-size: 21px;
+    font-weight: 700;
+    color: #d9d6d6;
+    margin-bottom: 22px;
+}
+
+.bottom_ul {
+    list-style-type: none;
+    float: right;
+    margin-bottom: 0px;
+}
+
+.bottom_ul li {
+    float: left;
+    line-height: 40px;
+}
+
+.bottom_ul li:after {
+    content: "/";
+    color: #FFF;
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+.bottom_ul li a {
+    color: #FFF;
+    font-size: 12px;
 }

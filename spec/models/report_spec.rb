@@ -130,13 +130,13 @@ RSpec.describe Report, type: :model do
         expect(subject).to respond_to(:intervention_type)
       end
 
-      it "should include 'immediate' intervention type" do
-        subject.intervention_type = "Immediate"
+      it "should include 'corrective' intervention type" do
+        subject.intervention_type = "Corrective"
         expect(subject).to be_valid
       end
 
-      it "should include 'ordinary' intervention type" do
-        subject.intervention_type = "Ordinary"
+      it "should include 'preventive' intervention type" do
+        subject.intervention_type = "Preventive"
         expect(subject).to be_valid
       end
     end # end intervention type
@@ -208,15 +208,15 @@ RSpec.describe Report, type: :model do
       expect(Report.ordered_by_object_desc.last.object).to eq("a secondo report inserito")
     end
 
-    it "should get reports by tipology" do
-      setup_database
-      expect(Report.tipology(Tipology.first.id).count).to eq(4)
-    end
-
     it "should get only nearby reports" do
       setup_database
       center = {:longitude => 41.93224524160291, :latitude => 12.440350581054645}
       expect(Report.nearby(center, 200).count).to eq(3)
+    end
+
+    it "should get latest reports" do
+      setup_database
+      expect(Report.latest(3).count).to eq(3)
     end
   end
 
@@ -241,12 +241,12 @@ RSpec.describe Report, type: :model do
       expect(association.macro).to eq(:belongs_to)
     end
 
-    xit "has many interventions" do
+    it "has many interventions" do
       association = Report.reflect_on_association(:interventions)
       expect(association.macro).to eq(:has_many)
     end
 
-    xit "has many observations" do
+    it "has many observations" do
       association = Report.reflect_on_association(:observations)
       expect(association.macro).to eq(:has_many)
     end

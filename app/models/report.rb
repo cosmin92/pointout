@@ -1,17 +1,18 @@
 class Report < ApplicationRecord
     mount_uploaders :images, ImageUploader
     serialize :images, JSON
+    
+    acts_as_taggable
 
     # Associations
     belongs_to :signaler
     belongs_to :tipology
     #belongs_to :agency, optional: true
     #belongs_to :forwarder, optional: true
-    #has_many :taggings
-    #has_many :tags, :through => :taggings, :as => :tagable
-    #has_many :observations, dependent: :destroy
-    #has_many :interventions
-    #has_many :signalers, through: :interventions
+
+    has_many :observations, dependent: :destroy
+    has_many :interventions, dependent: :destroy
+
 
     # Validations
     validates :object, presence: true, length: { minimum: 4, maximum: 50 }
@@ -21,7 +22,7 @@ class Report < ApplicationRecord
     validates :longitude, :latitude, presence: true
 
     validates :report_type, inclusion: { in: ["Complaint", "Segnalation" ,"Suggestion"] }
-    validates :intervention_type, inclusion: { in: ["Ordinary", "Immediate"] }
+    validates :intervention_type, inclusion: { in: ["Corrective", "Preventive"] }
 
     validates_integrity_of  :images
     validates_processing_of :images
@@ -43,8 +44,8 @@ class Report < ApplicationRecord
         order(object: :desc)
     end
 
-    def self.tipology(id)
-        Tipology.find(id).reports
+    def self.latest(number)
+        order("created_at desc").limit(number)
     end
 
     def self.nearby(center, radius)

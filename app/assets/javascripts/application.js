@@ -12,11 +12,7 @@
 //
 //= require plugins/jquery/jquery-2.0.0.min
 //= require plugins/bootstrap_bundle/bootstrap.bundle.min
-//= require plugins/fancybox/fancybox.min
-//= require plugins/owlcarousel/owl.carousel.min
-//= require plugins/prism/prism
 //= require script
-//= require toastr
 //= require rails-ujs
 //= require turbolinks
 
@@ -32,31 +28,24 @@ function readURL(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+
 // jquery ready start
 $(document).ready(function () {
     
+    $(".toggle-sidebar").click(function () {
+
+        $("#sidebar").toggleClass("collapsed");
+        $("#content").toggleClass("col-md-11 col-md-5");
+        $("#map_show").toggleClass("fa-angle-right fa-angle-left")
+
+        return false;
+    });
+
     // Upload preview profile_picture
     $("#signaler_profile_picture").change(function () {
         readURL(this);
     });
-
-    // USe toast for flash messages
-    toastr.options = {
-        "closeButton": false,
-        "debug": false,
-        "positionClass": "toast-bottom-right",
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    }
-
-
+ 
     //////////////////////// Menu scroll to section
     $('a.page-scroll').click(function (event) {
         var $anchor = $(this);
@@ -71,15 +60,6 @@ $(document).ready(function () {
         target: '.nav-sidebar',
         offset: 80
     });
-
-    $('.btn-toggle').click(function () {
-        $('body').toggleClass('push-side');
-    });
-    $('.btn-collapse').click(function () {
-        $('.doc-menu').slideToggle();
-    });
-
-
 });
 // jquery end
 

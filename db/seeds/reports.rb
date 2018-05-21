@@ -13,7 +13,7 @@
     :longitude => 41.907033,
     :latitude => 12.425314,
     :report_type => "Segnalation",
-    :intervention_type => "Ordinary",
+    :intervention_type => "Corrective",
     :signaler => @barba_rossa,
     :tipology => @ambiente,
     :images => [
@@ -24,6 +24,8 @@
     ]
 )
 
+
+
 # 500 metri distante dal palo rotto
 @palo_luce_rotto = Report.create(
     :object => "Palo luce rotto",
@@ -32,24 +34,25 @@
     :longitude => 41.902905,
     :latitude => 12.425956,
     :report_type => "Segnalation",
-    :intervention_type => "Ordinary",
+    :intervention_type => "Corrective",
     :signaler => @pinco_pallino,
     :tipology => @illuminazione_stradale,
     :images => [
         File.open(File.join(Rails.root, 'public/images/reports/illuminazione_stradale/img1.jpeg')),
-        File.open(File.join(Rails.root, 'public/images/reports/illuminazione_stradale/img1.jpeg')),
-        File.open(File.join(Rails.root, 'public/images/reports/illuminazione_stradale/img1.jpeg')),
+        File.open(File.join(Rails.root, 'public/images/reports/illuminazione_stradale/img2.jpeg')),
+        File.open(File.join(Rails.root, 'public/images/reports/illuminazione_stradale/img3.jpeg')),
     ]
 )
 
-@palo_luce_rotto = Report.create(
+
+@rifiuti = Report.create(
     :object => "Rifiuti",
     :description => "È universalmente riconosciuto che un lettore che osserva il layout di una pagina viene distratto dal contenuto testuale se questo è leggibile. Lo scopo dell’utilizzo del Lorem Ipsum è che offre una normale distribuzione delle lettere (al contrario di quanto avviene se si utilizzano brevi frasi ripetute, ad esempio “testo qui”), apparendo come un normale blocco di testo leggibile. Molti software di impaginazione e di web design utilizzano Lorem Ipsum come testo modello. Molte versioni del testo sono state prodotte negli anni, a volte casualmente, a volte di proposito (ad esempio inserendo passaggi ironici).",
     :address => "Via Quirino Majorana, 200, 00146 Roma RM",
     :longitude => 41.866281,
     :latitude => 12.464055,
     :report_type => "Complaint",
-    :intervention_type => "Immediate",
+    :intervention_type => "Preventive",
     :signaler => @mario_rossi,
     :tipology => @rifiuti_pulizia,
     :images => [

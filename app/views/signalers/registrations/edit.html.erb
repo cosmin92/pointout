@@ -1,29 +1,30 @@
-<div class="container">
+<div class="container" style="margin-top:50px;margin-bottom:100px;">
   <div class="row justify-content-center">
-  <div class="col-6 card">
+  <div class="col-8 card">
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { :method => :put, :multipart => true }) do |f| %>
   <% errors = resource.errors.messages %>
     <div class="row">
       <div class="col">
         <div class="profile_picture-upload">
-          <div class="profile_picture-edit">
+          <div class="profile_picture-edit text-center">
             <%= f.file_field :profile_picture %>
-            <label for="signaler_profile_picture"></label>
+            <label for="signaler_profile_picture"><i class="fa fa-camera" aria-hidden="true"></i>
+</label>
             <%= f.hidden_field :profile_picture_cache %>
           </div>
-          <div class="profile_picture-preview">
+          
             <% if current_signaler.profile_picture.url.present? %>
-              <div id="profile_picture_preview" >
-                <%= image_tag(current_signaler.profile_picture_url) %>
-              </div><br>
-              <%= f.check_box :remove_profile_picture %>
-              <%= f.label :remove_profile_picture %>
+              <div>
+                <%= image_tag(current_signaler.profile_picture_url, :style=>"border-radius:100%;") %>
+              </div>
+              <%= f.check_box :remove_profile_picture, :class=> "text-center" %>
+              <%= f.label :remove_profile_picture, :class=> "text-center text-muted", :style=> "padding:10px;"%>
             <% else %>
+            <div class="profile_picture-preview">
               <div id="profile_picture_preview" style="background-image: url(https://profile.actionsprout.com/default.jpeg);"></div>
-            <% end %>
-          </div>
+            </div>
+            <% end %><h1 class="profile_picture_h1">Upload your new profile picture</h1>
         </div>
-        <h1 class="profile_picture_h1">Upload your new profile picture</h1><br> <hr class="hr-text" data-content="Info">
       </div><!-- end col -->
     </div><!-- end row -->
 
@@ -44,7 +45,7 @@
         <div class="form-group">
           <% field_class = errors.has_key?(:last_name) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
             <strong><%= f.label :last_name %>:</strong>
-            <%= f.text_field :last_name, autofocus: true, :class => field_class %>
+            <%= f.text_field :last_name, :class => field_class %>
             <% if errors.has_key?(:last_name) %>
               <div class="invalid-feedback">
                 Please enter a valid last name
@@ -60,7 +61,7 @@
         <div class="form-group">
           <% field_class = errors.has_key?(:email) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
             <strong><%= f.label :email %>:</strong>
-            <%= f.text_field :email, autofocus: true, :class => field_class %>
+            <%= f.text_field :email, :class => field_class %>
             <% if errors.has_key?(:last_name) %>
               <div class="invalid-feedback">
                 Please enter a valid email address
@@ -73,7 +74,7 @@
         <div class="form-group">
           <% field_class = errors.has_key?(:phone) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
             <strong><%= f.label :phone %>:</strong>
-            <%= f.text_field :phone, autofocus: true, :class => field_class %>
+            <%= f.text_field :phone, :class => field_class %>
             <% if errors.has_key?(:phone) %>
               <div class="invalid-feedback">
                 Please enter a valid phone number
@@ -86,8 +87,8 @@
     <div class="row">
       <div class="col-6">
         <div class="form-group">
-          <% field_class = errors.has_key?(:email) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
-          <strong><%= f.label :password %><i>(leave blank if you don't want to change it)</i>:</strong>
+          <% field_class = errors.has_key?(:password) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
+          <strong><%= f.label :password %>:</strong>
             <%= f.password_field :password, autocomplete: "off", :class => field_class %>
             <% if errors.has_key?(:password) %>
               <div class="invalid-feedback">
@@ -101,7 +102,7 @@
 
       <div class="col-6">
         <div class="form-group">
-          <% field_class = errors.has_key?(:email) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
+          <% field_class = errors.has_key?(:password_confirmation) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
             <strong><%= f.label :password_confirmation %>:</strong>
             <%= f.password_field :password_confirmation, autocomplete: "off", :class => field_class %>
             <% if errors.has_key?(:password_confirmation) %>
@@ -112,83 +113,140 @@
         </div><!-- form-group end.// -->
       </div><!--end col-6 -->
     </div><!-- end row-->
-<%= f.label :password %>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <% field_class = errors.has_key?(:current_password) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
+          <strong><%= f.label :current_password %></strong>
+          <%= f.password_field :current_password, autocomplete: "off", :class => field_class %>
+          <% if errors.has_key?(:current_password) %>
+              <div class="invalid-feedback">
+                Please enter a valid password
+              </div>
+            <% else %>
+              <small class="form-text text-muted">*we need your current password to confirm your changes.</small>
+            <% end %>
+        </div><!-- form-group end.// -->
+      </div><!--end col-6 -->
+    </div><br>
+          <hr class="hr-text" data-content="Residence">
+    <div class="row">
+      <div class="col-6">
+          <div class="form-group">
+            <% field_class = errors.has_key?(:street) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
+            <strong><%= f.label :street %>:</strong>
+            <%= f.text_field :street, :class => field_class %>
+            <% if errors.has_key?(:street) %>
+              <div class="invalid-feedback">
+                Please enter a valid street name
+              </div>
+            <% end %>
+          </div><!-- form-group end.// -->
+      </div><!--end col-6 -->
+    
+        <div class="col-1">
+            <div class="form-group">
+              <% field_class = errors.has_key?(:number) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
+              <strong><label>N.:</label></strong>
+              <%= f.text_field :number, :class => field_class %>
+              <% if errors.has_key?(:number) %>
+                <div class="invalid-feedback">
+                  Please enter a valid house number
+                </div>
+              <% end %>
+            </div><!-- form-group end.// -->
+        </div><!--end col-6 -->
+      
+        <div class="col-3">
+          <div class="form-group">
+            <% field_class = errors.has_key?(:city) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
+            <strong><%= f.label :city %>:</strong>
+            <%= f.text_field :city, :class => field_class %>
+            <% if errors.has_key?(:city) %>
+              <div class="invalid-feedback">
+                Please enter a valid city name
+              </div>
+            <% end %>
+          </div><!-- form-group end.// -->
+        </div><!--end col-6 -->
   
-  <br />
-  <%= f.password_field :password, autocomplete: "off" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em>
-        <%= @minimum_password_length %> characters minimum</em>
-      <% end %>
+
+        <div class="col-2">
+        <div class="form-group">
+            <% field_class = errors.has_key?(:zip_code) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
+            <strong><label>Zip code:</label></strong>
+            <%= f.text_field :zip_code, :class => field_class %>
+            <% if errors.has_key?(:zip_code) %>
+              <div class="invalid-feedback">
+                Please enter a valid zip code
+              </div>
+            <% end %>
+        </div><!-- form-group end.// -->
+      </div><!--end col-6 -->
+    </div><!--end row-->
+
+    <br>
+          <hr class="hr-text" data-content="Identity card">
+    <div class="row">
+      <div class="col-4">
+          <div class="form-group">
+            <% field_class = errors.has_key?(:id_card_number) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
+            <strong><%= f.label :id_card_number %>:</strong>
+            <%= f.text_field :id_card_number, :class => field_class %>
+            <% if errors.has_key?(:id_card_number) %>
+              <div class="invalid-feedback">
+                Please enter a valid identity card number
+              </div>
+            <% end %>
+          </div><!-- form-group end.// -->
+      </div><!--end col-6 -->
+    
+        <div class="col-4">
+            <div class="form-group">
+              <% field_class = errors.has_key?(:municipality) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
+              <strong><%= f.label :municipality %>:</strong>
+              <%= f.text_field :municipality, :class => field_class %>
+              <% if errors.has_key?(:municipality) %>
+                <div class="invalid-feedback">
+                  Please enter a valid municipality name
+                </div>
+              <% end %>
+            </div><!-- form-group end.// -->
+        </div><!--end col-6 -->
+      
+        <div class="col-2">
+          <div class="form-group">
+            <% field_class = errors.has_key?(:release_date) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
+            <strong><%= f.label :release_date%>:</strong>
+            <%= f.text_field :release_date, :class => field_class %>
+            <% if errors.has_key?(:release_date) %>
+              <div class="invalid-feedback">
+                Please enter a valid release date
+              </div>
+            <% end %>
+          </div><!-- form-group end.// -->
+        </div><!--end col-6 -->
+  
+
+        <div class="col-2">
+        <div class="form-group">
+            <% field_class = errors.has_key?(:expiration_date) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
+            <strong><%= f.label :expiration_date %></strong>
+            <%= f.text_field :expiration_date,  :class => field_class %>
+            <% if errors.has_key?(:expiration_date) %>
+              <div class="invalid-feedback">
+                Please enter a valid expiration date
+              </div>
+            <% end %>
+        </div><!-- form-group end.// -->
+      </div><!--end col-6 -->
+    </div><!--end row-->
+
+    <hr>
+     <div class="form-group">
+    <%= f.submit "Update", :class => "btn btn-secondary" %>
+  </div>
   <% end %><!-- end form -->
   </div>
   </div>
 </div><!-- end container-->
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { :method => :put, :multipart => true }) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :street %><br />
-    <%= f.text_field :street %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :number %><br />
-    <%= f.text_field :number %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :city %><br />
-    <%= f.text_field :city %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :zip_code %><br />
-    <%= f.text_field :zip_code %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :id_card_number %><br />
-    <%= f.text_field :id_card_number %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :municipality %><br />
-    <%= f.text_field :municipality %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :release_date %><br />
-    <%= f.date_field :release_date %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :expiration_date %><br />
-    <%= f.date_field :expiration_date %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-<%= link_to "Back", :back %>

@@ -8,6 +8,7 @@ RSpec.describe ReportsController, type: :routing do
     end
 
     it "routes to #new" do
+      sign_in create(:signaler)
       expect(:get => "/reports/new").to route_to("reports#new")
     end
 
@@ -16,22 +17,27 @@ RSpec.describe ReportsController, type: :routing do
     end
 
     it "routes to #edit" do
+      sign_in create(:signaler)
       expect(:get => "/reports/1/edit").to route_to("reports#edit", :id => "1")
     end
 
     it "routes to #create" do
+      sign_in create(:signaler)
       expect(:post => "/reports").to route_to("reports#create")
     end
 
     it "routes to #update via PUT" do
+      sign_in create(:signaler)
       expect(:put => "/reports/1").to route_to("reports#update", :id => "1")
     end
 
     it "routes to #update via PATCH" do
+      sign_in create(:signaler)
       expect(:patch => "/reports/1").to route_to("reports#update", :id => "1")
     end
 
     it "routes to #destroy" do
+      sign_in create(:signaler)
       expect(:delete => "/reports/1").to route_to("reports#destroy", :id => "1")
     end
 

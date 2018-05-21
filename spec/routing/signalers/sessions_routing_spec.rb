@@ -12,7 +12,7 @@ RSpec.describe Signalers::SessionsController, type: :routing do
         end
 
         it "routes to #sign_out" do
-            expect(:delete => "/signalers/sign_out").to route_to("signalers/sessions#destroy")
+            expect(:get=> "/signalers/sign_out").to route_to("signalers/sessions#destroy")
         end
     end
 end

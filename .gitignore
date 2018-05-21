@@ -16,7 +16,7 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
-
+/.vscode
 # I carrierwave tmp uplodas files
 /public/uploads/*
 

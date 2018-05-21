@@ -1,2 +1,125 @@
-<h1>StaticPages#home</h1>
-<p>Find me in app/views/static_pages/home.html.erb</p>
+<section id="resources" class="section-features bg2 padding-y-lg">
+	<div class="container">
+
+		<header class="section-heading text-center">
+			<h2 class="title-section">Resources</h2>
+		</header><!-- sect-heading -->
+
+		<div class="row">
+			<aside class="col-sm-3">
+				<figure class="itembox text-center">
+					<span class="icon-wrap icon-lg bg-secondary  white"><i class="fa fa-users"></i>	</span>
+					<figcaption class="text-wrap">
+					<h4 class="title">Signaler</h4>
+					<p><%= Signaler.count %> users joined us</p>
+					</figcaption>
+				</figure> <!-- iconbox // -->
+			</aside> <!-- col.// -->
+
+			<aside class="col-sm-3">
+				<figure class="itembox text-center">
+					<span class="icon-wrap icon-lg bg-secondary white"><i class="fa fa-edit"></i></span>
+					<figcaption class="text-wrap">
+						<h4 class="title">Reports</h4>	
+						<p> Signalers sent <%= Report.count %> reports</p>
+					</figcaption>
+				</figure> <!-- iconbox // -->
+			</aside> <!-- col.// -->
+
+			<aside class="col-sm-3">
+				<figure class="itembox text-center">
+					<span class="icon-wrap icon-lg bg-secondary  white"><i class="fa fa-comment"></i></span>
+					<figcaption class="text-wrap">
+					<h4 class="title">Observations</h4>
+					<p>Signalers left <%= "==> Da sistemare"%> ogservations </p>
+					</figcaption>
+				</figure> <!-- iconbox // -->
+			</aside> <!-- col.// -->
+
+			<aside class="col-sm-3">
+				<figure class="itembox text-center">
+					<span class="icon-wrap icon-lg bg-secondary  white"><i class="fa fa-comments"></i>	</span>
+					<figcaption class="text-wrap">
+					<h4 class="title">Comments</h4>
+					<p>Signaers left <%= " ==> Da sistemare"%> comments</p>
+					</figcaption>
+				</figure> <!-- iconbox // -->
+			</aside> <!-- col.// -->
+		</div> <!-- row.// -->
+	</div><!-- container // -->
+</section>
+
+<section id="howto" class="section-content padding-y-lg">
+	<div class="container">
+
+		<header class="section-heading text-center">
+			<h2 class="title-section">How to</h2>
+			<p class="lead"> Good sub heading this sounded nonsense to Alice </p>
+		</header><!-- sect-heading -->
+
+		<div class="row justify-content-center">
+			<article class="col-md-6 text-center">
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			<p>Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			</article> <!-- col.// -->
+		</div> <!-- row.// -->
+
+	</div> <!-- container .//  -->
+</section>
+
+<section id="contacts" class="bg section-content padding-y-lg">
+	<div class="container">
+
+		<header class="section-heading text-center">
+			<h2 class="title-section"> Contacts</h2>
+			<p class="lead"> Good sub heading this sounded nonsense to Alice </p>
+		</header><!-- sect-heading -->
+
+		<div class="row justify-content-center">
+			<article class="col-md-6 text-center">
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			<p>Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			</article> <!-- col.// -->
+		</div> <!-- row.// -->
+
+	</div> <!-- container .//  -->
+</section>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHsysEhtrQMdJW_wv3ROsNysDr_UwpTMo&libraries=places" type="text/javascript"></script>
+<script type="text/javascript">
+		var p = document.getElementById("search_range"),
+		res = document.getElementById("search_radius");
+
+		p.addEventListener("input", function() {
+			res.value = p.value;
+		}, false);
+
+        function initialize() {
+            var input = document.getElementById('search_address');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                var place = autocomplete.getPlace();
+                document.getElementById('search_latitude').value = place.geometry.location.lat();
+                document.getElementById('search_longitude').value = place.geometry.location.lng();
+                document.getElementById('submit').disabled = false;
+            });
+        }
+        google.maps.event.addDomListener(window, 'load', initialize); 
+</script>

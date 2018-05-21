@@ -87,7 +87,7 @@ RSpec.describe Tipology, type: :model do
       expect(association.macro).to eq(:belongs_to)
     end
 
-    xit "has many reports" do
+    it "has many reports" do
       association = Tipology.reflect_on_association(:reports)
       expect(association.macro).to eq(:has_many)
     end
@@ -102,7 +102,7 @@ RSpec.describe Tipology, type: :model do
       expect(association.macro).to eq(:has_many)
     end
 
-    xit "belogns to forwarder" do
+    xit "belongs to forwarder" do
       association = Tipology.reflect_on_association(:forwarder)
       expect(association.macro).to eq(:belongs_to)
     end

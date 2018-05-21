@@ -47,6 +47,8 @@ class Signalers::RegistrationsController < Devise::RegistrationsController
 
   # Show reports sents end observations makes
   def timeline
+    @elements = current_signaler.reports + current_signaler.observations
+    @elements.sort_by(&:created_at)
   end
 
   protected

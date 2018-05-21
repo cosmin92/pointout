@@ -54,6 +54,8 @@ gem 'mini_magick', '~> 4.8'
 # Tast Rails gem is a plugin for flash messages
 gem 'toastr_rails'
 
+# Acts-as-taggable-ongem is used to manipulate tags
+gem 'acts-as-taggable-on', :git => 'https://github.com/mbleigh/acts-as-taggable-on'
 
 
 

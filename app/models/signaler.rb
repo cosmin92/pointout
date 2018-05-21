@@ -24,25 +24,12 @@ class Signaler < ApplicationRecord
 
   # Associations
   has_many :reports, dependent: :destroy
-  #has_many :observations, :dependent => :destroy
-
-  #has_many :interventions, :dependent => :destroy
-  #has_many :reports, through: :interventions
-
-  #has_many :opinions, :dependent => :destroy
-  #has_many :observations, through: :opinions
-
+  has_many :observations, :dependent => :destroy
+  has_many :interventions, :dependent => :destroy
 
   # public methods
-
   def full_name
     self.first_name + " " + self.last_name
-  end
-
-  def reports_ordered_by_date_asc
-  end
-
-  def observations_ordered_by_date_asc
   end
 
   def self.find_signaler_email(access_token)

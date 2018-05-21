@@ -3,10 +3,13 @@
   <head>
     <title>Pointout</title>
     <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.js"></script>
     <% flash.keys.each do |key|
         toastr_key = key
         toastr_key = 'info' if key == 'notice'
@@ -17,7 +20,23 @@
     <% end %>
   </head>
 
-  <body>
+  <body class="relative" data-spy="scroll" data-target=".navbar-landing">
+  
+  <% if !current_page?(root_path) %>
+    <% sticky_top = "sticky-top" %>
+  <% end %>
+
+  <div class = "<%= sticky_top %>">
+    <% if current_page?(root_path) %>
+      <%= render 'shared/home_page/header' %>
+    <% else %>
+      <%= render 'shared/header' %>
+      <% if current_page?(controller: 'reports', action: 'index')%>
+      <%= render "shared/search_reports"%>
+      <% end %>
+    <% end %>
+  </div>
+
     <% if !notice.nil? || !alert.nil? %>
       <hr>
       <p class="notice"><%= notice %></p>
@@ -25,5 +44,6 @@
       <hr>
     <% end %>
     <%= yield %>
+    <%= render "shared/footer"%>
   </body>
 </html>

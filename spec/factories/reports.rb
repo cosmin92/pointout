@@ -8,7 +8,7 @@ FactoryBot.define do
     latitude 12.440350581054645
 
     report_type "Suggestion"
-    intervention_type "Ordinary"
+    intervention_type "Corrective"
 
     association :signaler, factory: :signaler, strategy: :create
     association :tipology, factory: :tipology, strategy: :create

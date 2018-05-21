@@ -13,3 +13,5 @@
 load File.join(Rails.root, 'db', 'seeds', 'signalers.rb')
 load File.join(Rails.root, 'db', 'seeds', 'tipologies.rb')
 load File.join(Rails.root, 'db', 'seeds', 'reports.rb')
+load File.join(Rails.root, 'db', 'seeds', 'observations.rb')
+load File.join(Rails.root, 'db', 'seeds', 'tags.rb')

@@ -1,70 +1,239 @@
-<h1>Editing Report</h1>
-
-<%= form_with(model: @report, local: true) do |form| %>
-    <% if @report.errors.any? %>
-        <div id="error_explanation">
-            <h2>
-                <%= pluralize(@report.errors.count, "error") %> prohibited this report from being saved:</h2>
-
-            <ul>
-                <% @report.errors.full_messages.each do |message| %>
-                    <li>
-                        <%= message %>
-                    </li>
+<div class="container-fluid" style="padding:0;">
+<%= form_with(model: @report, local: true, :html => { :multipart => true }) do |form| %>
+    <% errors = @report.errors.messages %>
+    <%params.inspect%>
+    <div class="row" style="margin:0px; padding-top:0px;">
+        <div class="col-5" id="left" >
+            <div class="row" style="margin:0px;margin-top:15px;">
+            <div class="row" style="margin:0px;margin-top:15px;">
+                <div class="form-group col-12">
+                    <% field_class = errors.has_key?(:object) ? "form-control is-invalid" : "form-control" %>
+                    <%= form.label :object %>:*
+                    <%= form.text_field :object, id: :report_object, autofocus: true, :class => field_class, :placeholder => "Please enter address" %>
+                    <% if errors.has_key?(:object) %>
+                        <div class="invalid-feedback">
+                        Please enter address
+                        </div>
                     <% end %>
-            </ul>
+                </div>
+            </div>
+
+            <div class="row" style="margin:0px;">
+                <div class="form-group col-6">
+                    <% field_class = errors.has_key?(:tipology) ? "form-control is-invalid" : "form-control" %>
+                    <%= form.label :tipology_id %>:*<br>
+                    <%= form.collection_select :tipology_id, Tipology.all, :id, :name, {:include_blank => true}, {:class => field_class } %>
+                    <% if errors.has_key?(:tipology) %>
+                        <div class="invalid-feedback">
+                            Please select tipology
+                        </div>
+                    <% end %>
+                </div>
+
+                <div class="form-group col-6">
+                    <%= form.label :images %>:
+                    <%= form.file_field :images, id: :report_images, multiple: true, :class => "form-control" %>
+                </div>
+            </div><!--end row-->
+
+            <div class="row" style="margin:0px;">
+                <div class="form-group col-12">
+                    <% field_class = errors.has_key?(:description) ? "form-control is-invalid" : "form-control" %>
+                    <%= form.label :description %>:*
+                    <%= form.text_area :description, id: :report_description, :class => field_class , :rows=> "10" %>
+                     <% if errors.has_key?(:description) %>
+                        <div class="invalid-feedback">
+                            Please describe the problem
+                        </div>
+                    <% end %>
+                </div>
+            </div><!--end row-->
+
+            <div class="row" style="margin:0px;">
+                <div class="form-group col-12">
+                    <%= form.label :tag_list, 'Tags' %><span class="text-muted">(separated by commas)</span>:<br/>
+                    <%= form.text_field :tag_list, :class => "form-control", :value => @report.tag_list.to_a.join(", ")%>
+                </div>
+            </div>
+
+            <div class="row" style="margin:0px;">
+                <div class="form-group col-3">
+                    <%= form.label :report_type %>:<br>
+                    <% if @report.report_type == "Segnalation" %>
+                        <%= form.radio_button :report_type, "Segnalation", id: :report_report_type, checked: true %>Segnalation<br>
+                    <% else %>
+                        <%= form.radio_button :report_type, "Segnalation", id: :report_report_type %>Segnalation<br>
+                    <% end %>
+                    
+                    <% if @report.report_type == "Suggestion" %>
+                        <%= form.radio_button :report_type, "Suggestion", id: :report_report_type, checked: true %>Suggestion<br>
+                    <% else %>
+                        <%= form.radio_button :report_type, "Suggestion", id: :report_report_type %>Suggestion<br>
+                    <% end %>
+                     
+                    <% if @report.report_type == "Complaint" %>
+                        <%= form.radio_button :report_type, "Complaint", id: :report_report_type, checked: true %>Complaint<br>
+                    <% else %>
+                        <%= form.radio_button :report_type, "Complaint", id: :report_report_type %>Complaint<br>
+                    <% end %>
+                </div>
+
+                <div class="form-group col-4">
+                    <%= form.label :intervention_type %>:<br>
+                    <% if @report.intervention_type == "Corrective" %>
+                        <%= form.radio_button :intervention_type, "Corrective", id: :report_intervention_type, checked: true %>Corrective<br>
+                    <% else %>
+                       <%= form.radio_button :intervention_type, "Corrective", id: :report_intervention_type %>Corrective<br>
+                    <% end %>
+
+                    <% if @report.intervention_type == "Preventive" %>
+                        <%= form.radio_button :intervention_type, "Preventive", id: :report_intervention_type, checked: true %>Preventive<br>
+                    <% else %>
+                       <%= form.radio_button :intervention_type, "Preventive", id: :report_intervention_type %>Preventive<br>
+                    <% end %>
+
+                </div>
+
+               
+                <div class="form-group col-5">
+                    <label> Intervention requested:</label><br>
+                    <% inter = Intervention.where("report_id = ? AND signaler_id = ?", @report.id, @report.signaler.id ).first %>
+                    <% if !inter.nil? %>
+                        <% if inter.intervention_type == "Ordinary" %>
+                            <input name="intervention_type" id="intervention_type_Ordinary" value="Ordinary"  type="radio" checked >Ordinary<br>
+                        <% else %>
+                            <input name="intervention_type" id="intervention_type_Ordinary" value="Ordinary"  type="radio" >Ordinary<br>
+                        <% end %>
+
+                        <% if inter.intervention_type == "Immediate" %>
+                            <input name="intervention_type" id="intervention_type_Immediate" value="Immediate"  type="radio" checked >Immediate<br>
+                        <% else %>
+                            <input name="intervention_type" id="intervention_type_Immediate" value="Immediate"  type="radio" >Immediate<br>
+                        <% end %>
+
+                    <% else %>
+                        <input name="intervention_type" id="intervention_type_Ordinary" value="Ordinary"  type="radio">Ordinary<br>
+                        <input name="intervention_type" id="intervention_type_Immediate" value="Immediate" type="radio">Immediate<br>
+                    <% end %>
+                </div>
+            </div>
+
+            <div class="row" style="margin:0px;">
+                <div class="col-12">
+                    <div class="text-right"><hr>
+                        <%= form.submit "Update Report", :class => "btn btn-secondary"%>
+                    </div>
+                </div>
+            </div>
+        </div><!--end left-->
+
+        <div class="col-md-7 " id="right">
+            <div class="pac-card" id="pac-card">
+                <div id="title">Enter an address and click on the map to indicate the exact position</div>
+                <div id="pac-container"><br>
+                    <%= form.text_field :address, id: :report_address, :class => "form-control", :placeholder=>"Enter a location", :style=>"padding-top:5px;padding-bottom:5px; margin-bottom:3px;" %>
+                    <div class="row" style="margin-left: 12px;">
+                    <div class="col-6" style="padding-left:2px; padding-right:2px;">
+                    <%= form.text_field :longitude, id: :report_longitude, :class => "form-control", :style=> "padding:2px; font-size:15px;line-height: 0; text-align:right; border:none; border-bottom:1px solid #DDD; border-radius:0;color: #AAA"%>
+                    </div>
+                    <div class="col-6" style="padding-left:2px; ">
+                    <%= form.text_field :latitude, id: :report_latitude, :class => "form-control", :style=> "padding:2px;font-size: 15px;line-height: 0; text-align:right; border:none; border-bottom:1px solid #DDD; border-radius:0;color: #AAA" %>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div id="map"></div>
+            <div id="infowindow-content">
+                <span id="place-address"></span>
+            </div>
         </div>
-        <% end %>
+    </div>
+    <% end %>
+</div><!-- end container-->
 
-            <div class="field">
-                <%= form.label :object %>
-                    <%= form.text_field :object, id: :report_object %>
-            </div>
+<script>
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: <%= @report.latitude %>, lng: <%= @report.longitude %>},
+            zoom: 17,
+            mapTypeId: google.maps.MapTypeId.HYBRID
+        });
+        
+        var marker = new google.maps.Marker({
+          position: { lat: <%= @report.latitude %>, lng: <%= @report.longitude %>},
+          map: map,
+        });
 
-            <div class="field">
-                <%= form.label :description %>
-                    <%= form.text_area :description, id: :report_description %>
-            </div>
+        var card = document.getElementById('pac-card');
+        var input = document.getElementById('report_address');
+        var types = document.getElementById('type-selector');
+              
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
+              
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.bindTo('bounds', map);
+              
+        var infowindow = new google.maps.InfoWindow();
+        var infowindowContent = document.getElementById('infowindow-content');
+        infowindow.setContent(infowindowContent);
+        var marker = new google.maps.Marker({ map: map, anchorPoint: new google.maps.Point(0, -29) });
+              
+        autocomplete.addListener('place_changed', function() {
+            infowindow.close();
+            marker.setVisible(false);
 
-            <div class="field">
-                <%= form.label :images %>
-                    <%= form.text_field :images, id: :report_images %>
-            </div>
-
-            <div class="field">
-                <%= form.label :address %>
-                    <%= form.text_field :address, id: :report_address %>
-            </div>
-
-            <div class="field">
-                <%= form.label :longitude %>
-                    <%= form.text_field :longitude, id: :report_longitude %>
-            </div>
-
-            <div class="field">
-                <%= form.label :latitude %>
-                    <%= form.text_field :latitude, id: :report_latitude %>
-            </div>
-
-            <div class="field">
-                <%= form.label :report_type %>
-                    <%= form.text_field :report_type, id: :report_report_type %>
-            </div>
-
-            <div class="field">
-                <%= form.label :intervention_type %>
-                    <%= form.check_box :intervention_type, id: :report_intervention_type %>
-            </div>
-
-            <div class="field">
-                <%= form.label :state %>
-                    <%= form.text_field :state, id: :report_state %>
-            </div>
-
-            <div class="actions">
-                <%= form.submit %>
-            </div>
-            <% end %>
-
-<%= link_to 'Show', @report %> |
-<%= link_to 'Back', reports_path %>
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                window.alert("No details available for input: '" + place.name + "'");
+                return;
+            }
+            
+            if (place.geometry.viewport) {
+                map.fitBounds(place.geometry.viewport);
+            } else {
+                map.setCenter(place.geometry.location);
+                map.setZoom(17);
+            }
+            marker.setPosition(place.geometry.location);
+            marker.setVisible(true);
+              
+            var address = '';
+            if (place.address_components) {
+                address = [
+                    (place.address_components[0] && place.address_components[0].short_name || ''),
+                    (place.address_components[1] && place.address_components[1].short_name || ''),
+                    (place.address_components[2] && place.address_components[2].short_name || '')].join(' ');
+            }
+            infowindowContent.children['place-address'].textContent = address;
+            infowindow.open(map, marker);
+            document.getElementById("report_longitude").value = place.geometry.location.lng();
+            document.getElementById("report_latitude").value = place.geometry.location.lat();
+        });
+              
+        map.addListener('click', function (e) {
+            infowindow.close();
+            map.panTo(e.latLng);
+            map.setZoom(17);
+            marker.setPosition(e.latLng);
+            document.getElementById("report_longitude").value = e.latLng.lat();
+            document.getElementById("report_latitude").value = e.latLng.lng();
+            
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'location': e.latLng },
+            function (results, status) {
+                if (status === 'OK') {
+                    if (results[0]) {
+                        document.getElementById("report_address").value = results[0].formatted_address;
+                        infowindowContent.children['place-address'].textContent =results[0].formatted_address;
+                        infowindow.open(map, marker);
+                    } else {
+                        window.alert('Can\'t convert this location to real address');
+                    }
+                } else {
+                    window.alert('Geocoder failed due to: ' + status);
+                }
+            });
+        });
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHsysEhtrQMdJW_wv3ROsNysDr_UwpTMo&libraries=places&callback=initMap" async defer></script>
