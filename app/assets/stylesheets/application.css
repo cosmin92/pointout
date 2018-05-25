@@ -23,6 +23,9 @@
     background-color: #0c1a1e !important;
 }
 
+#option_home_button:hover{
+    color:yellowgreen;
+}
 /* ============== SIGNALER NAVBAR ===========================*/
 
 .signaler_menu {

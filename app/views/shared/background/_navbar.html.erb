@@ -1,0 +1,20 @@
+<nav class="navbar navbar-dark bg-dark navbar-expand-md justify-content-center navbar-fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
+      <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+        <% if forwarder_signed_in? %>
+          <li class="nav-item">
+            <%= link_to('Edit Profile', edit_forwarder_registration_path, class: "nav-link btn")  %>
+          </li>
+          <li class="nav-item">
+              <%= link_to('Logout', destroy_forwarder_session_path, method: :delete, class: "nav-link btn btn-outline-secondary") %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div><!-- end container -->
+</nav>

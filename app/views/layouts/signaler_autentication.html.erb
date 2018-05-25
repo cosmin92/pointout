@@ -6,24 +6,9 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
-    <% flash.keys.each do |key|
-        toastr_key = key
-        toastr_key = 'info' if key == 'notice'
-        toastr_key = 'warning' if key == 'alert'%>
-        <%= javascript_tag do %>
-          $(function() { toastr["#{toastr_key}"]("#{flash[key]}"); });
-        <% end %>
-    <% end %>
   </head>
 
   <body>
-    <% if !notice.nil? || !alert.nil? %>
-      <hr>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-      <hr>
-    <% end %>
     <%= yield %>
   </body>
 </html>

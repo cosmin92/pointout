@@ -5,6 +5,7 @@ RSpec.describe Intervention, type: :model do
   subject {described_class = create(:intervention) }
 
   context "Factory" do
+
     it "have not nil intervention type" do
       expect(subject.intervention_type).not_to be_nil
     end
@@ -17,9 +18,10 @@ RSpec.describe Intervention, type: :model do
       expect(subject.signaler).not_to be_nil
     end
 
-  end
+  end # end factory
   
   context "Attributes" do
+
     context "intervention type" do
       it "should have a intervention type attribute" do
         expect(subject).to respond_to(:intervention_type)
@@ -34,7 +36,8 @@ RSpec.describe Intervention, type: :model do
         subject.intervention_type = "Ordinary"
         expect(subject).to be_valid
       end
-    end # end intervention type
+    end
+
   end # end Attributes
 
   context "Methods" do
@@ -66,6 +69,7 @@ RSpec.describe Intervention, type: :model do
   end # end Methods
 
   context "Associations" do
+
     it "belongs to report" do
       association = Intervention.reflect_on_association(:report)
       expect(association.macro).to eq(:belongs_to)
@@ -75,5 +79,7 @@ RSpec.describe Intervention, type: :model do
       association = Intervention.reflect_on_association(:signaler)
       expect(association.macro).to eq(:belongs_to)
     end
-  end
+
+  end# end associations
+
 end

@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @agency.name %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @agency.phone %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @agency.email %>
+</p>
+
+<p>
+  <strong>Fax:</strong>
+  <%= @agency.fax %>
+</p>
+
+<p>
+  <strong>Street:</strong>
+  <%= @agency.street %>
+</p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @agency.number %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @agency.city %>
+</p>
+
+<p>
+  <strong>Zip code:</strong>
+  <%= @agency.zip_code %>
+</p>
+
+<p>
+  <strong>Note:</strong>
+  <%= @agency.note %>
+</p>
+
+<p>
+  <strong>Web site url:</strong>
+  <%= @agency.web_site_url %>
+</p>
+
+<%= link_to 'Edit', edit_agency_path(@agency) %> |
+<%= link_to 'Back', agencies_path %>

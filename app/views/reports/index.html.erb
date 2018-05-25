@@ -15,12 +15,15 @@
               <p style="font-size: 11pt; margin-bottom: 5px; color: #696969;"> Address:<em> <%= report.address %></em></p>
               <div class="post-footer" style="margin-bottom:10px; padding-top:3px; border-top:1px solid #efefef;">
                 <div class="avatar">
-                  <%= image_tag report.signaler.profile_picture.dim_x25.url, :style=>"border-radius:100%; margin-right:5px;" %><span class="text-muted" style="font-size:10pt"><%= report.signaler.full_name %> | <%= report.created_at.strftime("%b %d, %Y") %><span>
+                  <% if report.signaler.profile_picture.file.nil? %>
+                    <img src="https://profile.actionsprout.com/default.jpeg" style="border-radius:100%; margin-right:5px;" width="25"><%= report.signaler.full_name %> | <%= report.created_at.strftime("%b %d, %Y") %><span>
+                  <% else %>
+                    <%= image_tag report.signaler.profile_picture.dim_x25.url, :style=>"border-radius:100%; margin-right:5px;" %><span class="text-muted" style="font-size:10pt"><%= report.signaler.full_name %> | <%= report.created_at.strftime("%b %d, %Y") %><span>
+                  <% end %>
                 </div>
               </div>
             </div>
           </div>
-        
       </div>
     <% end %>
     </div>
@@ -38,19 +41,15 @@
 
 <script>
     function initMap() {
-      
       var map = new google.maps.Map(document.getElementById('map1'), {
           center: { lat: 41.87194, lng: 12.567379999999957 },
           zoom: 10,
           mapTypeId: google.maps.MapTypeId.HYBRID
       });
-            
-           
-          }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHsysEhtrQMdJW_wv3ROsNysDr_UwpTMo&libraries=places&callback=initMap" async defer></script>
-
-    <script type="text/javascript">
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHsysEhtrQMdJW_wv3ROsNysDr_UwpTMo&libraries=places&callback=initMap" async defer></script>
+<script type="text/javascript">
 		var p = document.getElementById("search_range"),
 		res = document.getElementById("search_radius");
 

@@ -1,0 +1,129 @@
+<div class="container" style="margin-top:50px;margin-bottom:100px;">
+  <div class="row justify-content-center">
+  <div class="col-8 card">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { :method => :put, :multipart => true }) do |f| %>
+  <% errors = resource.errors.messages %>
+    <div class="row">
+      <div class="col">
+        <div class="profile_picture-upload">
+          <div class="profile_picture-edit text-center">
+            <%= f.file_field :profile_picture %>
+            <label for="forwarder_profile_picture"><i class="fa fa-camera" aria-hidden="true"></i>
+</label>
+            <%= f.hidden_field :profile_picture_cache %>
+          </div>
+          
+            <% if !current_forwarder.profile_picture.file.nil? %>
+              <div>
+                <%= image_tag(current_forwarder.profile_picture_url, :style=>"border-radius:100%;") %>
+              </div>
+              <%= f.check_box :remove_profile_picture, :class=> "text-center" %>
+              <%= f.label :remove_profile_picture, :class=> "text-center text-muted", :style=> "padding:10px;"%>
+            <% else %>
+            <div class="profile_picture-preview">
+              <div id="profile_picture_preview" style="background-image: url(https://profile.actionsprout.com/default.jpeg);"></div>
+            </div>
+            <% end %><h1 class="profile_picture_h1">Upload your new profile picture</h1>
+        </div>
+      </div><!-- end col -->
+    </div><!-- end row -->
+
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <% field_class = errors.has_key?(:first_name) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
+          <strong><%= f.label :first_name %>:</strong>
+          <%= f.text_field :first_name, autofocus: true, :class => field_class %>
+          <% if errors.has_key?(:first_name) %>
+            <div class="invalid-feedback">
+              Please enter a valid first name
+            </div>
+          <% end %>
+        </div><!-- form-group end.// -->
+      </div><!--end col-6 -->
+      <div class="col-6">
+        <div class="form-group">
+          <% field_class = errors.has_key?(:last_name) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
+            <strong><%= f.label :last_name %>:</strong>
+            <%= f.text_field :last_name, :class => field_class %>
+            <% if errors.has_key?(:last_name) %>
+              <div class="invalid-feedback">
+                Please enter a valid last name
+              </div>
+            <% end %>
+        </div><!-- form-group end.// -->
+      </div><!--end col-6 -->
+    </div><!-- end row-->
+
+
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <% field_class = errors.has_key?(:email) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
+            <strong><%= f.label :email %>:</strong>
+            <%= f.text_field :email, :class => field_class %>
+            <% if errors.has_key?(:last_name) %>
+              <div class="invalid-feedback">
+                Please enter a valid email address
+              </div>
+            <% end %>
+        </div><!-- form-group end.// -->
+      </div><!--end col-6 -->
+    </div><!-- end row-->
+
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <% field_class = errors.has_key?(:password) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
+          <strong><%= f.label :password %>:</strong>
+            <%= f.password_field :password, autocomplete: "off", :class => field_class %>
+            <% if errors.has_key?(:password) %>
+              <div class="invalid-feedback">
+                Please enter a valid password
+              </div>
+            <% else %>
+              <small class="form-text text-muted">*leave blank if you don't want to change it.</small>
+            <% end %>
+        </div><!-- form-group end.// -->
+      </div><!--end col-6 -->
+
+      <div class="col-6">
+        <div class="form-group">
+          <% field_class = errors.has_key?(:password_confirmation) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
+            <strong><%= f.label :password_confirmation %>:</strong>
+            <%= f.password_field :password_confirmation, autocomplete: "off", :class => field_class %>
+            <% if errors.has_key?(:password_confirmation) %>
+              <div class="invalid-feedback">
+                Please enter a valid password
+              </div>
+            <% end %>
+        </div><!-- form-group end.// -->
+      </div><!--end col-6 -->
+    </div><!-- end row-->
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <% field_class = errors.has_key?(:current_password) ? "form-control is-invalid edit_input " : "form-control edit_input " %>
+          <strong><%= f.label :current_password %></strong>
+          <%= f.password_field :current_password, autocomplete: "off", :class => field_class %>
+          <% if errors.has_key?(:current_password) %>
+              <div class="invalid-feedback">
+                Please enter a valid password
+              </div>
+            <% else %>
+              <small class="form-text text-muted">*we need your current password to confirm your changes.</small>
+            <% end %>
+        </div><!-- form-group end.// -->
+      </div><!--end col-6 -->
+    </div>
+    <br>
+    <hr>
+     <div class="form-group">
+    <%= f.submit "Update", :class => "btn btn-secondary" %>
+  </div>
+  <% end %><!-- end form -->
+  <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, :class => "btn btn-outline-secondary", :style => "color:red;" %><span style="margin-bottom:10px;"><span>
+  </div>
+  </div>
+</div><!-- end container-->
+

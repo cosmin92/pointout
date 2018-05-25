@@ -1,0 +1,80 @@
+<div class="text-center" style="color:#efefef;">
+  <% if current_forwarder.profile_picture.file.nil?%>
+    <img src="https://profile.actionsprout.com/default.jpeg", class="rounded-circle" alt="Card image cap" width="150" >
+  <% else %>
+    <%= image_tag current_forwarder.profile_picture.dim_x200.url, :class=>"rounded-circle", :alt=>"Card image cap", :width => "150"  %>
+  <% end %>
+
+
+  <h5 class="card-title" style="margin-bottom:0px; padding-top:3px;"><%=current_forwarder.full_name %></h5>
+  <p class="card-text">
+    <small class="text-muted">
+      <% if current_forwarder.boss? %>
+        Boss
+      <% else %>
+        Forwarder
+      <% end %>
+    </small>
+  </p>
+</div>
+
+<hr style="background-color:#555;">
+
+<!-- nontoccare il codice sopra -->
+
+<button class="dropdown-btn">Agencies<i class="fa fa-caret-down"></i></button>
+<div class="dropdown-container">
+  <%= link_to  "New", root_path %>
+  <%= link_to  "List", root_path %>
+</div>
+
+<%= link_to  "Reports", dashboard_reports_path %>
+
+<button class="dropdown-btn">Notices<i class="fa fa-caret-down"></i></button>
+<div class="dropdown-container">
+  <%= link_to  "New", root_path %>
+  <%= link_to  "List", root_path %>
+</div>
+
+<% if current_forwarder.boss? %>
+  <button class="dropdown-btn">Address Books<i class="fa fa-caret-down"></i></button>
+  <div class="dropdown-container">
+    <%= link_to  "New", root_path %>
+    <%= link_to  "List", root_path %>
+  </div>
+<% end %>
+
+<% if current_forwarder.boss %>
+  <button class="dropdown-btn">Typologies<i class="fa fa-caret-down"></i></button>
+  <div class="dropdown-container">
+    <%= link_to  "New", new_tipology_path %>
+    <%= link_to  "Tipologies", tipologies_path %>
+  </div>
+<% end %>
+
+<button class="dropdown-btn">My Group<i class="fa fa-caret-down"></i></button>
+<div class="dropdown-container">
+  <% if current_forwarder.boss? %>
+    <%= link_to  "Edit", root_path %>
+  <% end %>
+  <%= link_to  "Memebers", root_path %>
+  <%= link_to  "Occupations", root_path %>
+</div>
+
+  <script>
+    /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+    
+    for (i = 0; i < dropdown.length; i++) {
+      dropdown[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+          dropdownContent.style.display = "none";
+        } else {
+          dropdownContent.style.display = "block";
+        }
+      });
+    }
+    </script>

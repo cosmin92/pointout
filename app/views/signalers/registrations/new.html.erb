@@ -4,7 +4,7 @@
 
       <div class="card">
         <header class="card-header">
-          <%= link_to "Log in", new_session_path(resource_name), :class =>"float-right btn btn-outline-primary mt-1" %>
+          <%= link_to "Log in", new_signaler_session_path, :class =>"float-right btn btn-outline-primary mt-1" %>
           <h4 class="card-title mt-2">Sign up</h4>
         </header>
 
@@ -180,7 +180,7 @@
               <div class="profile_picture-upload">
                 <div class="profile_picture-edit">
                   <%= f.file_field :profile_picture %>
-                  <label for="signaler_profile_picture"><i class="fa fa-camera" aria-hidden="true"></label>
+                  <label for="signaler_profile_picture"><i class="fa fa-camera" aria-hidden="true"></i></label>
                   <%= f.hidden_field :profile_picture_cache %>
                 </div>
                 <div class="profile_picture-preview">

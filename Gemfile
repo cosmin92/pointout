@@ -64,17 +64,20 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 
-  # use capybara for test in frotend
+  # Use capybara for test in frotend
   gem 'capybara', '~> 2.13'
 
   # selenium driver for capybara
   gem 'selenium-webdriver'
 
-  # use RSpec for unit tests
+  # Use RSpec for unit tests
   gem 'rspec-rails'
   gem 'rails-controller-testing'
   # user Factory bot for ese manitain datatabase
   gem "factory_bot_rails", "~> 4.0"
+
+  # Guard::RSpec allows to automatically & intelligently launch specs when files are modified
+  gem 'guard-rspec'
 end
 
 group :development do

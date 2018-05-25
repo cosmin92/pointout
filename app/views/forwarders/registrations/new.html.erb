@@ -1,0 +1,144 @@
+<div class="container">
+  <div class="row justify-content-center" style="padding-top:100px; padding-bottom:100px;">
+    <div class="col-8">
+
+      <div class="card">
+        <header class="card-header">
+          <%= link_to "Log in", new_forwarder_session_path, :class =>"float-right btn btn-outline-primary mt-1" %>
+          <h4 class="card-title mt-2">Sign up as Forwarder</h4>
+        </header>
+
+        <article class="card-body">
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {:multipart => true}) do |f| %>
+          <% errors = resource.errors.messages %>
+          <div class="form-row">
+            <div class="col form-group">
+              <% field_class = errors.has_key?(:first_name) ? "form-control is-invalid" : "form-control" %>
+              <%= f.label :first_name %>*
+              <%= f.text_field :first_name, autofocus: true, :class => field_class %>
+              <% if errors.has_key?(:first_name) %>
+                <div class="invalid-feedback">
+                  Please enter first name
+                </div>
+              <% end %>
+            </div><!-- form-group end.// -->
+            <div class="col form-group">
+              <% field_class = errors.has_key?(:last_name) ? "form-control is-invalid" : "form-control" %>
+              <%= f.label :last_name %>*
+              <%= f.text_field :last_name, :class => field_class %>
+              <% if errors.has_key?(:last_name) %>
+                <div class="invalid-feedback">
+                  Please enter last name
+                </div>
+              <% end %>
+            </div><!-- form-group end.// -->
+          </div><!-- form-row end.// -->
+
+          <div class="form-row">
+            <div class="col form-group">
+              <% field_class = errors.has_key?(:email) ? "form-control is-invalid" : "form-control" %>
+              <%= f.label :email %>*
+              <%= f.email_field :email, autocomplete: "email", :class => field_class %>
+              <% if errors.has_key?(:email) %>
+                <div class="invalid-feedback">
+                  Please enter a valid email
+                </div>
+              <% end %>
+              <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div><!-- form-group end.// -->
+          </div><!-- form-row end.// -->
+
+          <div class="form-row">
+            <div class="col form-group">
+              <% field_class = errors.has_key?(:password) ? "form-control is-invalid" : "form-control" %>
+              <%= f.label :password %>*
+              <%= f.password_field :password, autocomplete: "off", :class => field_class %>
+              <% if errors.has_key?(:password) %>
+                <div class="invalid-feedback">
+                  Please enter password
+                </div>
+              <% end %>
+              <small class="form-text text-muted"><% if @minimum_password_length %><em>(<%= @minimum_password_length %> characters minimum)</em><% end %></small>
+            </div><!-- form-group end.// -->
+            <div class="col form-group">
+              <% field_class = errors.has_key?(:password_confirmation) ? "form-control is-invalid" : "form-control" %>
+              <%= f.label :password_confirmation %>*
+              <%= f.password_field :password_confirmation, autocomplete: "off", :class => field_class %>
+              <% if errors.has_key?(:password_confirmation) %>
+                <div class="invalid-feedback">
+                  Please renter the password
+                </div>
+              <% end %>
+            </div><!-- form-group end.// -->
+          </div><!-- form-row end.// -->
+
+          <hr class="hr-text" data-content="Profile Picture">
+
+          <div class="form-row justify-content-center">
+            <div class="col-5">
+              <h1 class="profile_picture_h1">Upload your profile picture <small>other users will be able to see this picture</small></h1>
+              <div class="profile_picture-upload">
+                <div class="profile_picture-edit">
+                  <%= f.file_field :profile_picture %>
+                  <label for="signaler_profile_picture"><i class="fa fa-camera" aria-hidden="true"></i></label>
+                  <%= f.hidden_field :profile_picture_cache %>
+                </div>
+                <div class="profile_picture-preview">
+                  <div id="profile_picture_preview" style="background-image: url(https://profile.actionsprout.com/default.jpeg);">
+                  </div>
+                </div>
+              </div>
+            </div><!-- form-col-4.// -->
+          </div><!-- form-row.// -->
+
+          <hr class="hr-text" data-content="Group">
+
+          <div class="form-row">
+            <div class="col form-group">
+                <label>Join to a group:</label>
+                <%= f.collection_select :group_id, Group.all, :id, :name, {include_blank: true}, {:class => "custom-select"} %>
+            </div>
+
+            <div class="col form-group">
+              <label>Or create a new one:</label><br>
+              <input type='checkbox' data-toggle='collapse' data-target='#collapsediv1' value="1"  name = "create_new_group"> New group?</input>
+            </div>
+          </div>
+        
+          <div id='collapsediv1' class='collapse div1'>
+            <hr class="hr-text" data-content="New group">
+              <div class="form-row">
+                <div class="form-group col">
+                    <%= label_tag(:name) %>
+                    <%= text_field(:group, :name, class: "form-control") %>
+                </div>
+
+                <div class="form-group col">
+                    <label>Join to a group:</label><br>
+                    <%= collection_select(:group, :parent_id, Group.all, :id, :name, {:include_blank => true}, {:class => "form-control" })%>
+                </div>
+                
+                <div class="form-group col-12">
+                    <%= label_tag(:description) %>
+                    <%= text_area(:group, :description, class: "form-control") %>
+                </div>
+                
+                <div class="form-group">
+                    <%= label_tag(:logo) %>
+                    <%= file_field(:group, :logo, class: "form-control") %>
+                </div>
+              </div>
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block"> Register </button>
+          </div><!-- form-group// -->
+          <% end %>
+        </article><!-- card-body end .// -->
+        <div class="border-top card-body text-center">Have an account?
+          <%= link_to "Log in", new_session_path(resource_name) %>
+        </div>
+      </div><!-- card.// -->
+    </div><!-- col-8//-->
+  </div><!-- row justify-content-center end-->
+</div>

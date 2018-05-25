@@ -10,7 +10,77 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180519150801) do
+ActiveRecord::Schema.define(version: 20180525085559) do
+
+  create_table "address_books", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "note"
+    t.integer "group_id"
+    t.integer "forwarder_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["forwarder_id"], name: "index_address_books_on_forwarder_id"
+    t.index ["group_id"], name: "index_address_books_on_group_id"
+  end
+
+  create_table "agencies", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "phone"
+    t.string "email", null: false
+    t.string "fax"
+    t.string "street", null: false
+    t.string "number", null: false
+    t.string "city", null: false
+    t.string "zip_code", null: false
+    t.text "note"
+    t.string "web_site_url"
+    t.integer "forwarder_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["forwarder_id"], name: "index_agencies_on_forwarder_id"
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.integer "agency_id"
+    t.integer "address_book_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address_book_id"], name: "index_contacts_on_address_book_id"
+    t.index ["agency_id"], name: "index_contacts_on_agency_id"
+  end
+
+  create_table "forwarders", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "profile_picture"
+    t.boolean "boss"
+    t.integer "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_forwarders_on_email", unique: true
+    t.index ["group_id"], name: "index_forwarders_on_group_id"
+    t.index ["reset_password_token"], name: "index_forwarders_on_reset_password_token", unique: true
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description", null: false
+    t.string "logo", null: false
+    t.integer "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_groups_on_name"
+  end
 
   create_table "interventions", force: :cascade do |t|
     t.string "intervention_type"
@@ -22,6 +92,20 @@ ActiveRecord::Schema.define(version: 20180519150801) do
     t.index ["signaler_id"], name: "index_interventions_on_signaler_id"
   end
 
+  create_table "notices", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "content", null: false
+    t.date "posting_date", null: false
+    t.date "expiration_date", null: false
+    t.string "notice_type", null: false
+    t.integer "group_id"
+    t.integer "forwarder_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["forwarder_id"], name: "index_notices_on_forwarder_id"
+    t.index ["group_id"], name: "index_notices_on_group_id"
+  end
+
   create_table "observations", force: :cascade do |t|
     t.text "content"
     t.integer "signaler_id"
@@ -31,6 +115,15 @@ ActiveRecord::Schema.define(version: 20180519150801) do
     t.datetime "updated_at", null: false
     t.index ["report_id"], name: "index_observations_on_report_id"
     t.index ["signaler_id"], name: "index_observations_on_signaler_id"
+  end
+
+  create_table "occupations", force: :cascade do |t|
+    t.integer "group_id"
+    t.integer "tipology_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_occupations_on_group_id"
+    t.index ["tipology_id"], name: "index_occupations_on_tipology_id"
   end
 
   create_table "reports", force: :cascade do |t|
@@ -47,6 +140,8 @@ ActiveRecord::Schema.define(version: 20180519150801) do
     t.integer "tipology_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "forwarder"
+    t.integer "agency"
     t.index ["address"], name: "index_reports_on_address"
     t.index ["longitude", "latitude"], name: "index_reports_on_longitude_and_latitude"
     t.index ["object"], name: "index_reports_on_object"
@@ -119,6 +214,8 @@ ActiveRecord::Schema.define(version: 20180519150801) do
     t.integer "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "forwarder_id"
+    t.index ["forwarder_id"], name: "index_tipologies_on_forwarder_id"
     t.index ["name"], name: "index_tipologies_on_name"
   end
 

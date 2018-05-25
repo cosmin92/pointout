@@ -8,21 +8,21 @@
 @rifiuti.tag_list.add("art", "tweegram", "cool", "followback","instafollow", "instasize", "amazing", "tflers")
 @rifiuti.save
 
-# Observations tags
-@observation1_buche_sulla_strada.tag_list.add("bored", "instacool", "funny", "mcm")
-@observation1_buche_sulla_strada.save
+# os tags
+@o1_buche_sulla_strada.tag_list.add("bored", "instacool", "funny", "mcm")
+@o1_buche_sulla_strada.save
 
-@observation2_buche_sulla_strada.tag_list.add("instago", "instasize", "vscocam", "girls", "all_shots")
-@observation2_buche_sulla_strada.save
+@o2_buche_sulla_strada.tag_list.add("instago", "instasize", "vscocam", "girls", "all_shots")
+@o2_buche_sulla_strada.save
 
-@observation1_palo_luce_rotto.tag_list.add("party", "music", "eyes", "nature", "beauty", "night")
-@observation1_palo_luce_rotto.save
+@o1_palo_luce_rotto.tag_list.add("party", "music", "eyes", "nature", "beauty", "night")
+@o1_palo_luce_rotto.save
 
-@observation2_palo_luce_rotto.tag_list.add("fitness", "beach", "look")
-@observation2_palo_luce_rotto.save
+@o2_palo_luce_rotto.tag_list.add("fitness", "beach", "look")
+@o2_palo_luce_rotto.save
 
-@observation1_rifiuti.tag_list.add("nice", "sky", "christmas", "fitness")
-@observation1_rifiuti.save
+@o1_rifiuti.tag_list.add("nice", "sky", "christmas", "fitness")
+@o1_rifiuti.save
 
-@observation2_rifiuti.tag_list.add("instago", "instasize", "vscocam", "girls", "all_shots")
-@observation2_rifiuti.save
+@o2_rifiuti.tag_list.add("instago", "instasize", "vscocam", "girls", "all_shots")
+@o2_rifiuti.save

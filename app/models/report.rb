@@ -1,22 +1,21 @@
 class Report < ApplicationRecord
     mount_uploaders :images, ImageUploader
     serialize :images, JSON
-    
+
     acts_as_taggable
 
     # Associations
     belongs_to :signaler
     belongs_to :tipology
-    #belongs_to :agency, optional: true
-    #belongs_to :forwarder, optional: true
+    belongs_to :agency, optional: true
+    belongs_to :forwarder, optional: true
 
     has_many :observations, dependent: :destroy
     has_many :interventions, dependent: :destroy
 
-
     # Validations
     validates :object, presence: true, length: { minimum: 4, maximum: 50 }
-    validates :description, presence: true
+    validates :description, presence: true, length: { maximum: 1000 }
 
     validates :address, presence: true, length: { minimum: 2, maximum: 50 }
     validates :longitude, :latitude, presence: true

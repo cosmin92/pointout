@@ -5,6 +5,7 @@ RSpec.describe Observation, type: :model do
   subject { described_class = create(:observation) }
 
   context "Factory" do
+
     it "have not nil content" do
       expect(subject.content).not_to be_nil
     end
@@ -16,7 +17,8 @@ RSpec.describe Observation, type: :model do
       subject = build(:observation)
       expect(subject.report).not_to be_nil
     end
-  end
+
+  end #end factory
 
   context "content" do
 
@@ -24,18 +26,20 @@ RSpec.describe Observation, type: :model do
       expect(subject). to respond_to(:content)
     end
 
-      it "should be invalid without a content" do
-        subject.content = nil
-        expect(subject).to be_invalid
-      end
+    it "should be invalid without a content" do
+      subject.content = nil
+      expect(subject).to be_invalid
+    end
 
-      it "should have length in 2..5000" do
-        subject.content = "a"*5001
-        expect(subject).to be_invalid
-      end
-    end # end address
+    it "should have length in 2..5000" do
+      subject.content = "a"*5001
+      expect(subject).to be_invalid
+    end
+
+  end # end address
 
   context "Methods" do
+
     it "should create a new observation record given valid attributes" do
       expect{
           subject.save 
@@ -64,7 +68,7 @@ RSpec.describe Observation, type: :model do
   end # end Methods
   
   context "Associations" do
-      
+
     it "belong to report" do
       association = Observation.reflect_on_association(:report)
       expect(association.macro).to eq(:belongs_to)
@@ -75,5 +79,6 @@ RSpec.describe Observation, type: :model do
       expect(association.macro).to eq(:belongs_to)
     end
 
-  end
+  end# end Associations
+
 end

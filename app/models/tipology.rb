@@ -1,10 +1,10 @@
 class Tipology < ApplicationRecord
     mount_uploader :logo, LogoUploader
-    # Assocaitions
+    # Associations
     has_many :reports
-    # has_many :occupations
-    # has_many :groups, through: :occupations
-    # belongs_to :forwarder
+    has_many :occupations
+    has_many :groups, through: :occupations
+    belongs_to :forwarder
 
     belongs_to :parent, class_name: "Tipology", required: false
     has_many :children, class_name: "Tipology", foreign_key: "parent_id"
@@ -19,8 +19,6 @@ class Tipology < ApplicationRecord
 
     # Callbacks
     before_destroy :set_all_report_to_unknown_tipology
-
-
 
     private
 

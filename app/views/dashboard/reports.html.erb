@@ -1,0 +1,25 @@
+
+<table class="table table-striped" style="margin:0px;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Object</th>
+      <th scope="col">Type</th>
+      <th scope="col">Intervention</th>
+      <th scope="col">N. immediate</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reports.each do | report | %>
+        <tr>
+            <td><%= report.object %></td>
+            <td><%= report.report_type %></td>
+            <td><%= report.intervention_type %></td>
+            <td><%= Intervention.where("intervention_type = ? AND report_id = ?", "Immediate", report.id).count %></td>
+            <td><%= link_to 'Show', show_report_path(report.id) %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

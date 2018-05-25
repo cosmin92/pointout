@@ -6,17 +6,17 @@
 		</header><!-- sect-heading -->
 
 		<div class="row">
-			<aside class="col-sm-3">
+			<aside class="col-sm-4">
 				<figure class="itembox text-center">
 					<span class="icon-wrap icon-lg bg-secondary  white"><i class="fa fa-users"></i>	</span>
 					<figcaption class="text-wrap">
-					<h4 class="title">Signaler</h4>
+					<h4 class="title">Signalers</h4>
 					<p><%= Signaler.count %> users joined us</p>
 					</figcaption>
 				</figure> <!-- iconbox // -->
 			</aside> <!-- col.// -->
 
-			<aside class="col-sm-3">
+			<aside class="col-sm-4">
 				<figure class="itembox text-center">
 					<span class="icon-wrap icon-lg bg-secondary white"><i class="fa fa-edit"></i></span>
 					<figcaption class="text-wrap">
@@ -26,22 +26,12 @@
 				</figure> <!-- iconbox // -->
 			</aside> <!-- col.// -->
 
-			<aside class="col-sm-3">
+			<aside class="col-sm-4">
 				<figure class="itembox text-center">
 					<span class="icon-wrap icon-lg bg-secondary  white"><i class="fa fa-comment"></i></span>
 					<figcaption class="text-wrap">
 					<h4 class="title">Observations</h4>
-					<p>Signalers left <%= "==> Da sistemare"%> ogservations </p>
-					</figcaption>
-				</figure> <!-- iconbox // -->
-			</aside> <!-- col.// -->
-
-			<aside class="col-sm-3">
-				<figure class="itembox text-center">
-					<span class="icon-wrap icon-lg bg-secondary  white"><i class="fa fa-comments"></i>	</span>
-					<figcaption class="text-wrap">
-					<h4 class="title">Comments</h4>
-					<p>Signaers left <%= " ==> Da sistemare"%> comments</p>
+					<p>Signalers left <%= Observation.all.count %> observations </p>
 					</figcaption>
 				</figure> <!-- iconbox // -->
 			</aside> <!-- col.// -->

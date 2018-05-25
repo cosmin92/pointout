@@ -4,7 +4,7 @@
 
       <div class="card">
         <article class="card-body">
-          <%= link_to "Sign up", new_registration_path(resource_name), :class => "float-right btn btn-outline-primary" %>
+          <%= link_to "Sign up", new_signaler_registration_path, :class => "float-right btn btn-outline-primary" %>
           <h4 class="card-title mb-4 mt-1">Sign in</h4>
           <%- if devise_mapping.omniauthable? %>
             <p>

@@ -1,10 +1,5 @@
-# This file should contain all the tipologies record
-
-# Tipology.new(
-#   :name,
-#   :description,
-#   :logo,
-#)
+# This file should contain all the reports records
+# Report(object, description, address, longitude, latitude, report_type, intervention_type, state, signaler, tipology, forwarder, agency)
 
 @buche_sulla_strada = Report.create(
     :object => "Buche sulla strada",
@@ -17,14 +12,12 @@
     :signaler => @barba_rossa,
     :tipology => @ambiente,
     :images => [
-        File.open(File.join(Rails.root, 'public/images/reports/buche_sulla_strada/img1.png')),
-        File.open(File.join(Rails.root, 'public/images/reports/buche_sulla_strada/img2.jpg')),
-        File.open(File.join(Rails.root, 'public/images/reports/buche_sulla_strada/img3.jpg')),
-        File.open(File.join(Rails.root, 'public/images/reports/buche_sulla_strada/img4.jpg'))
+        File.open(File.join(Rails.root, "public/images/reports/buche_sulla_strada/img1.png")),
+        File.open(File.join(Rails.root, "public/images/reports/buche_sulla_strada/img2.jpg")),
+        File.open(File.join(Rails.root, "public/images/reports/buche_sulla_strada/img3.jpg")),
+        File.open(File.join(Rails.root, "public/images/reports/buche_sulla_strada/img4.jpg"))
     ]
 )
-
-
 
 # 500 metri distante dal palo rotto
 @palo_luce_rotto = Report.create(
@@ -38,13 +31,13 @@
     :signaler => @pinco_pallino,
     :tipology => @illuminazione_stradale,
     :images => [
-        File.open(File.join(Rails.root, 'public/images/reports/illuminazione_stradale/img1.jpeg')),
-        File.open(File.join(Rails.root, 'public/images/reports/illuminazione_stradale/img2.jpeg')),
-        File.open(File.join(Rails.root, 'public/images/reports/illuminazione_stradale/img3.jpeg')),
+        File.open(File.join(Rails.root, "public/images/reports/illuminazione_stradale/img1.jpeg")),
+        File.open(File.join(Rails.root, "public/images/reports/illuminazione_stradale/img2.jpeg")),
+        File.open(File.join(Rails.root, "public/images/reports/illuminazione_stradale/img3.jpeg")),
     ]
 )
 
-
+# 500 metri distante dal palo rotto
 @rifiuti = Report.create(
     :object => "Rifiuti",
     :description => "È universalmente riconosciuto che un lettore che osserva il layout di una pagina viene distratto dal contenuto testuale se questo è leggibile. Lo scopo dell’utilizzo del Lorem Ipsum è che offre una normale distribuzione delle lettere (al contrario di quanto avviene se si utilizzano brevi frasi ripetute, ad esempio “testo qui”), apparendo come un normale blocco di testo leggibile. Molti software di impaginazione e di web design utilizzano Lorem Ipsum come testo modello. Molte versioni del testo sono state prodotte negli anni, a volte casualmente, a volte di proposito (ad esempio inserendo passaggi ironici).",
@@ -56,10 +49,27 @@
     :signaler => @mario_rossi,
     :tipology => @rifiuti_pulizia,
     :images => [
-        File.open(File.join(Rails.root, 'public/images/reports/rifiuti/img1.jpg')),
-        File.open(File.join(Rails.root, 'public/images/reports/rifiuti/img2.jpeg')),
-        File.open(File.join(Rails.root, 'public/images/reports/rifiuti/img3.jpg')),
-        File.open(File.join(Rails.root, 'public/images/reports/rifiuti/img4.jpeg')),
-        File.open(File.join(Rails.root, 'public/images/reports/rifiuti/img5.jpg'))
+        File.open(File.join(Rails.root, "public/images/reports/rifiuti/img1.jpg")),
+        File.open(File.join(Rails.root, "public/images/reports/rifiuti/img2.jpeg")),
+        File.open(File.join(Rails.root, "public/images/reports/rifiuti/img3.jpg")),
+        File.open(File.join(Rails.root, "public/images/reports/rifiuti/img4.jpeg")),
+        File.open(File.join(Rails.root, "public/images/reports/rifiuti/img5.jpg"))
+    ]
+)
+
+@randagismo_pescara = Report.create(
+    :object => "Cani randaggi a Pescara centrale",
+    :description => "È universalmente riconosciuto che un lettore che osserva il layout di una pagina viene distratto dal contenuto testuale se questo è leggibile. Lo scopo dell’utilizzo del Lorem Ipsum è che offre una normale distribuzione delle lettere (al contrario di quanto avviene se si utilizzano brevi frasi ripetute, ad esempio “testo qui”), apparendo come un normale blocco di testo leggibile. Molti software di impaginazione e di web design utilizzano Lorem Ipsum come testo modello. Molte versioni del testo sono state prodotte negli anni, a volte casualmente, a volte di proposito (ad esempio inserendo passaggi ironici).",
+    :address => "Via Bologna, 10, 66010 Pescara PE",
+    :longitude => 42.466419,
+    :latitude => 12.215147,
+    :report_type => "Complaint",
+    :intervention_type => "Corrective",
+    :signaler => @mario_rossi,
+    :tipology => @randagismo,
+    :images => [
+        File.open(File.join(Rails.root, "public/images/reports/randagismo_pescara/img1.jpg")),
+        File.open(File.join(Rails.root, "public/images/reports/randagismo_pescara/img2.jpg")),
+        File.open(File.join(Rails.root, "public/images/reports/randagismo_pescara/img3.jpg")),
     ]
 )

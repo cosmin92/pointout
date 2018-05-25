@@ -9,11 +9,13 @@
         <p><i class="fa fa-envelope"></i> E-mail : info@webenlance.com</p>
       </div>
       <div class="col-md-2 col-sm-6 paddingtop-bottom">
-        <h6 class="heading7">GENERAL LINKS</h6>
+        <h6 class="heading7">RESERVED AREA</h6>
         <ul class="footer-ul">
-          <li><a href="#"> Career</a></li>
-          <li><a href="#"> Privacy Policy</a></li>
-          <li><a href="#"> Terms & Conditions</a></li>
+          <li><%= link_to 'Signup as forwarder', new_forwarder_registration_path %></li>
+          <li><%= link_to 'Login as Forwarder', new_forwarder_session_path %></li>
+          <% if forwarder_signed_in? %>
+            <li><%= link_to("Logout", destroy_forwarder_session_path, method: :delete) %></li>
+          <% end %>
           <li><a href="#"> Client Gateway</a></li>
           <li><a href="#"> Ranking</a></li>
           <li><a href="#"> Case Studies</a></li>

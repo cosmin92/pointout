@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Tipology, type: :model do
-  subject { described_class = build(:tipology) } 
 
-  context "Factory" do 
-    it "have not nil _name" do
+  subject { described_class = build(:tipology) }
+
+  context "Factory" do
+
+    it "have not nil name" do
       expect(subject.name).not_to be_nil
     end
 
@@ -16,10 +18,12 @@ RSpec.describe Tipology, type: :model do
       expect(subject.logo).not_to be_nil
     end
 
-  end
+  end #end factory
 
   context "Attributes" do
+    
     context "name" do
+
       it "should have a name attribute" do
         expect(subject).to respond_to(:name)
       end
@@ -33,9 +37,11 @@ RSpec.describe Tipology, type: :model do
         subject.name = "Error! This first name is too long! Error! This first name is too long! Error! This first name is too long!"
         expect(subject).to be_invalid
       end
+
     end # end name
 
     context "description" do
+
       it "should have a description attribute" do
         expect(subject).to respond_to(:description)
       end
@@ -44,14 +50,16 @@ RSpec.describe Tipology, type: :model do
         subject.description = nil
         expect(subject).to be_invalid
       end
+
     end # end description
 
   end # end Attributes
 
   context "Methods" do
+
     it "should create a new tipology record given valid attributes" do
       expect{
-          subject.save 
+          subject.save
       }.to change(Tipology, :count).by(1)
     end
 
@@ -73,6 +81,7 @@ RSpec.describe Tipology, type: :model do
       Tipology.first.destroy
       expect(Tipology.all.count).to eq(0)
     end
+
   end # end Methods
 
   context "Associations" do
@@ -91,21 +100,22 @@ RSpec.describe Tipology, type: :model do
       association = Tipology.reflect_on_association(:reports)
       expect(association.macro).to eq(:has_many)
     end
-      
-    xit "has many occupations" do
+
+    it "has many occupations" do
       association = Tipology.reflect_on_association(:occupations)
       expect(association.macro).to eq(:has_many)
     end
-      
-    xit "has many groups" do
+
+    it "has many groups" do
       association = Tipology.reflect_on_association(:groups)
       expect(association.macro).to eq(:has_many)
     end
 
-    xit "belongs to forwarder" do
+    it "belongs to forwarder" do
       association = Tipology.reflect_on_association(:forwarder)
       expect(association.macro).to eq(:belongs_to)
     end
-    
+
   end # end Associations
+
 end
