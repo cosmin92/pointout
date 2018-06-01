@@ -1,6 +1,88 @@
-<h1>Editing Agency</h1>
+  <div class="col-md-8 offset-md-2">
+    <div class="card">
+      <div class = "card-header">
+        Edit Agency
+      </div>
+      <div class="card-body">
+        <%= form_with(model: @agency, local: true) do |form| %>
+          <% if @agency.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@agency.errors.count, "error") %> prohibited this tipology from being saved:</h2>
 
-<%= render 'form', agency: @agency %>
+              <ul>
+              <% @agency.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
 
-<%= link_to 'Show', @agency %> |
-<%= link_to 'Back', agencies_path %>
+          <div class="row">
+            <div class=" col form-group"><br>
+              <%= form.label :name %>:*
+              <%= form.text_field :name, id: :tipology_name, :class => "form-control" %>
+            </div>
+          </div>
+
+          <div class = "row">
+            <div class="col-6 form-group">
+              <%= form.label :email %>:*
+              <%= form.text_field :email, id: :agency_email, :class => "form-control"  %>
+            </div>
+
+            <div class="col form-group">
+              <%= form.label :phone %>:
+              <%= form.text_field :phone, id: :agency_phone, :class => "form-control"  %>
+            </div>
+
+            <div class="col form-group">
+              <%= form.label :fax %>:
+              <%= form.text_field :fax, id: :agency_fax, :class => "form-control"  %>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-4 form-group">
+              <%= form.label :street %>:*
+              <%= form.text_field :street, id: :agency_street, :class => "form-control"  %>
+            </div>
+
+            <div class="col-2 form-group">
+              <%= form.label :number %>:*
+              <%= form.text_field :number, id: :agency_number, :class => "form-control"  %>
+            </div>
+
+            <div class="col-4 form-group">
+              <%= form.label :city %>:*
+              <%= form.text_field :city, id: :agency_city, :class => "form-control"  %>
+            </div>
+
+            <div class="col-2 form-group">
+              <%= form.label :zip_code %>:*
+              <%= form.text_field :zip_code, id: :agency_zip_code, :class => "form-control"  %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col form-group">
+              <%= form.label :note %>:
+              <%= form.text_area :note, id: :agency_note, :class => "form-control"  %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col form-group">
+              <%= form.label :web_site_url %>:
+              <%= form.text_field :web_site_url, id: :agency_web_site_url, :class => "form-control"  %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= form.submit "Update", class: "btn btn-primary mb-2" %>
+          </div>
+        <% end %>
+      </div>
+    </div><!-- end card -->
+  </div>
+

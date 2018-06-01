@@ -50,7 +50,7 @@ class Report < ApplicationRecord
     def self.nearby(center, radius)
         reports = Array.new
         all.each do |report|
-            p2 = {:longitude => report.longitude, :latitude => report.latitude}
+            p2 = {:longitude => report.longitude.to_f, :latitude => report.latitude.to_f}
             if distance_in_meters(center, p2) <= radius
                 reports.push(report)
             end
@@ -61,9 +61,9 @@ class Report < ApplicationRecord
     # Private methods
     private_class_method def self.distance_in_meters(center, p2)
         earth_radius = 6378.137
-        dLat = p2[:latitude] * Math::PI / 180 - center[:latitude] * Math::PI / 180
-        dLon = p2[:longitude] * Math::PI / 180 - center[:longitude] * Math::PI / 180
-        a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(center[:latitude] * Math::PI / 180) * Math.cos(p2[:latitude] * Math::PI / 180) * Math.sin(dLon/2) * Math.sin(dLon/2)
+        dLat = p2[:latitude].to_f * Math::PI / 180 - center[:latitude].to_f * Math::PI / 180
+        dLon = p2[:longitude].to_f * Math::PI / 180 - center[:longitude].to_f * Math::PI / 180
+        a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(center[:latitude].to_f * Math::PI / 180) * Math.cos(p2[:latitude].to_f * Math::PI / 180) * Math.sin(dLon/2) * Math.sin(dLon/2)
         c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
         d = earth_radius * c
         return d * 1000; # meters

@@ -238,7 +238,7 @@ body {
 /* ==================== FOOTER ============================== */
 footer {
     background-color: #0c1a1e;
-    min-height: 350px;
+    min-height: 100px;
     font-family: 'Open Sans', sans-serif;
 }
 

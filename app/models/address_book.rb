@@ -2,7 +2,7 @@ class AddressBook < ApplicationRecord
     # Associations
     belongs_to :group
     belongs_to :forwarder
-    has_many :contacts
+    has_many :contacts, dependent: :destroy
     has_many :agencies, through: :contacts
 
     # Validations

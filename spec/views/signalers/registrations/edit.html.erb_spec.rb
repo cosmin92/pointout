@@ -1,10 +1,13 @@
 require 'rails_helper'
 
 RSpec.feature "signalers/registrations/edit", type: :feature do
-
+  include Devise::Test::ControllerHelpers
     it "renders the edit signaler form" do
-        sign_in create(:signaler)
-        visit "signalers/edit"
+        signaler = create(:signaler)
+        report = create(:report, :signaler => signaler)
+        sign_in signaler
+        assign(:resource, report)
+        render
         expect(find_field({:type => "text", :name=> "signaler[first_name]"})).not_to be_nil
         expect(find_field({:type => "text", :name=> "signaler[last_name]"})).not_to be_nil
         expect(find_field({:type => "tel", :name=> "signaler[phone]"})).not_to be_nil

@@ -2,18 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "agencies/new", type: :view do
   before(:each) do
-    assign(:agency, Agency.new(
-      :name => "MyString",
-      :phone => "MyString",
-      :email => "MyString",
-      :fax => "MyString",
-      :street => "MyString",
-      :number => "MyString",
-      :city => "MyString",
-      :zip_code => "MyString",
-      :note => "MyText",
-      :web_site_url => "MyString"
-    ))
+    assign(:agency, Agency.new)
   end
 
   it "renders new agency form" do

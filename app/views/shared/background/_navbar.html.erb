@@ -6,6 +6,8 @@
   
     <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
       <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+        <li class="nav-item"><%= link_to 'My Agencies', my_agencies_path, class: "nav-link btn"%></li>
+        <li class="nav-item"><%= link_to 'My Forwards', my_forwards_path, class: "nav-link btn"%></li>
         <% if forwarder_signed_in? %>
           <li class="nav-item">
             <%= link_to('Edit Profile', edit_forwarder_registration_path, class: "nav-link btn")  %>

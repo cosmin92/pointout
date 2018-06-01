@@ -2,24 +2,16 @@ require 'rails_helper'
 
 RSpec.describe "notices/index", type: :view do
   before(:each) do
-    assign(:notices, [
-      Notice.create!(
-        :title => "Title",
-        :content => "MyText",
-        :notice_type => "Notice Type"
-      ),
-      Notice.create!(
-        :title => "Title",
-        :content => "MyText",
-        :notice_type => "Notice Type"
-      )
-    ])
+    group = create(:group)
+    forwarder = create(:forwarder, :group => group)
+    notice1 = create(:notice, :forwarder => forwarder, :group => group, :title => "Title 1")
+    notice2 = create(:notice, :forwarder => forwarder, :group => group, :title => "Title 2")
+    assign(:notices, [ notice1, notice2 ])
   end
 
   it "renders a list of notices" do
     render
-    assert_select "tr>td", :text => "Title".to_s, :count => 2
-    assert_select "tr>td", :text => "MyText".to_s, :count => 2
-    assert_select "tr>td", :text => "Notice Type".to_s, :count => 2
+    expect(rendered).to have_content("Title 1")
+    expect(rendered).to have_content("Title 1")
   end
 end

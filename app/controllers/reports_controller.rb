@@ -38,11 +38,10 @@ class ReportsController < ApplicationController
             @reports = @reports.ordered_by_object_desc
           end
       end
-      
-      if search.has_key?(:address) && search.has_key?(:longitude) && search.has_key?(:latitude) && search.has_key?(:radius) && search.has_key?(:unit)
-        puts "====================================="
+
+      if search.has_key?(:address) && search.has_key?(:longitude) && search.has_key?(:latitude) && search.has_key?(:radius) && search.has_key?(:unit) && search[:address] != "" && search[:longitude] != "" && search[:latitude] != "" && search[:radius] != "" && search[:unit] != ""
+        @reports = @reports.nearby({:latitude => search[:latitude].to_f, :longitude => search[:longitude].to_f}, converter(search[:radius].to_i, search[:unit]))
       end
-      
     elsif params[:tag]
       @reports = Report.tagged_with(params[:tag])
     else
@@ -68,6 +67,7 @@ class ReportsController < ApplicationController
   # POST /reports
   # POST /reports.json
   def create
+
     @report = Report.new(report_params)
     @report.signaler = current_signaler
 
@@ -88,6 +88,7 @@ class ReportsController < ApplicationController
         format.json { render json: @report.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   # PATCH/PUT /reports/1
@@ -101,7 +102,7 @@ class ReportsController < ApplicationController
 
             if inter.nil?
               Intervention.create(:report => @report, :signaler => current_signaler, :intervention_type => params[:intervention_type])
-            else 
+            else
               inter.intervention_type = params[:intervention_type]
               inter.save
             end
@@ -127,27 +128,29 @@ class ReportsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_report
-      @report = Report.find(params[:id])
-    end
+  
+  # Use callbacks to share common setup or constraints between actions.
+  def set_report
+    @report = Report.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def report_params
-      params.require(:report).permit(:object, :description, :address, :longitude, :latitude, :report_type, :intervention_type, :tipology_id, :tag_list, {images: []} )
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def report_params
+    params.require(:report).permit(:object, :description, :address, :longitude, :latitude, :report_type, :intervention_type, :tipology_id, :tag_list, {images: []} )
+  end
 
-    def converter(radius, unit)
-      if unit == "km"
-        return radius *1000
-      elsif unit == "ft"
-        return radius/3.2808
-      elsif unit == "yd"
-        return radius/1.0936
-      elsif unit == "mi"
-        return radius/0.00062137
-      else
-        return radius
-      end
+  def converter(radius, unit)
+    if unit == "km"
+      return radius *1000
+    elsif unit == "ft"
+      return radius/3.2808
+    elsif unit == "yd"
+      return radius/1.0936
+    elsif unit == "mi"
+      return radius/0.00062137
+    else
+      return radius
     end
+  end
+  
 end

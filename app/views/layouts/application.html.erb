@@ -24,14 +24,11 @@
         <%= render 'shared/home_page/header' %>
       <% else %>
         <%= render 'shared/header' %>
-        <% if current_page?(controller: 'reports', action: 'index')%>
-        <%= render "shared/search_reports"%>
-        <% end %>
       <% end %>
     </div>
 
     <%= yield %>
-    
+
     <%= render "shared/footer"%>
   </body>
 </html>

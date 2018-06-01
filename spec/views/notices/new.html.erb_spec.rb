@@ -2,11 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "notices/new", type: :view do
   before(:each) do
-    assign(:notice, Notice.new(
-      :title => "MyString",
-      :content => "MyText",
-      :notice_type => "MyString"
-    ))
+    assign(:notice, Notice.new)
   end
 
   it "renders new notice form" do

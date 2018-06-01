@@ -3,66 +3,45 @@ class DashboardController < ApplicationController
   
   layout "backend"
 
+  def index
+    @reports = Report.take(10)
+  end
 
   # reports
   def reports
-    @reports = Report.all
+    @reports = Report.where("tipology_id IN (?)", current_forwarder.group.tipologies.select(:id))
   end
 
-  def showreport
+  def show_report
     @report = Report.find(params[:id])
   end
 
-  def forwardreport
+  def forward_report
     puts "==================================================================================="
     redirect_to dashboard_reports_path
   end
 
-  # Tipolologies
-
-  def tipologies
-    if current_forwarder.boss
-      @tipologies = Tipology.where.not("id IN (?)", current_forwarder.group.tipologies.select(:id))
-    end
+  def my_forwards
+    @reports = current_forwarder.reports
   end
 
-  def createoccupation
-    if current_forwarder.boss
-      Occupation.create(:group => current_forwarder.group, :tipology => Tipology.find(params[:id]))
-    end
-    redirect_to tipologies_path
+  # Agencies
+  def my_agencies
+    @agencies = current_forwarder.agencies
   end
 
-  def newtipology
-    if current_forwarder.boss
-      @tipology = Tipology.new
-    end
-  end
-
-  def createtipology
-    if current_forwarder.boss
-    @tipology = Tipology.new(tipology_params)
-    respond_to do |format|
-      if @tipology.save
-        Occupation.create(:group => current_forwarder.group, :tipology => @tipology)
-        format.html { redirect_to dashboard_reports_path, notice: 'Report was successfully created.' }
-      else
-        format.html { render :newtipology }
-      end
-    end
-    end
-  end
-
+  # Occupations
   def occupations
     @occupations = current_forwarder.group.occupations
   end
 
+  def create_occupation
 
-  private
+    if current_forwarder.boss
+      Occupation.create(:group => current_forwarder.group, :tipology => Tipology.find(params[:id]))
+    end
 
-  def tipology_params
-      params.require(:tipology).permit(:name, :description, :logo, :parent_id)
+    redirect_to tipologies_path
   end
-
 
 end

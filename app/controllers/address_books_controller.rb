@@ -1,20 +1,19 @@
 class AddressBooksController < ApplicationController
   before_action :set_address_book, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_forwarder!
+  
+  layout "backend"
   # GET /address_books
   # GET /address_books.json
   def index
-    @address_books = AddressBook.all
-  end
-
-  # GET /address_books/1
-  # GET /address_books/1.json
-  def show
+    @address_books = current_forwarder.group.address_books
   end
 
   # GET /address_books/new
   def new
-    @address_book = AddressBook.new
+    if current_forwarder.boss
+      @address_book = AddressBook.new
+    end
   end
 
   # GET /address_books/1/edit
@@ -24,15 +23,19 @@ class AddressBooksController < ApplicationController
   # POST /address_books
   # POST /address_books.json
   def create
-    @address_book = AddressBook.new(address_book_params)
+    if current_forwarder.boss
+      @address_book = AddressBook.new(address_book_params)
+      @address_book.forwarder = current_forwarder
+      @address_book.group = current_forwarder.group
 
-    respond_to do |format|
-      if @address_book.save
-        format.html { redirect_to @address_book, notice: 'Address book was successfully created.' }
-        format.json { render :show, status: :created, location: @address_book }
-      else
-        format.html { render :new }
-        format.json { render json: @address_book.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @address_book.save
+          format.html { redirect_to address_books_path, notice: 'Address book was successfully created.' }
+          format.json { render :show, status: :created, location: @address_book }
+        else
+          format.html { render :new }
+          format.json { render json: @address_book.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -40,13 +43,15 @@ class AddressBooksController < ApplicationController
   # PATCH/PUT /address_books/1
   # PATCH/PUT /address_books/1.json
   def update
-    respond_to do |format|
-      if @address_book.update(address_book_params)
-        format.html { redirect_to @address_book, notice: 'Address book was successfully updated.' }
-        format.json { render :show, status: :ok, location: @address_book }
-      else
-        format.html { render :edit }
-        format.json { render json: @address_book.errors, status: :unprocessable_entity }
+    if current_forwarder.boss
+      respond_to do |format|
+        if @address_book.update(address_book_params)
+          format.html { redirect_to  address_books_path, notice: 'Address book was successfully updated.' }
+          format.json { render :show, status: :ok, location: @address_book }
+        else
+          format.html { render :edit }
+          format.json { render json: @address_book.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -54,10 +59,12 @@ class AddressBooksController < ApplicationController
   # DELETE /address_books/1
   # DELETE /address_books/1.json
   def destroy
-    @address_book.destroy
-    respond_to do |format|
-      format.html { redirect_to address_books_url, notice: 'Address book was successfully destroyed.' }
-      format.json { head :no_content }
+    if current_forwarder.boss
+      @address_book.destroy
+      respond_to do |format|
+        format.html { redirect_to address_books_url, notice: 'Address book was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
 

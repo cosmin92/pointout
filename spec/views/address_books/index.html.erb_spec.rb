@@ -2,21 +2,17 @@ require 'rails_helper'
 
 RSpec.describe "address_books/index", type: :view do
   before(:each) do
-    assign(:address_books, [
-      AddressBook.create!(
-        :name => "Name",
-        :note => "MyText"
-      ),
-      AddressBook.create!(
-        :name => "Name",
-        :note => "MyText"
-      )
-    ])
+    group = create(:group)
+    forwarder = create(:forwarder, :group => group)
+    add_book1 = create(:address_book, :name => "Name1", :forwarder => forwarder, :group => group)
+    add_book2 = create(:address_book, :name => "Name2", :forwarder => forwarder, :group => group)
+    assign(:address_books, [add_book1, add_book2])
   end
 
   it "renders a list of address_books" do
     render
-    assert_select "tr>td", :text => "Name".to_s, :count => 2
-    assert_select "tr>td", :text => "MyText".to_s, :count => 2
+    
+    expect(rendered).to have_content("Name1")
+    expect(rendered).to have_content("Name2")
   end
 end

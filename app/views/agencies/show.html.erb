@@ -1,54 +1,101 @@
-<p id="notice"><%= notice %></p>
+<div class="card">
 
-<p>
-  <strong>Name:</strong>
-  <%= @agency.name %>
-</p>
+  <div class="card-header">
+    <strong><%= @agency.name %></strong>
+  </div>
+  <div class="card-body">
 
-<p>
-  <strong>Phone:</strong>
-  <%= @agency.phone %>
-</p>
+    <% if !@agency.email.nil? %>
+      <div class="row">
+        <div class="col-2">
+          <strong>Email:</strong>
+        </div>
+        <div class="col-10">
+          <%= @agency.email %>
+        </div>
+      </div>
+    <% end %>
 
-<p>
-  <strong>Email:</strong>
-  <%= @agency.email %>
-</p>
+    <% if !@agency.phone.nil? %>
+      <div class="row">
+        <div class="col-2">
+          <strong>Phone:</strong>
+        </div>
+        <div class="col-10">
+          <%= @agency.phone %>
+        </div>
+      </div>
+    <% end %>
 
-<p>
-  <strong>Fax:</strong>
-  <%= @agency.fax %>
-</p>
+    <% if !@agency.fax.nil? %>
+      <div class="row">
+        <div class="col-2">
+          <strong>Fax:</strong>
+        </div>
+        <div class="col-10">
+          <%= @agency.fax %>
+        </div>
+      </div>
+    <% end %>
+    
+    <% if !@agency.street.nil? %>
+      <div class="row">
+        <div class="col-2">
+          <strong>Address:</strong>
+        </div>
+        <div class="col-10">
+          <%= @agency.street %>, <%= @agency.number %> <%= @agency.city %> <%= @agency.zip_code %>
+        </div>
+      </div>
+    <% end %>
 
-<p>
-  <strong>Street:</strong>
-  <%= @agency.street %>
-</p>
+    <% if !@agency.web_site_url.nil? %>
+      <div class="row">
+        <div class="col-2">
+          <strong>Web site url:</strong>
+        </div>
+        <div class="col-10">
+         <%= link_to @agency.web_site_url, @agency.web_site_url %>
+        </div>
+      </div>
+    <% end %>
 
-<p>
-  <strong>Number:</strong>
-  <%= @agency.number %>
-</p>
+    <% if !@agency.note.nil? %>
+      <div class="row">
+        <div class="col-2">
+          <strong>Note:</strong>
+        </div>
+        <div class="col-10">
+          <%= @agency.note %>
+        </div>
+      </div>
+    <% end%>
 
-<p>
-  <strong>City:</strong>
-  <%= @agency.city %>
-</p>
+  </div>
 
-<p>
-  <strong>Zip code:</strong>
-  <%= @agency.zip_code %>
-</p>
+  <div class="card-footer">
+   <form>
+    <div class="form-row align-items-center">
+      <div class="col-auto my-1">
+        <label class="mr-sm-2" for="inlineFormCustomSelect">Preference</label>
+        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+          <option selected>Choose...</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+      <div class="col-auto my-1">
+        <div class="custom-control custom-checkbox mr-sm-2">
+          <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+          <label class="custom-control-label" for="customControlAutosizing">Remember my preference</label>
+        </div>
+      </div>
+      <div class="col-auto my-1">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+    </form>
+  </div>
 
-<p>
-  <strong>Note:</strong>
-  <%= @agency.note %>
-</p>
-
-<p>
-  <strong>Web site url:</strong>
-  <%= @agency.web_site_url %>
-</p>
-
-<%= link_to 'Edit', edit_agency_path(@agency) %> |
-<%= link_to 'Back', agencies_path %>
+</div>

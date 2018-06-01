@@ -1,45 +1,12 @@
 # frozen_string_literal: true
 
 class Signalers::RegistrationsController < Devise::RegistrationsController
+  include Registration
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
   prepend_before_action :authenticate_scope!, only: [:profile, :timeline, :edit, :update, :destroy]
 
   layout "signaler_autentication", :only => [:new]
-  
-  # GET /resource/sign_up
-  # def new
-  #   super
-  # end
-
-  # POST /resource
-  # def create
-  #   super
-  # end
-
-  # GET /resource/edit
-  # def edit
-  #   super
-  # end
-
-  # PUT /resource
-  # def update
-  #   super
-  # end
-
-  # DELETE /resource
-  # def destroy
-  #   super
-  # end
-
-  # GET /resource/cancel
-  # Forces the session data which is usually expired after sign
-  # in to be expired now. This is useful if the user wants to
-  # cancel oauth signing in/up in the middle of the process,
-  # removing all OAuth session data.
-  # def cancel
-  #   super
-  # end
 
   # Show profile informations
   def profile
@@ -72,7 +39,7 @@ class Signalers::RegistrationsController < Devise::RegistrationsController
   def after_inactive_sign_up_path_for(resource)
     signalers_profile_path
   end
-  
+
   # The path used after edit.
   def after_update_path_for(resource)
     signalers_profile_path

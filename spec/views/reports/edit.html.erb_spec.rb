@@ -2,17 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "reports/edit", type: :view do
   before(:each) do
-    @report = assign(:report, Report.create!(
-      :object => "MyString",
-      :description => "MyText",
-      :images => "MyString",
-      :address => "MyString",
-      :longitude => "9.99",
-      :latitude => "9.99",
-      :report_type => "MyString",
-      :intervention_type => false,
-      :state => "MyString"
-    ))
+    @report = assign(:report, create(:report))
   end
 
   it "renders the edit report form" do

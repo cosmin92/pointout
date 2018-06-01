@@ -1,3 +1,117 @@
+<div class="section-header" style="border-bottom: 1px solid #AAA; background-color: #fff;">
+  <section class="header-main">
+	  <div class="container">
+      <div class="row align-items-center">
+	      <div class="col-lg-11 col-sm-11">
+		      <%= form_tag(reports_path, method: "get", :class =>"search-wrap") do %>
+              <div class="form-row">
+                <div class="col-lg-11 col-sm-12">
+                  <div class="input-group">
+                    <%= search_field :search, :address, autofocus: true, :class=>"form-control form-control-sm", :placeholder=>"Type address" %>
+                    <%= hidden_field :search, :longitude, :class=>"form-control" %>
+                    <%= hidden_field :search, :latitude, :class=>"form-control" %>
+
+                    <div class="input-group-append">
+                      <button type="button" class="btn btn-outline-secondary dropdown-toggle btn-sm" data-display="static" data-toggle="dropdown">Options</button>
+                      <div class="dropdown-menu p-4 dropdown-menu-right" style="min-width:300px; width:100%;">
+                        <div class="form-row">
+                          <label>Radius:</label>
+                        </div><!-- end form-row -->
+
+                        <div class="form-row">
+
+                          <div class="col-sm-10">
+                            <input id="search_range" class="custom-range" min="1" max="100" name="" value="25" type="range" style="padding-top:7px;">
+                          </div>
+
+                          <div class="col-sm-2 input-group">
+                            <%= text_field :search, :radius, :class => "form-control form-control-sm text-right radius_btn", :value => "25" %>
+                            <div class="input-group-append">
+                              <select class="btn radius_btn btn-outline-secondary dropdown-toggle btn-sm text-left" id="inlineFormCustomSelect" name="search[unit]">
+                                <option selected value="m">m</option>
+                                <option value="km">km</option>
+                                <option value="ft">ft</option>
+                                <option value="yd">yd</option>
+                                <option value="mi">mi</option>
+                              </select>
+                            </div>
+                          </div>
+
+                        </div> <!-- end form-row -->
+
+                        <hr class="hr-text-left" data-content="Filter by:">
+
+                        <div class="form-row">
+
+                          <div class="col-sm-6">
+                            <label>Tipology:</label>
+                            <div class="form-group">
+                              <%= collection_select(:search, :tipology_id, Tipology.all, :id, :name, {:include_blank => true}, {:class => "form-control" })%>
+                            </div>
+                          </div>
+
+                          <div class="col-sm-6">
+                            <label>Type:</label>
+                            <div class="form-group">
+                              <select class="form-control" name="search[report_type]">
+                                <option selected disabled>please select</option>
+                                <option value="Segnalation">Segnalation</option>
+                                <option value="Complaint">Complaint</option>
+                                <option value="Suggestion">Suggestion</option>
+                              </select>
+                            </div>
+                          </div> <!-- col.// -->
+
+                        </div> <!-- row.// -->
+
+                        <hr class="hr-text-left" data-content="Order by:">
+
+                        <div class="form-row">
+
+                          <div class="col-sm-6">
+                            <label>Submition date:</label>
+                            <div class="form-group">
+                              <select class="form-control" name="search[creation_date]">
+                                <option selected >please select</option>
+                                <option value="asc">Asc</option>
+                                <option value="desc">Desc</option>
+                              </select>
+                            </div>
+                          </div> <!-- col.// -->
+
+                          <div class="col-sm-6">
+                            <label>Object:</label>
+                            <div class="form-group">
+                              <select class="form-control" name="search[object]">
+                                <option selected >please select</option>
+                                <option value="asc">Asc</option>
+                                <option value="desc">Desc</option>
+                              </select>
+                            </div>
+                          </div> <!-- col.// -->
+
+                        </div> <!-- row.// -->
+                      </div> <!-- dropdown-menu.// -->
+                    </div> <!-- input-group-append.// -->
+                  </div> <!-- input-group.// -->
+                </div> <!-- col.// -->
+
+                <div class="col-lg-1 col-sm-12">
+                  <button class="btn btn-warning btn-block btn-sm" type="submit">Search</button>
+                </div>
+              </div><!--end form-row -->
+            <% end %>
+	      </div> <!-- col.// -->
+
+        <div class="col-lg-1 col-sm-2">
+          <div class="widgets-wrap d-flex justify-content-end">
+            <%= link_to 'New Report', new_report_path, :class => "btn btn-primary btn-sm" %>
+          </div>
+        </div> <!-- col.// -->
+      </div> <!-- row.// -->
+	  </div> <!-- container.// -->
+  </section> <!-- header-main .// -->
+</div> <!-- section-header.// -->
 <div class="container-fluid" style="padding:0;">
   <div class="row" style="margin:0;">
     <div class="col-md-4" id="left">
@@ -33,20 +147,49 @@
   </div>
 </div>
 
-
-
-
-
-
-
-<script>
+<script type="text/javascript">
     function initMap() {
-      var map = new google.maps.Map(document.getElementById('map1'), {
-          center: { lat: 41.87194, lng: 12.567379999999957 },
-          zoom: 10,
-          mapTypeId: google.maps.MapTypeId.HYBRID
-      });
+        var map = new google.maps.Map(document.getElementById('map1'), {
+                center: { lat: 41.87194, lng: 12.567379999999957 },
+                zoom: 6,
+                mapTypeId: google.maps.MapTypeId.HYBRID
+        });
+
+        var input = document.getElementById('search_address');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                  var place = autocomplete.getPlace();
+                  document.getElementById('search_latitude').value = place.geometry.location.lat();
+                  document.getElementById('search_longitude').value = place.geometry.location.lng();
+                  document.getElementById('submit').disabled = false;
+        });
+
+        var infowindow;
+        var marker;
+
+        <% @reports.each do | report |%>
+            marker = new google.maps.Marker({
+                  position: new google.maps.LatLng(<%= report.longitude %>, <%= report.latitude %>),
+                  map: map
+            });
+
+            infowindow = new google.maps.InfoWindow({
+                content: "<strong><%= report.object %></strong> <p><%= report.address %></p>"
+            });
+
+            infowindow.open(map, marker);
+        <% end %>
     }
+</script>
+
+<script type="text/javascript">
+    function initialize() {
+        
+
+	
+
+    google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHsysEhtrQMdJW_wv3ROsNysDr_UwpTMo&libraries=places&callback=initMap" async defer></script>
 <script type="text/javascript">
@@ -57,3 +200,4 @@
 			res.value = p.value;
 		}, false);
 </script>
+

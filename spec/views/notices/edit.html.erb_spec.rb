@@ -2,11 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "notices/edit", type: :view do
   before(:each) do
-    @notice = assign(:notice, Notice.create!(
-      :title => "MyString",
-      :content => "MyText",
-      :notice_type => "MyString"
-    ))
+    group = create(:group)
+    forwarder = create(:forwarder, :group => group)
+    @notice = assign(:notice, create(:notice, :forwarder => forwarder, :group => group))
   end
 
   it "renders the edit notice form" do

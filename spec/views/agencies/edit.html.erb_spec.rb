@@ -2,18 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "agencies/edit", type: :view do
   before(:each) do
-    @agency = assign(:agency, Agency.create!(
-      :name => "MyString",
-      :phone => "MyString",
-      :email => "MyString",
-      :fax => "MyString",
-      :street => "MyString",
-      :number => "MyString",
-      :city => "MyString",
-      :zip_code => "MyString",
-      :note => "MyText",
-      :web_site_url => "MyString"
-    ))
+    @agency = assign(:agency, create(:agency))
   end
 
   it "renders the edit agency form" do
