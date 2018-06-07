@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Intervention, type: :model do
 
-  subject {described_class = create(:intervention) }
+  subject {described_class = create(:intervention)}
 
   context "Factory" do
 
@@ -13,13 +13,13 @@ RSpec.describe Intervention, type: :model do
     it "have not nil report" do
       expect(subject.report).not_to be_nil
     end
-  
+
     it "have not nil signaler" do
       expect(subject.signaler).not_to be_nil
     end
 
   end # end factory
-  
+
   context "Attributes" do
 
     context "intervention type" do
@@ -42,8 +42,8 @@ RSpec.describe Intervention, type: :model do
 
   context "Methods" do
     it "should create a new interventio record given valid attributes" do
-      expect{
-          subject.save 
+      expect {
+        subject.save
       }.to change(Intervention, :count).by(1)
     end
 
@@ -80,6 +80,6 @@ RSpec.describe Intervention, type: :model do
       expect(association.macro).to eq(:belongs_to)
     end
 
-  end# end associations
+  end # end associations
 
 end

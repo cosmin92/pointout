@@ -7,8 +7,8 @@ module ControllerMacros
   end
 
   def login_signaler
-      @request.env["devise.mapping"] = Devise.mappings[:signaler]
-      signaler = FactoryBot.create(:signaler)
-      sign_in signaler
+    @request.env["devise.mapping"] = Devise.mappings[:signaler]
+    signaler = FactoryBot.create(:signaler)
+    sign_in signaler
   end
 end

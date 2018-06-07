@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Tipology, type: :model do
 
-  subject { described_class = build(:tipology) }
+  subject {described_class = build(:tipology)}
 
   context "Factory" do
 
@@ -21,7 +21,7 @@ RSpec.describe Tipology, type: :model do
   end #end factory
 
   context "Attributes" do
-    
+
     context "name" do
 
       it "should have a name attribute" do
@@ -58,14 +58,14 @@ RSpec.describe Tipology, type: :model do
   context "Methods" do
 
     it "should create a new tipology record given valid attributes" do
-      expect{
-          subject.save
+      expect {
+        subject.save
       }.to change(Tipology, :count).by(1)
     end
 
     it "should update a record" do
       create(:tipology, :name => "Illuminazione stradale")
-      tipology =  Tipology.first
+      tipology = Tipology.first
       expect(tipology.name).to eq("Illuminazione stradale")
       tipology.name = "Dissesto stradale"
       tipology.save

@@ -33,6 +33,6 @@ module Pointout
       generator.helper_specs false
       generator.assets false
     end
-  
+
   end
 end

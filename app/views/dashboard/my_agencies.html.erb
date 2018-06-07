@@ -1,20 +1,20 @@
 <table class="table table-striped" style="margin:0px;">
   <thead class="thead-dark">
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">Address</th>
-      <th scope="col"></th>
-    </tr>
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Email</th>
+    <th scope="col">Address</th>
+    <th scope="col"></th>
+  </tr>
   </thead>
   <tbody>
-    <% @agencies.each do | agency | %>
-        <tr>
-            <td><%= agency.name %></td>
-            <td><%= agency.email %></td>
-            <td><%= agency.street %>, <%= agency.number %>, <%= agency.city %> <%= agency.zip_code %></td>
-            <td><%= link_to 'Edit', edit_agency_path(agency.id) %></td>
-        </tr>
-    <% end %>
+  <% @agencies.each do |agency| %>
+    <tr>
+      <td><%= agency.name %></td>
+      <td><%= agency.email %></td>
+      <td><%= agency.street %>, <%= agency.number %>, <%= agency.city %> <%= agency.zip_code %></td>
+      <td><%= link_to 'Edit', edit_agency_path(agency.id) %></td>
+    </tr>
+  <% end %>
   </tbody>
 </table>

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Agency, type: :model do
 
-  subject { described_class = build(:agency) }
+  subject {described_class = build(:agency)}
 
   context "Factory" do
 
@@ -62,7 +62,7 @@ RSpec.describe Agency, type: :model do
       end
 
       it "should have length in 1..50" do
-        subject.name = "a"*51
+        subject.name = "a" * 51
         expect(subject).to be_invalid
       end
 
@@ -76,7 +76,7 @@ RSpec.describe Agency, type: :model do
 
       it "should have length in 4..15" do
         subject.phone = "a" * 16
-        expect(subject).to be_invalid 
+        expect(subject).to be_invalid
       end
 
     end # end phone
@@ -89,7 +89,7 @@ RSpec.describe Agency, type: :model do
 
       it "should be invalid without an email" do
         subject.email = nil
-        expect(subject).to be_invalid   
+        expect(subject).to be_invalid
       end
 
       it "should not be invalid with an invalid email" do
@@ -171,15 +171,14 @@ RSpec.describe Agency, type: :model do
     end # end zip code
 
 
-
     context "note" do
 
       it "should have a note attribute" do
         expect(subject).to respond_to(:note)
       end
-      
+
       it "should have length in max 500" do
-        subject.note = "a"*501
+        subject.note = "a" * 501
         expect(subject).to be_invalid
       end
 
@@ -197,8 +196,8 @@ RSpec.describe Agency, type: :model do
 
   context "Methods" do
     it "should create a new agency record given valid attributes" do
-      expect{
-          subject.save 
+      expect {
+        subject.save
       }.to change(Agency, :count).by(1)
     end
 

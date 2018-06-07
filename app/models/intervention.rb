@@ -4,5 +4,5 @@ class Intervention < ApplicationRecord
   belongs_to :report
 
   # Validations
-  validates :intervention_type, inclusion: { in: ["Ordinary", "Immediate"] }
+  validates :intervention_type, inclusion: {in: ["Ordinary", "Immediate"]}
 end

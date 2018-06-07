@@ -1,7 +1,7 @@
 class TipologiesController < ApplicationController
   before_action :set_tipology, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_forwarder!
-  
+
   layout "backend"
   # GET /tipologies
   # GET /tipologies.json
@@ -28,11 +28,11 @@ class TipologiesController < ApplicationController
 
     respond_to do |format|
       if @tipology.save
-        format.html { redirect_to tipologies_url, notice: 'Tipology was successfully created.' }
-        format.json { render :show, status: :created, location: @tipology }
+        format.html {redirect_to tipologies_url, notice: 'Tipology was successfully created.'}
+        format.json {render :show, status: :created, location: @tipology}
       else
-        format.html { render :new }
-        format.json { render json: @tipology.errors, status: :unprocessable_entity }
+        format.html {render :new}
+        format.json {render json: @tipology.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -42,11 +42,11 @@ class TipologiesController < ApplicationController
   def update
     respond_to do |format|
       if @tipology.update(tipology_params)
-        format.html { redirect_to tipologies_url, notice: 'Tipology was successfully updated.' }
-        format.json { render :show, status: :ok, location: @tipology }
+        format.html {redirect_to tipologies_url, notice: 'Tipology was successfully updated.'}
+        format.json {render :show, status: :ok, location: @tipology}
       else
-        format.html { render :edit }
-        format.json { render json: @tipology.errors, status: :unprocessable_entity }
+        format.html {render :edit}
+        format.json {render json: @tipology.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -56,19 +56,20 @@ class TipologiesController < ApplicationController
   def destroy
     @tipology.destroy
     respond_to do |format|
-      format.html { redirect_to tipologies_url, notice: 'Tipologies was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html {redirect_to tipologies_url, notice: 'Tipologies was successfully destroyed.'}
+      format.json {head :no_content}
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_tipology
-      @tipology = Tipology.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def tipology_params
-      params.require(:tipology).permit(:name, :description, :logo)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_tipology
+    @tipology = Tipology.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def tipology_params
+    params.require(:tipology).permit(:name, :description, :logo)
+  end
 end

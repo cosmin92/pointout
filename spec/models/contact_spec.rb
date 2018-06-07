@@ -2,14 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Contact, type: :model do
 
-  subject {described_class = create(:contact) }
+  subject {described_class = create(:contact)}
 
   context "Factory" do
 
     it "have not nil agency" do
       expect(subject.agency).not_to be_nil
     end
-  
+
     it "have not nil address_book" do
       expect(subject.address_book).not_to be_nil
     end
@@ -18,8 +18,8 @@ RSpec.describe Contact, type: :model do
 
   context "Methods" do
     it "should create a new contact record given valid attributes" do
-      expect{
-          subject.save 
+      expect {
+        subject.save
       }.to change(Contact, :count).by(1)
     end
 

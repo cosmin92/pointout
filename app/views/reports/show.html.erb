@@ -1,179 +1,186 @@
 <div class="container">
-<script>
-  $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-      event.preventDefault();
-      $(this).ekkoLightbox({alwaysShowClose: true});
-  });
-</script>
+  <script>
+      $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+          event.preventDefault();
+          $(this).ekkoLightbox({alwaysShowClose: true});
+      });
+  </script>
   <div class="row">
 
-    <main class="post blog-post col-lg-8"> 
+    <main class="post blog-post col-lg-8">
       <div class="container">
         <div class="post-details">
-            <h1><%= @report.object %></h1>
-            <div class="post-meta d-flex justify-content-between">
-              <div class="category"> <%= link_to 'Tipology: ' + @report.tipology.name , reports_path(:search => {:tipology_id => @report.tipology.id }) %></a> | <%= link_to 'Intervention requested: '+ @report.report_type, reports_path(:search => {:report_type => @report.report_type })%></div>
-            </div>
-            
-            <div class="post-footer d-flex align-items-center flex-column flex-sm-row">
-              <a href="#" class="author d-flex align-items-center flex-wrap">
-                <div class="avatar">
+          <h1><%= @report.object %></h1>
+          <div class="post-meta d-flex justify-content-between">
+            <div class="category"> <%= link_to 'Tipology: ' + @report.tipology.name, reports_path(:search => {:tipology_id => @report.tipology.id}) %></a>
+              | <%= link_to 'Intervention requested: ' + @report.report_type, reports_path(:search => {:report_type => @report.report_type}) %></div>
+          </div>
+
+          <div class="post-footer d-flex align-items-center flex-column flex-sm-row">
+            <a href="#" class="author d-flex align-items-center flex-wrap">
+              <div class="avatar">
                 <% if @report.signaler.profile_picture.file.nil? %>
-                <img src="https://profile.actionsprout.com/default.jpeg" class = "img-fluid" alt = "Signaler profile picture">
+                  <img src="https://profile.actionsprout.com/default.jpeg" class="img-fluid" alt="Signaler profile picture">
                 <% else %>
                   <%= image_tag @report.signaler.profile_picture.dim_x50.url, :class => "img-fluid", :alt => "Signaler profile picture" %>
                 <% end %>
-                </div>
-                <div class="title"><span><%= @report.signaler.full_name %></span></div>
-              </a>
+              </div>
+              <div class="title"><span><%= @report.signaler.full_name %></span></div>
+            </a>
 
-              <div class="d-flex align-items-center flex-wrap">
-                <div class="date"><i class="fa fa-clock"></i><%= @report.created_at.strftime("%B %e, %Y")%></div>
-                  <div class="comments "><i class="fa fa-comment"></i> <%= @report.observations.count %> observations</div>
+            <div class="d-flex align-items-center flex-wrap">
+              <div class="date"><i class="fa fa-clock"></i><%= @report.created_at.strftime("%B %e, %Y") %></div>
+              <div class="comments "><i class="fa fa-comment"></i> <%= @report.observations.count %> observations</div>
+            </div>
+          </div>
+
+          <div class="post-body" style="margin-top:10px;">
+            <div class="row">
+              <div class="col-12">
+                <div class="row">
+                  <% @report.images.each do |img| %>
+                    <a href="<%= img.url %>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3">
+                      <img src="<%= img.url %>" class="img-fluid card">
+                    </a>
+                  <% end %>
+                </div>
               </div>
             </div>
 
-            <div class="post-body" style="margin-top:10px;">
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="row">
-                          <% @report.images.each do |img| %>
-                            <a href="<%= img.url %>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3">
-                              <img src="<%= img.url %>" class="img-fluid card">
-                            </a>
-                          <% end %>
-                      </div>
-                  </div> 
-                </div>
+            <p class="lead_paragraf"><%= @report.description %></p>
+            <blockquote class="blockquote" style="padding:8px;">
+              <p style="margin-bottom: 0px;">Address:
+                <em><a style="text-decoration: underline;" data-toggle="modal" data-target="#exampleModalCenter"><%= @report.address %></a></em>
+              </p>
+            </blockquote>
+            <% if signaler_signed_in? %>
+              <%= form_for([@report, Intervention.new], local: true) do |form| %>
+                <div class="form-group">
+                  <hr>
+                  <strong>You think the intervention must be:</strong>
+                  <div class="form-radio">
+                    <% @intervention = Intervention.where("report_id = ? AND signaler_id = ?", @report.id, current_signaler.id).first %>
+                    <% immediate_checked = false %>
+                    <% ordinary_checked = false %>
+                    <% if @intervention != nil %>
+                      <% if @intervention.intervention_type == "Immediate" %>
+                        <% immediate_checked = true %>
+                      <% end %>
 
-                  <p class="lead_paragraf"><%= @report.description %></p>
-                  <blockquote class="blockquote" style="padding:8px;">
-                    <p style="margin-bottom: 0px;">Address: <em><a style="text-decoration: underline;" data-toggle="modal" data-target="#exampleModalCenter"><%= @report.address %></a></em></p>
-                  </blockquote>
-                  <% if signaler_signed_in? %>
-                  <%= form_for([@report, Intervention.new], local: true) do |form| %>
-                    <div class="form-group">
-                    <hr>
-                      <strong>You think the intervention must be:</strong>
-                          <div class="form-radio">
-                              <% @intervention = Intervention.where("report_id = ? AND signaler_id = ?", @report.id, current_signaler.id ).first%>
-                              <% immediate_checked = false %>
-                              <% ordinary_checked = false %>
-                              <% if @intervention != nil %>
-                                <% if @intervention.intervention_type == "Immediate" %>
-                                  <% immediate_checked = true %>
-                                <% end %>
-
-                                <% if @intervention.intervention_type == "Ordinary"%>
-                                  <% ordinary_checked = true %>
-                                <% end %>
-                              <% end %>
-                              <%= form.radio_button :intervention_type, "Immediate", :checked => immediate_checked , :onchange => "this.form.submit();" %> Immadiate<br>
-                              <%= form.radio_button :intervention_type, "Ordinary", :checked => ordinary_checked  , :onchange => "this.form.submit();" %> Ordinary
-                          </div>
-                          <hr>
-                    </div>
-                  <% end %>
-                  <% end %>
-
-                  <!-- Modal -->
-                  <div class="modal  fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header text-center" style="padding: 5px; padding-left:15px; border-bottom: none;">
-                            <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 16px;"><%= @report.address  %></h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body" style="padding:1px;">
-                            <div id="map"></div> 
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-            </div>
-            <div class="post-tags">
-              <% @report.tag_list.each do |tag| %>
-                <%= link_to "##{tag}", tag_path(tag), :class => "tag" %>
-              <% end %>
-            </div>
-
-            <div class="post-comments">
-              <header>
-                <h3 class="h6">Report observations<span class="no-of-comments">(<%= @report.observations.count %>)</span></h3>
-              </header>
-              
-              <% @report.observations.each do | observation |%>
-                <div class="comment" style="border-bottom: 1px solid #ddd; padding-top:10px;">
-                  <div class="comment-header d-flex justify-content-between">
-                    <div class="user d-flex align-items-center">
-                      <div class="image">
-                        <% if !observation.signaler.profile_picture.url.nil? %>
-                        <%= image_tag observation.signaler.profile_picture.dim_x25.url, :class => "img-fluid rounded-circle" %>
-                        <% else %>
-                          <img src="https://profile.actionsprout.com/default.jpeg" alt="..." class="img-fluid rounded-circle" width= "25">
-                        <% end %>
-                      </div>
-                      <div  style="display: inline-block; margin: 0 7px; font-size: 0.9em; color:#ccc;">
-                        <strong style="margin-left:5px;"><%= observation.signaler.full_name %></strong> | <span><%= observation.created_at.strftime("%B %e, %Y")%></span>
-                      </div>
-                    </div>
+                      <% if @intervention.intervention_type == "Ordinary" %>
+                        <% ordinary_checked = true %>
+                      <% end %>
+                    <% end %>
+                    <%= form.radio_button :intervention_type, "Immediate", :checked => immediate_checked, :onchange => "this.form.submit();" %>
+                    Immadiate<br>
+                    <%= form.radio_button :intervention_type, "Ordinary", :checked => ordinary_checked, :onchange => "this.form.submit();" %>
+                    Ordinary
                   </div>
+                  <hr>
+                </div>
+              <% end %>
+            <% end %>
 
-                    <div class="comment-body" style="padding-left:5px;margin-top:10px;">
-                        <p style="margin-bottom:0"><%= observation.content %></p>
-                    </div>
+            <!-- Modal -->
+            <div class="modal  fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header text-center" style="padding: 5px; padding-left:15px; border-bottom: none;">
+                    <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 16px;"><%= @report.address %></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body" style="padding:1px;">
+                    <div id="map"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="post-tags">
+            <% @report.tag_list.each do |tag| %>
+              <%= link_to "##{tag}", tag_path(tag), :class => "tag" %>
+            <% end %>
+          </div>
 
-                    <div class="post-tags" style="margin-top:0;padding:5px; font-size:9pt;">
-                      <% observation.tag_list.each do |tag| %>
-                        <%= link_to "##{tag}", tag_path(tag), :class => "tag" %>
+          <div class="post-comments">
+            <header>
+              <h3 class="h6">Report observations<span class="no-of-comments">(<%= @report.observations.count %>)</span>
+              </h3>
+            </header>
+
+            <% @report.observations.each do |observation| %>
+              <div class="comment" style="border-bottom: 1px solid #ddd; padding-top:10px;">
+                <div class="comment-header d-flex justify-content-between">
+                  <div class="user d-flex align-items-center">
+                    <div class="image">
+                      <% if !observation.signaler.profile_picture.url.nil? %>
+                        <%= image_tag observation.signaler.profile_picture.dim_x25.url, :class => "img-fluid rounded-circle" %>
+                      <% else %>
+                        <img src="https://profile.actionsprout.com/default.jpeg" alt="..." class="img-fluid rounded-circle" width="25">
                       <% end %>
                     </div>
-
-                    <div class="row" style="padding-left:5px; ">
-                      <div class="col-12">
-                        <div class="row">
-                            <% observation.images.each do |img| %>
-                              <a href="<%= img.url %>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-2 col-md-3 col-6 my-3">
-                                <img src="<%= img.url %>" class="img-fluid card">
-                              </a>
-                            <% end %>
-                        </div>
+                    <div style="display: inline-block; margin: 0 7px; font-size: 0.9em; color:#ccc;">
+                      <strong style="margin-left:5px;"><%= observation.signaler.full_name %></strong> |
+                      <span><%= observation.created_at.strftime("%B %e, %Y") %></span>
                     </div>
-                  </div> 
+                  </div>
                 </div>
-              <% end %>
 
-            </div><!-- end post-comments-->
+                <div class="comment-body" style="padding-left:5px;margin-top:10px;">
+                  <p style="margin-bottom:0"><%= observation.content %></p>
+                </div>
+
+                <div class="post-tags" style="margin-top:0;padding:5px; font-size:9pt;">
+                  <% observation.tag_list.each do |tag| %>
+                    <%= link_to "##{tag}", tag_path(tag), :class => "tag" %>
+                  <% end %>
+                </div>
+
+                <div class="row" style="padding-left:5px; ">
+                  <div class="col-12">
+                    <div class="row">
+                      <% observation.images.each do |img| %>
+                        <a href="<%= img.url %>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-2 col-md-3 col-6 my-3">
+                          <img src="<%= img.url %>" class="img-fluid card">
+                        </a>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+
+          </div><!-- end post-comments-->
 
 
-            <div class="add-comment">
-              <header>
+          <div class="add-comment">
+            <header>
               <br>
-                <h3 class="h6">Write your observation</h3>
-              </header>
+              <h3 class="h6">Write your observation</h3>
+            </header>
 
-              <%= form_for([@report, @new_obervation], local: true, :html => { :multipart => true }) do |form| %>
-                <div class="row">
-                  <div class="form-group col-md-12">
-                    <%= form.text_area :content, id: :observation_content, :class => "form-control", :placeholder => "Type your observation" %>
-                  </div>
-
-                  <div class="form-group col-md-7">
-                    <%= form.text_field :tag_list, id: :report_tag_list, :class => "form-control", :placeholder=> "Type tags separated by commas" %>
-                  </div>
-
-                  <div class="form-group col-md-5">
-                     <%= form.file_field :images, multiple: true %>
-                  </div>
-
-                  <div class="form-group col-md-12">
-                    <button type="submit" class="btn btn-secondary">Submit Comment</button>
-                  </div>
+            <%= form_for([@report, @new_obervation], local: true, :html => {:multipart => true}) do |form| %>
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <%= form.text_area :content, id: :observation_content, :class => "form-control", :placeholder => "Type your observation" %>
                 </div>
-              <% end %>
-            </div><!--end add-comment-->
+
+                <div class="form-group col-md-7">
+                  <%= form.text_field :tag_list, id: :report_tag_list, :class => "form-control", :placeholder => "Type tags separated by commas" %>
+                </div>
+
+                <div class="form-group col-md-5">
+                  <%= form.file_field :images, multiple: true %>
+                </div>
+
+                <div class="form-group col-md-12">
+                  <button type="submit" name = "Submit" class="btn btn-secondary">Submit</button>
+                </div>
+              </div>
+            <% end %>
+          </div><!--end add-comment-->
         </div>
       </div>
     </main>
@@ -186,12 +193,12 @@
         </header>
 
         <div class="blog-posts">
-          <% Report.latest(4).each do | report | %>
+          <% Report.latest(4).where("state <> ? AND state <> ?", "Suspended", "Archived").each do |report| %>
             <%= link_to report_path(report) do %>
               <div class="item d-flex align-items-center">
                 <div class="image">
                   <% if report.images[0].nil? %>
-                    <img src="http://www.trifit-za.sk/image/none.jpg" class = "img-fluid" alt = "Report main image">
+                    <img src="http://www.trifit-za.sk/image/none.jpg" class="img-fluid" alt="Report main image">
                   <% else %>
                     <%= image_tag report.images[0].url, :class => "img-fluid", :alt => "Report main image" %>
                   <% end %>
@@ -199,7 +206,8 @@
                 <div class="title">
                   <strong><%= report.object %></strong>
                   <div class="d-flex align-items-center">
-                    <div class="comments"><i class="fa fa-comment"></i> <%= report.observations.count %> Observations </div>
+                    <div class="comments"><i class="fa fa-comment"></i> <%= report.observations.count %> Observations
+                    </div>
                   </div>
                 </div>
               </div>
@@ -209,17 +217,17 @@
       </div>
 
       <!-- Widget [Tags Cloud Widget]-->
-      <div class="widget tags">       
+      <div class="widget tags">
         <header>
           <h3 class="h6">Tags</h3>
         </header>
-      
+
         <ul class="list-inline">
-          <% ActsAsTaggableOn::Tag.order(created_at: :desc).take(20).each do | tag | %>
-            <% tag.taggings.each do | tagging | %>
-                <li class="list-inline-item">
-                  <%= link_to "##{tag}", tag_path(tag.name), :class => "tag" %>
-                </li>
+          <% ActsAsTaggableOn::Tag.order(created_at: :desc).take(20).each do |tag| %>
+            <% tag.taggings.each do |tagging| %>
+              <li class="list-inline-item">
+                <%= link_to "##{tag}", tag_path(tag.name), :class => "tag" %>
+              </li>
             <% end %>
           <% end %>
         </ul>
@@ -230,14 +238,14 @@
           <h3 class="h6">Tipologies</h3>
         </header>
 
-        <% Tipology.all.each do | tipology | %>
+        <% Tipology.all.each do |tipology| %>
           <div class="item d-flex justify-content-between">
             <%= link_to reports_path(:search => {:tipology_id => tipology.id}), method: :get do %>
-              <i class="fa fa-tag" style = "padding-right:5px;"></i>
+              <i class="fa fa-tag" style="padding-right:5px;"></i>
               <%= tipology.name %>
-             <% end %>
-              <span><%= tipology.reports.count %></span>
-            </div>
+            <% end %>
+            <span><%= tipology.reports.count %></span>
+          </div>
         <% end %>
       </div>
     </aside>
@@ -252,18 +260,18 @@
     var longitude = <%= @report.longitude %>;
 
     function initMap() {
-        var LatLng = { lat: longitude, lng: latitude};
+        var LatLng = {lat: latitude, lng: longitude};
         var map = new google.maps.Map(document.getElementById('map'), {
-                    center: LatLng,
-                    zoom: 17,
-                    mapTypeId: google.maps.MapTypeId.HYBRID
+            center: LatLng,
+            zoom: 17,
+            mapTypeId: google.maps.MapTypeId.HYBRID
         });
-        
+
         var marker = new google.maps.Marker({
-                    position: LatLng,
-                    map: map,
-                  });
-      }
+            position: LatLng,
+            map: map,
+        });
+    }
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHsysEhtrQMdJW_wv3ROsNysDr_UwpTMo&libraries=places&callback=initMap" async defer></script>

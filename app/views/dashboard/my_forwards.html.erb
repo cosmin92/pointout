@@ -1,22 +1,22 @@
 <table class="table table-striped" style="margin:0px;">
   <thead class="thead-dark">
-    <tr>
-      <th scope="col">Object</th>
-      <th scope="col">Type</th>
-      <th scope="col">Forwarded to</th>
-      <th scope="col">Date</th>
-      <th scope="col"></th>
-    </tr>
+  <tr>
+    <th scope="col">Object</th>
+    <th scope="col">Type</th>
+    <th scope="col">Forwarded to</th>
+    <th scope="col">Date</th>
+    <th scope="col"></th>
+  </tr>
   </thead>
   <tbody>
-    <% @reports.each do | report | %>
-        <tr>
-            <td><%= report.object %></td>
-            <td><%= report.report_type %></td>
-            <td><%= report.agency.name %></td>
-            <td><%= report.forward_date %></td>
-            <td><%= link_to 'Show', show_report_path(report.id) %></td>
-        </tr>
-    <% end %>
+  <% @reports.each do |report| %>
+    <tr>
+      <td><%= report.object %></td>
+      <td><%= report.report_type %></td>
+      <td><%= report.agency.name %></td>
+      <td><%= report.forward_date %></td>
+      <td><%= link_to 'Show', show_report_path(report.id) %></td>
+    </tr>
+  <% end %>
   </tbody>
 </table>

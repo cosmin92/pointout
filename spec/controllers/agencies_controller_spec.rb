@@ -4,22 +4,22 @@ RSpec.describe AgenciesController, type: :controller do
 
   def attributes(forwarder)
     @attributes = {
-      :name => "Agency name",
-      :phone => "34345345345",
-      :fax => "34345345345",
-      :email => "agency@gmail.com",
-      :note => "a"*400,
-      :street => "Via Trionfale",
-      :number => "6751",
-      :city => "Roma",
-      :zip_code => "00167",
-      :web_site_url => 41.93224524160291,
-      :forwarder_id => forwarder.id
+        :name => "Agency name",
+        :phone => "34345345345",
+        :fax => "34345345345",
+        :email => "agency@gmail.com",
+        :note => "a" * 400,
+        :street => "Via Trionfale",
+        :number => "6751",
+        :city => "Roma",
+        :zip_code => "00167",
+        :web_site_url => 41.93224524160291,
+        :forwarder_id => forwarder.id
     }
   end
 
   describe "index action" do
-    
+
     it "returns http success" do
       sign_in create(:forwarder)
       get :index
@@ -33,7 +33,7 @@ RSpec.describe AgenciesController, type: :controller do
     end
 
     it "should rout to reports" do
-      expect(:get => "/backend/agencies" ).to route_to("agencies#index")
+      expect(:get => "/backend/agencies").to route_to("agencies#index")
     end
 
     it "returns a success response" do
@@ -57,7 +57,7 @@ RSpec.describe AgenciesController, type: :controller do
   end
 
   describe "show action" do
-    
+
     it "returns a success response" do
       forwarder = create(:forwarder)
       attributes(forwarder)
@@ -159,7 +159,7 @@ RSpec.describe AgenciesController, type: :controller do
   end
 
   describe "create action" do
-    
+
     it "routes to #create" do
       expect(:post => "/backend/agencies").to route_to("agencies#create")
     end
@@ -199,7 +199,7 @@ RSpec.describe AgenciesController, type: :controller do
     context "with valid params" do
 
       let(:new_attributes) {
-        {:name => "b"*10}
+        {:name => "b" * 10}
       }
 
       it "updates the requested agency" do
@@ -209,7 +209,7 @@ RSpec.describe AgenciesController, type: :controller do
         agency = Agency.create! @attributes
         put :update, params: {id: agency.to_param, agency: new_attributes}
         agency.reload
-        expect(agency.name).to eq("b"*10)
+        expect(agency.name).to eq("b" * 10)
       end
 
       it "redirects to the agency" do

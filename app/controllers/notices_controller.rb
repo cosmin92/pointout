@@ -1,7 +1,7 @@
 class NoticesController < ApplicationController
   before_action :set_notice, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_forwarder!
-  
+
   layout "backend"
   # GET /notices
   # GET /notices.json
@@ -33,11 +33,11 @@ class NoticesController < ApplicationController
 
       respond_to do |format|
         if @notice.save
-          format.html { redirect_to notices_path, notice: 'Notice was successfully created.' }
-          format.json { render :show, status: :created, location: @notice }
+          format.html {redirect_to notices_path, notice: 'Notice was successfully created.'}
+          format.json {render :show, status: :created, location: @notice}
         else
-          format.html { render :new }
-          format.json { render json: @notice.errors, status: :unprocessable_entity }
+          format.html {render :new}
+          format.json {render json: @notice.errors, status: :unprocessable_entity}
         end
       end
     end
@@ -49,11 +49,11 @@ class NoticesController < ApplicationController
     if current_forwarder.boss
       respond_to do |format|
         if @notice.update(notice_params)
-          format.html { redirect_to notices_path, notice: 'Notice was successfully updated.' }
-          format.json { render :show, status: :ok, location: @notice }
+          format.html {redirect_to notices_path, notice: 'Notice was successfully updated.'}
+          format.json {render :show, status: :ok, location: @notice}
         else
-          format.html { render :edit }
-          format.json { render json: @notice.errors, status: :unprocessable_entity }
+          format.html {render :edit}
+          format.json {render json: @notice.errors, status: :unprocessable_entity}
         end
       end
     end
@@ -65,20 +65,21 @@ class NoticesController < ApplicationController
     if current_forwarder.boss
       @notice.destroy
       respond_to do |format|
-        format.html { redirect_to notices_url, notice: 'Notice was successfully destroyed.' }
-        format.json { head :no_content }
+        format.html {redirect_to notices_url, notice: 'Notice was successfully destroyed.'}
+        format.json {head :no_content}
       end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_notice
-      @notice = Notice.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def notice_params
-      params.require(:notice).permit(:title, :content, :posting_date, :expiration_date, :notice_type)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_notice
+    @notice = Notice.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def notice_params
+    params.require(:notice).permit(:title, :content, :posting_date, :expiration_date, :notice_type)
+  end
 end

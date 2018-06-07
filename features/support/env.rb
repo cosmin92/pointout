@@ -58,3 +58,4 @@ Cucumber::Rails::Database.javascript_strategy = :truncation
 
 # To use factory_bot_rails
 World(FactoryBot::Syntax::Methods)
+World(Devise::Test::ControllerHelpers)

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Signalers::RegistrationsController < Devise::RegistrationsController
-  include Registration
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
   prepend_before_action :authenticate_scope!, only: [:profile, :timeline, :edit, :update, :destroy]
@@ -14,8 +13,10 @@ class Signalers::RegistrationsController < Devise::RegistrationsController
 
   # Show reports sents end observations makes
   def timeline
-    @elements = current_signaler.reports + current_signaler.observations
-    @elements.sort_by(&:created_at)
+    @reports = current_signaler.reports
+    @observations = current_signaler.observations
+    @reports.sort_by(&:created_at)
+    @observations.sort_by(&:created_at)
   end
 
   protected

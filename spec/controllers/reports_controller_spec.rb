@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe ReportsController, type: :controller do
-  
+
   include Devise::Test::ControllerHelpers
 
   def attributes(signaler, tipology)
-    @attributes = { :object => "Cos’è Lorem Ipsum?", :description => "a"*400, :address => "Via Trionfale, 6751, 00100 Roma RM, Italia", :longitude => 41.93224524160291, :latitude => 12.440350581054645, :report_type => "Suggestion", :intervention_type => "Corrective", :signaler_id => signaler.id, :tipology_id => tipology.id}
+    @attributes = {:object => "Cos’è Lorem Ipsum?", :description => "a" * 400, :address => "Via Trionfale, 6751, 00100 Roma RM, Italia", :longitude => 41.93224524160291, :latitude => 12.440350581054645, :report_type => "Suggestion", :intervention_type => "Corrective", :signaler_id => signaler.id, :tipology_id => tipology.id}
   end
 
   describe "index action" do
@@ -21,7 +21,7 @@ RSpec.describe ReportsController, type: :controller do
     end
 
     it "should rout to reports" do
-      expect(:get => "/reports" ).to route_to("reports#index")
+      expect(:get => "/reports").to route_to("reports#index")
     end
 
     context "get reports by tipology" do
@@ -43,7 +43,7 @@ RSpec.describe ReportsController, type: :controller do
     end # end get reports by tipology
 
     context "get reports by type" do
-      
+
       it "should return 'complaint' reports" do
         tipology = create(:tipology)
         signaler = create(:signaler)
@@ -286,7 +286,7 @@ RSpec.describe ReportsController, type: :controller do
   describe "update action(PUT/PATCH)" do
     context "with valid params" do
       let(:new_attributes) {
-        { :object => "New Object", :description => "a"*400, :address => "Via Trionfale, 6751, 00100 Roma RM, Italia", :longitude => 41.93224524160291, :latitude => 12.440350581054645, :report_type => "Suggestion", :intervention_type => "Corrective"}
+        {:object => "New Object", :description => "a" * 400, :address => "Via Trionfale, 6751, 00100 Roma RM, Italia", :longitude => 41.93224524160291, :latitude => 12.440350581054645, :report_type => "Suggestion", :intervention_type => "Corrective"}
       }
 
       it "routes to #update via PUT" do

@@ -1,7 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "reports/new", type: :view do
+
+  include Devise::Test::ControllerHelpers
+
   before(:each) do
+    sign_in create(:forwarder)
     assign(:report, Report.new)
   end
 
@@ -24,6 +28,7 @@ RSpec.describe "reports/new", type: :view do
 
       assert_select "input[name=?]", "report[intervention_type]"
 
+      assert_select "input[name=?]", "report[images][]"
     end
   end
 end

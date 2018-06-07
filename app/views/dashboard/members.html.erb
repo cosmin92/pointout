@@ -1,0 +1,28 @@
+<table class="table table-striped" style="margin:0px;">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col"></th>
+    <th scope="col">Full name</th>
+    <th scope="col">Email</th>
+    <th scope="col">Forwards</th>
+    <th scope="col">Agencies</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @members.each do |member| %>
+    <tr>
+      <td><%= image_tag member.profile_picture.dim_x50.url %></td>
+      <td><%= member.full_name %></td>
+      <td><%= member.email %></td>
+      <td><%= member.reports.count %></td>
+      <td><%= member.agencies.count %></td>
+      <% if member.boss %>
+        <td><%= link_to "Remove Boss", remove_boss_path(member.id) %></td>
+      <% else %>
+        <td><%= link_to "Make Boss", make_boss_path(member.id) %></td>
+      <% end %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

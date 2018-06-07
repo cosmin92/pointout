@@ -11,7 +11,7 @@ Quando("inserisco il cognome {string} nel campo cognome del form di registrazion
 end
 
 Quando("inserisco il la mail {string} nel campo email del form di registrazione come segnalatore") do |email|
-  fill_in "signaler[email]", :with =>  email
+  fill_in "signaler[email]", :with => email
 end
 
 Quando("inserisco il numero di telefono {string} nel campo telefono del form di registrazione come segnalatore") do |telefono|
@@ -62,10 +62,6 @@ Quando("invio clicco sul pulsante registra per inviare il form") do
   click_button("Register")
 end
 
-Allora("devo vedere un messaggio che mi dica che la reggistrazione è avvenuta con successo") do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 Allora("devo vedere il nome {string}") do |nome|
   expect(page).to have_content(nome)
 end
@@ -106,22 +102,18 @@ Allora("devo vedere il nome del comune di rilascio della carta di identità {str
   expect(page).to have_content(comune)
 end
 
-Allora("devo vedere la data di scadenza della carta di identità {string}") do |string|
-  pending # Write code here that turns the phrase above into concrete actions
+Allora("devo vedere la data di scadenza della carta di identità {string}") do |data|
+  expect(page).to have_content(data)
 end
 
 Allora("non devo vedere la password {string}") do |password|
   expect(page).not_to have_content(password)
 end
 
-Allora("devo vedere la data di rilascio della carta di identità {string}") do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Allora("la registrazione deve fallire e devo essere informato sulla causa del fallimento") do
-  pending # Write code here that turns the phrase above into concrete actions
+Allora("devo vedere la data di rilascio della carta di identità {string}") do |data|
+  expect(page).to have_content(data)
 end
 
 Allora("devo essere indirizzato di nuovo verso la pagina di registrazione di un segnalatore") do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page.current_path).to eq("/signalers")
 end

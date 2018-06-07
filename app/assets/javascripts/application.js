@@ -60,6 +60,14 @@ $(document).ready(function () {
         target: '.nav-sidebar',
         offset: 80
     });
+
+    $('#agency optgroup').hide();
+    $('#address_book').change(function () {
+        var text = $(this).val();
+        $('#agency optgroup').hide();
+        $('#agency').val('');
+        $('#agency optgroup[label="' + text + '"]').css({'display': 'block'});
+    });
 });
 // jquery end
 

@@ -15,7 +15,7 @@ RSpec.describe StaticPagesController, type: :controller do
     end
 
     it "should rout to root" do
-      expect(:get => "/" ).to route_to("static_pages#home")
+      expect(:get => "/").to route_to("static_pages#home")
     end
 
   end # end home

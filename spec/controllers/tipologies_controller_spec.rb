@@ -4,10 +4,10 @@ RSpec.describe TipologiesController, type: :controller do
 
   def attributes(forwarder)
     @attributes = {
-      :name => "a"*10,
-      :description => "a"*400,
-      :forwarder => forwarder,
-      :logo => Rack::Test::UploadedFile.new(Rails.root.join('spec', 'support', 'images', 'illuminazione_stradale.png'), 'image/png')
+        :name => "a" * 10,
+        :description => "a" * 400,
+        :forwarder => forwarder,
+        :logo => Rack::Test::UploadedFile.new(Rails.root.join('spec', 'support', 'images', 'illuminazione_stradale.png'), 'image/png')
     }
   end
 
@@ -26,7 +26,7 @@ RSpec.describe TipologiesController, type: :controller do
     end
 
     it "should rout to reports" do
-      expect(:get => "/backend/tipologies" ).to route_to("tipologies#index")
+      expect(:get => "/backend/tipologies").to route_to("tipologies#index")
     end
 
     it "assign tipologies to @tipology variable" do
@@ -73,7 +73,7 @@ RSpec.describe TipologiesController, type: :controller do
   end
 
   describe "edit action" do
-    
+
     it "returns a success response if forwarders boss loged in" do
       forwarder = create(:forwarder, :boss => true)
       sign_in forwarder
@@ -97,7 +97,7 @@ RSpec.describe TipologiesController, type: :controller do
       sign_in forwarder
       attributes(forwarder)
       tipology = Tipology.create(@attributes)
-      expect(:get => "backend/tipologies/1/edit").to route_to("tipologies#edit", :id => tipology.id.to_param )
+      expect(:get => "backend/tipologies/1/edit").to route_to("tipologies#edit", :id => tipology.id.to_param)
     end
 
   end
@@ -135,7 +135,7 @@ RSpec.describe TipologiesController, type: :controller do
     context "with valid params" do
 
       let(:new_attributes) {
-        {:name => "b"*10}
+        {:name => "b" * 10}
       }
 
       it "updates the requested tipology" do
@@ -145,7 +145,7 @@ RSpec.describe TipologiesController, type: :controller do
         tipology = Tipology.create(@attributes)
         put :update, params: {id: tipology.to_param, tipology: new_attributes}
         tipology.reload
-        expect(tipology.name).to eq("b"*10)
+        expect(tipology.name).to eq("b" * 10)
       end
 
       it "redirects to the tipology" do

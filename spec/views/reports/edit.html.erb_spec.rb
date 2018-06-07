@@ -1,8 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "reports/edit", type: :view do
+
+  include Devise::Test::ControllerHelpers
+
   before(:each) do
-    @report = assign(:report, create(:report))
+    signaler = create(:signaler)
+    sign_in signaler
+    tipology = create(:tipology)
+    @report = assign(:report, create(:report, :signaler => signaler, :tipology => tipology))
   end
 
   it "renders the edit report form" do
@@ -14,7 +20,7 @@ RSpec.describe "reports/edit", type: :view do
 
       assert_select "textarea[name=?]", "report[description]"
 
-      assert_select "input[name=?]", "report[images]"
+      assert_select "input[name=?]", "report[images][]"
 
       assert_select "input[name=?]", "report[address]"
 
@@ -25,8 +31,6 @@ RSpec.describe "reports/edit", type: :view do
       assert_select "input[name=?]", "report[report_type]"
 
       assert_select "input[name=?]", "report[intervention_type]"
-
-      assert_select "input[name=?]", "report[state]"
     end
   end
 end

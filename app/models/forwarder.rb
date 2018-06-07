@@ -14,9 +14,9 @@ class Forwarder < ApplicationRecord
   has_many :notices
 
   # Validations
-  validates :first_name,  presence: true, length: { minimum: 1, maximum: 30 }
-  validates :last_name,  presence: true, length: { minimum: 1, maximum: 30 }
-  validates_integrity_of  :profile_picture
+  validates :first_name, presence: true, length: {minimum: 1, maximum: 30}
+  validates :last_name, presence: true, length: {minimum: 1, maximum: 30}
+  validates_integrity_of :profile_picture
   validates_processing_of :profile_picture
 
   # public methods

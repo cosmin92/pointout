@@ -109,6 +109,6 @@
     :number => "1",
     :city => "Roma",
     :zip_code => "00186",
-    :web_site_url => "https://www.comune.roma.it/web/it/home.page" ,
+    :web_site_url => "https://www.comune.roma.it/web/it/home.page",
     :forwarder => @maria_montessori
 )

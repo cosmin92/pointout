@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+</head>
+<body>
+<h3>Gentile <%= @signaler.full_name %></h3>
+<p> Una <%= link_to "segnalazione", @url %> da lei effettuata è stata inoltrata al seguente Ente:</p>
+<p><strong>Nome:</strong><%= @agency.name %></p>
+<p><strong>Email:</strong><%= @agency.email %></p>
+<% if @agency.phone != "" %>
+  <p><strong>Phone:</strong><%= @agency.phone %></p>
+<% end %>
+<% if @agency.fax != "" %>
+  <p><strong>Fax:</strong><%= @agency.fax %></p>
+<% end %>
+<p><strong>Address:</strong><%= @agency.street %>, <%= @agency.number %> <%= @agency.city %> <%= @agency.zip_code %></p>
+<% if @agency.web_site_url != "" %>
+  <p><strong>Website:</strong><%= @agency.web_site_url %></p>
+<% end %>
+</body>
+</html>

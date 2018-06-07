@@ -1,73 +1,75 @@
 <div class="container" style="margin-top:50px;margin-bottom:100px;">
-    <div class="row justify-content-center">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
-            <div class="card panel-info" style="padding:15px;">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><%= current_signaler.full_name %></h3>
-                    <hr>
-                </div>
-
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-3 col-lg-3 " align="center"> 
-                             <% if current_signaler.profile_picture.url.present? %>
-                                <%= image_tag(current_signaler.profile_picture.dim_x200.url, :class => "img-fluid") %>
-                            <% else %>
-                                <img src="https://profile.actionsprout.com/default.jpeg" class="img-fluid">
-                            <% end %>
-                        </div>
-                        <div class=" col-md-9 col-lg-9 "> 
-                            <table class="table table-user-information">
-                                <tbody>
-                                <tr>
-                                    <td>First name:</td>
-                                    <td><%= current_signaler.first_name %></td>
-                                </tr>
-                                <tr>
-                                    <td>Last name:</td>
-                                    <td><%= current_signaler.last_name %></td>
-                                </tr>
-                                <tr>
-                                    <td>Phone:</td>
-                                    <td><%= current_signaler.phone %></td>
-                                </tr>
-
-                                <tr>
-                                    <td>Email:</td>
-                                    <td><%= current_signaler.email%></td>
-                                </tr>
-                                <tr>
-                                    <td>Residence:</td>
-                                    <td><%= current_signaler.street %>, <%= current_signaler.number%>, <%= current_signaler.city %>, <%= current_signaler.zip_code %></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <hr><br><br>
-                            <table class="table table-user-information">
-                                <tbody>
-                                <tr>
-                                    <td>Identity card number:</td>
-                                    <td><%= current_signaler.id_card_number%></td>
-                                </tr>
-                                <tr>
-                                    <td>Municipality:</td>
-                                    <td><%= current_signaler.municipality %></td>
-                                </tr>
-                                <tr>
-                                    <td>Release date:</td>
-                                    <td><%= current_signaler.release_date.strftime("%b %d, %Y") %></td>
-                                </tr>
-                                <tr>
-                                    <td>expiration date:</td>
-                                    <td><%= current_signaler.expiration_date.strftime("%b %d, %Y") %></td>
-                                </tr>
-                                </tbody>
-                            </table><hr><br>
-                            <%= link_to 'Update profile', edit_signaler_registration_path, :class => "btn btn-secondary" %>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div class="row justify-content-center">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="card panel-info" style="padding:15px;">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= current_signaler.full_name %></h3>
+          <hr>
         </div>
+
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-3 col-lg-3 " align="center">
+              <% if current_signaler.profile_picture.url.present? %>
+                <%= image_tag(current_signaler.profile_picture.dim_x200.url, :class => "img-fluid") %>
+              <% else %>
+                <img src="https://profile.actionsprout.com/default.jpeg" class="img-fluid">
+              <% end %>
+            </div>
+            <div class=" col-md-9 col-lg-9 ">
+              <table class="table table-user-information">
+                <tbody>
+                <tr>
+                  <td>First name:</td>
+                  <td><%= current_signaler.first_name %></td>
+                </tr>
+                <tr>
+                  <td>Last name:</td>
+                  <td><%= current_signaler.last_name %></td>
+                </tr>
+                <tr>
+                  <td>Phone:</td>
+                  <td><%= current_signaler.phone %></td>
+                </tr>
+
+                <tr>
+                  <td>Email:</td>
+                  <td><%= current_signaler.email %></td>
+                </tr>
+                <tr>
+                  <td>Residence:</td>
+                  <td><%= current_signaler.street %>, <%= current_signaler.number %>, <%= current_signaler.city %>, <%= current_signaler.zip_code %></td>
+                </tr>
+                </tbody>
+              </table>
+              <hr><br><br>
+              <table class="table table-user-information">
+                <tbody>
+                <tr>
+                  <td>Identity card number:</td>
+                  <td><%= current_signaler.id_card_number %></td>
+                </tr>
+                <tr>
+                  <td>Municipality:</td>
+                  <td><%= current_signaler.municipality %></td>
+                </tr>
+                <tr>
+                  <td>Release date:</td>
+                  <td><%= current_signaler.release_date.strftime("%d/%m/%Y") %></td>
+                </tr>
+                <tr>
+                  <td>expiration date:</td>
+                  <td><%= current_signaler.expiration_date.strftime("%d/%m/%Y") %></td>
+                </tr>
+                </tbody>
+              </table>
+              <hr>
+              <br>
+              <%= link_to 'Update profile', edit_signaler_registration_path, :class => "btn btn-secondary" %>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

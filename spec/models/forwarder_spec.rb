@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Forwarder, type: :model do
 
-  subject { described_class = build(:forwarder) }
+  subject {described_class = build(:forwarder)}
 
   context "Factory" do
 
@@ -26,7 +26,7 @@ RSpec.describe Forwarder, type: :model do
       expect(subject.profile_picture).not_to be_nil
     end
 
-  end# end factory
+  end # end factory
 
   context "Attributes" do
 
@@ -38,12 +38,12 @@ RSpec.describe Forwarder, type: :model do
 
       it "should be invalid without a first name" do
         subject.first_name = nil
-        expect(subject).to be_invalid   
+        expect(subject).to be_invalid
       end
 
       it "should have length in 1..30" do
         subject.first_name = "Error! This first name is too long!"
-        expect(subject).to be_invalid 
+        expect(subject).to be_invalid
       end
 
     end # end first name
@@ -56,12 +56,12 @@ RSpec.describe Forwarder, type: :model do
 
       it "should be invalid without a last name" do
         subject.last_name = nil
-        expect(subject).to be_invalid   
+        expect(subject).to be_invalid
       end
 
       it "should have length in 1..30" do
         subject.last_name = "Error! This last name is too long!"
-        expect(subject).to be_invalid 
+        expect(subject).to be_invalid
       end
 
     end # end last name
@@ -128,14 +128,14 @@ RSpec.describe Forwarder, type: :model do
   context "Methods" do
 
     it "should create a new forwarder record given valid attributes" do
-      expect{
-          subject.save
+      expect {
+        subject.save
       }.to change(Forwarder, :count).by(1)
     end
 
     it "should update a record" do
       create(:forwarder, :first_name => "Pluto")
-      forwarder =  Forwarder.first
+      forwarder = Forwarder.first
       expect(forwarder.first_name).to eq("Pluto")
       forwarder.first_name = "Pippo"
       forwarder.save

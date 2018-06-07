@@ -17,17 +17,17 @@ class Forwarders::RegistrationsController < Devise::RegistrationsController
     if !params.has_key?(:create_new_group) || params[:create_new_group] != "1"
       super
     elsif params.has_key?(:create_new_group) || params[:create_new_group] == "1"
-        group = Group.new(group_params)
-        if group.save
-          params[:forwarder][:group_id] = group.id
-          params[:forwarder][:boss] = true
-          super
-        else
-          redirect_to new_forwarder_registration_path
-        end
+      group = Group.new(group_params)
+      if group.save
+        params[:forwarder][:group_id] = group.id
+        params[:forwarder][:boss] = true
+        super
       else
         redirect_to new_forwarder_registration_path
       end
+    else
+      redirect_to new_forwarder_registration_path
+    end
   end
 
   # GET /resource/edit
@@ -58,7 +58,7 @@ class Forwarders::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :profile_picture, :profile_picture_cache, :remove_profile_picture,  :email, :password, :password_confirmation, :remember_me, :boss, :group_id])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :profile_picture, :profile_picture_cache, :remove_profile_picture, :email, :password, :password_confirmation, :remember_me, :boss, :group_id])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
@@ -75,13 +75,13 @@ class Forwarders::RegistrationsController < Devise::RegistrationsController
   def after_inactive_sign_up_path_for(resource)
     dashboard_index_path
   end
-  
+
   # The path used after edit.
   def after_update_path_for(resource)
     dashboard_index_path
   end
 
-  private 
+  private
 
   def group_params
     params.require(:group).permit(:name, :description, :logo, :parent_id)

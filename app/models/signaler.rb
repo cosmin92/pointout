@@ -8,18 +8,18 @@ class Signaler < ApplicationRecord
   devise :omniauthable, omniauth_providers: [:amazon, :github, :google_oauth2]
 
   validates :release_date, :expiration_date, presence: :true
-  validates :first_name,  presence: true, length: { minimum: 1, maximum: 30 }
-  validates :last_name,  presence: true, length: { minimum: 1, maximum: 30 }
-  validates :phone,  presence: true, length: { minimum: 4, maximum: 15 }
-  validates :street,  presence: true, length: { minimum: 5, maximum: 50 }
-  validates :number,  presence: true, length: { minimum: 1, maximum: 5 }
-  validates :city,  presence: true, length: { minimum: 2, maximum: 30 }
-  validates :zip_code,  presence: true, length: { minimum: 1, maximum: 10 }
-  validates :id_card_number,  presence: true, length: { minimum: 8, maximum: 20 }
-  validates :municipality,  presence: true, length: { minimum: 2, maximum: 30 }
+  validates :first_name, presence: true, length: {minimum: 1, maximum: 30}
+  validates :last_name, presence: true, length: {minimum: 1, maximum: 30}
+  validates :phone, presence: true, length: {minimum: 4, maximum: 15}
+  validates :street, presence: true, length: {minimum: 5, maximum: 50}
+  validates :number, presence: true, length: {minimum: 1, maximum: 5}
+  validates :city, presence: true, length: {minimum: 2, maximum: 30}
+  validates :zip_code, presence: true, length: {minimum: 1, maximum: 10}
+  validates :id_card_number, presence: true, length: {minimum: 8, maximum: 20}
+  validates :municipality, presence: true, length: {minimum: 2, maximum: 30}
   validate :expiration_date_cannot_be_earlier_than_release_date
 
-  validates_integrity_of  :profile_picture
+  validates_integrity_of :profile_picture
   validates_processing_of :profile_picture
 
   # Associations

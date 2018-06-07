@@ -1,0 +1,20 @@
+<table class="table table-striped" style="margin:0px;">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col"></th>
+    <th scope="col">Name</th>
+    <th scope="col">Description</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @tipologies.each do |tipology| %>
+    <tr>
+      <td><%= image_tag tipology.logo.dim_x50.url %></td>
+      <td><%= tipology.name %></td>
+      <td><%= tipology.description %></td>
+      <td><%= link_to "Remove Occupation", remove_occupation_path(tipology.id) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

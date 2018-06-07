@@ -1,24 +1,140 @@
-<div class="row">
-  <div class="col-9">
-    <%= @report.description %>
-    <%= @report.description %>
-    <%= @report.description %>
-    <%= @report.description %>
-    <%= @report.description %>
-    <%= @report.description %>
-    <%= @report.description %>
-    <%= @report.description %>
-    <%= @report.description %>
-    <%= @report.description %>
-    <%= @report.description %>
-    <%= @report.description %>
+<div class="card">
+  <div class="card-body">
+
+    <div class="row">
+
+      <div class="col-2">
+        Object:
+      </div>
+
+      <div class="col-10">
+        <%= @report.object %>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-2">
+        Address:
+      </div>
+
+      <div class="col-10">
+        <%= @report.address %>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-2">
+        Intervention type:
+      </div>
+
+      <div class="col-10">
+        <%= @report.intervention_type %>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-2">
+        Intervention requested:
+      </div>
+
+      <div class="col-10">
+        <% count = @report.interventions.where(intervention_type: "Immediate").count - @report.interventions.where(intervention_type: "Ordinary").count %>
+        <% if count > 0 %>
+          <%= "Immediate" %>
+        <% else
+             count < 0 %>
+          <%= "Ordinary" %>
+        <% end %>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-2">
+        Tipology:
+      </div>
+
+      <div class="col-10">
+        <%= @report.tipology.name %>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-2">
+        Report type:
+      </div>
+
+      <div class="col-10">
+        <%= @report.report_type %>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-2">
+        Description:
+      </div>
+
+      <div class="col-10">
+        <%= @report.description %>
+        <div class="row">
+          <% @report.images.each do |image| %>
+            <div class="col-2">
+              <%= image_tag image.url, :class => "img-fluid" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+    </div>
+
+    <% @report.observations.each_with_index do |observation, index| %>
+      <hr>
+      <div class="row">
+        <div class="col-2">
+          Observation <%= index + 1 %>:
+        </div>
+        <div class="col-10">
+          <%= observation.content %>
+          <div class="row">
+            <% observation.images.each do |image| %>
+              <div class="col-2">
+                <%= image_tag image.url, :class => "img-fluid" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
 
-  <div class="col-3">
-    <div class="card" style="position:fixed;">
-      <%= link_to 'Forward', forward_report_path %>
-    </div>
+  <div class="card-footer">
+    <%= form_tag(forward_report_path, method: "get", :class => "form-inline") do %>
+      <select class="custom-select my-2 mr-sm-3" id="inlineFormCustomSelectPref" name="agency_id">
+        <% current_forwarder.group.address_books.each do |address_book| %>
+          <optgroup label="<%= address_book.name %>"  >
+            <% address_book.agencies.each do |agency| %>
+              <option value="<%= agency.id %>"><%= agency.name %></option>
+            <% end %>
+          </optgroup>
+        <% end %>
+      </select>
+
+      <button type="submit" class="btn btn-primary my-1">Forward</button>
+    <% end %>
   </div>
+
 </div>
+
 
 

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Group, type: :model do
 
-  subject { described_class = build(:group) }
+  subject {described_class = build(:group)}
 
   context "Factory" do
 
@@ -58,14 +58,14 @@ RSpec.describe Group, type: :model do
   context "Methods" do
 
     it "should create a new group record given valid attributes" do
-      expect{
-          subject.save
+      expect {
+        subject.save
       }.to change(Group, :count).by(1)
     end
 
     it "should update a record" do
       create(:group, :name => "Illuminazione stradale")
-      group =  Group.first
+      group = Group.first
       expect(group.name).to eq("Illuminazione stradale")
       group.name = "Dissesto stradale"
       group.save

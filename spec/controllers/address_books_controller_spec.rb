@@ -5,7 +5,7 @@ RSpec.describe AddressBooksController, type: :controller do
 
 
   def attributes(forwarder)
-    @attributes = { :name => "Cos’è Lorem Ipsum?", :note=> "a"*400, :forwarder_id => forwarder.id, :group_id => forwarder.group.id}
+    @attributes = {:name => "Cos’è Lorem Ipsum?", :note => "a" * 400, :forwarder_id => forwarder.id, :group_id => forwarder.group.id}
   end
 
   describe "index action" do
@@ -22,9 +22,9 @@ RSpec.describe AddressBooksController, type: :controller do
     end
 
     it "should rout to reports" do
-      expect(:get => "/backend/address_books" ).to route_to("address_books#index")
+      expect(:get => "/backend/address_books").to route_to("address_books#index")
     end
-    
+
     it "assign address_books to @address_books variable" do
       forwarder = create(:forwarder, :email => "ciao@gmail.com", :boss => true)
       ab1 = create(:address_book, :forwarder => forwarder, :group => forwarder.group)
@@ -49,13 +49,13 @@ RSpec.describe AddressBooksController, type: :controller do
     end
 
     it "render new template" do
-       sign_in create(:forwarder)
+      sign_in create(:forwarder)
       get :new
       expect(response).to render_template(:new)
     end
 
     it "routes to #new" do
-       sign_in create(:forwarder)
+      sign_in create(:forwarder)
       expect(:get => "/backend/address_books/new").to route_to("address_books#new")
     end
 
@@ -141,7 +141,7 @@ RSpec.describe AddressBooksController, type: :controller do
 
     context "with valid params" do
       let(:new_attributes) {
-        {:name => "b"*10}
+        {:name => "b" * 10}
       }
 
       it "updates the requested address_book" do
@@ -151,7 +151,7 @@ RSpec.describe AddressBooksController, type: :controller do
         address_book = AddressBook.create! @attributes
         put :update, params: {id: address_book.to_param, address_book: new_attributes}
         address_book.reload
-        expect(address_book.name).to eq("b"*10)
+        expect(address_book.name).to eq("b" * 10)
       end
 
       it "redirects to the address_book" do

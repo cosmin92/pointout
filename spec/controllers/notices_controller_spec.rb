@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.describe NoticesController, type: :controller do
 
+  include Devise::Test::ControllerHelpers
+
   def attributes(forwarder)
-    @attributes = {:title => "a"*10, :content => "a"*400, :notice_type => "Information", :posting_date => Date.new(2015, 3, 1), :expiration_date => Date.new(2018, 3, 1), :group => forwarder.group, :forwarder => forwarder}
+    @attributes = {:title => "a" * 10, :content => "a" * 400, :notice_type => "Information", :posting_date => Date.new(2015, 3, 1), :expiration_date => Date.new(2018, 3, 1), :group => forwarder.group, :forwarder => forwarder}
   end
 
   describe "index action" do
@@ -21,7 +23,7 @@ RSpec.describe NoticesController, type: :controller do
     end
 
     it "should rout to reports" do
-      expect(:get => "/backend/notices" ).to route_to("notices#index")
+      expect(:get => "/backend/notices").to route_to("notices#index")
     end
 
     it "assign notices to @notice variable" do
@@ -68,7 +70,7 @@ RSpec.describe NoticesController, type: :controller do
   end
 
   describe "edit action" do
-    
+
     it "returns a success response if forwarders boss loged in" do
       forwarder = create(:forwarder, :boss => true)
       sign_in forwarder
@@ -92,7 +94,7 @@ RSpec.describe NoticesController, type: :controller do
       sign_in forwarder
       attributes(forwarder)
       notice = Notice.create(@attributes)
-      expect(:get => "backend/notices/1/edit").to route_to("notices#edit", :id => notice.id.to_param )
+      expect(:get => "backend/notices/1/edit").to route_to("notices#edit", :id => notice.id.to_param)
     end
 
   end
@@ -130,7 +132,7 @@ RSpec.describe NoticesController, type: :controller do
     context "with valid params" do
 
       let(:new_attributes) {
-        {:title => "b"*10}
+        {:title => "b" * 10}
       }
 
       it "updates the requested notice" do
@@ -140,7 +142,7 @@ RSpec.describe NoticesController, type: :controller do
         notice = Notice.create(@attributes)
         put :update, params: {id: notice.to_param, notice: new_attributes}
         notice.reload
-        expect(notice.title).to eq("b"*10)
+        expect(notice.title).to eq("b" * 10)
       end
 
       it "redirects to the notice" do

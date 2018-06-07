@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Notice, type: :model do
-  subject { described_class = build(:notice) }
+  subject {described_class = build(:notice)}
 
   context "Factory" do
 
@@ -33,19 +33,19 @@ RSpec.describe Notice, type: :model do
       it "should have an title attribute" do
         expect(subject).to respond_to(:title)
       end
- 
+
       it "should be invalid without an title" do
         subject.title = nil
         expect(subject).to be_invalid
       end
- 
+
       it "should have length in 4..50" do
-        subject.title = "a"*51
+        subject.title = "a" * 51
         expect(subject).to be_invalid
       end
 
     end # end title
- 
+
     context "content" do
 
       it "should have a content attribute" do
@@ -58,12 +58,12 @@ RSpec.describe Notice, type: :model do
       end
 
       it "should have length max 1000" do
-        subject.content = "a" *1001
+        subject.content = "a" * 1001
         expect(subject).to be_invalid
       end
 
     end # end description
- 
+
     context "posting date" do
 
       it "should have a posting date" do
@@ -85,17 +85,17 @@ RSpec.describe Notice, type: :model do
       it "should have a notice type attribute" do
         expect(subject).to respond_to(:notice_type)
       end
- 
+
       it "should include 'information' type" do
         subject.notice_type = "Information"
         expect(subject).to be_valid
       end
- 
+
       it "should include 'warning' type" do
         subject.notice_type = "Warning"
         expect(subject).to be_valid
       end
- 
+
       it "should include 'obbligation' type" do
         subject.notice_type = "Obbligation"
         expect(subject).to be_valid
@@ -117,11 +117,11 @@ RSpec.describe Notice, type: :model do
 
   context "Methods" do
     it "should create a new notice record given valid attributes" do
-      expect{
-          subject.save 
+      expect {
+        subject.save
       }.to change(Notice, :count).by(1)
     end
- 
+
     it "should update a record" do
       create(:notice)
       notice = Notice.first

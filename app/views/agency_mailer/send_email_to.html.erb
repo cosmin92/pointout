@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 5px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+<table style="width: 100%;">
+  <tr>
+    <th>Informazioni personali:</th>
+  </tr>
+  <tr>
+    <th>Nome:</th>
+    <td><%= @signaler.first_name %></td>
+  </tr>
+  <tr>
+    <th>Cognome:</th>
+    <td><%= @signaler.last_name %></td>
+  </tr>
+  <tr>
+    <th>Email:</th>
+    <td><%= @signaler.email %></td>
+  </tr>
+
+  <tr>
+    <th>Telefono:</th>
+    <td><%= @signaler.phone %></td>
+  </tr>
+
+  <tr>
+    <th>Residenza:</th>
+    <td><%= @signaler.street %>, <%= @signaler.number %> <%= @signaler.city %> <%= @signaler.zip_code %></td>
+  </tr>
+</table>
+<br>
+<table style="width: 100%;">
+  <tr>
+    <th>Documento di riconoscimento:</th>
+  </tr>
+  <tr>
+    <th>Numero:</th>
+    <td><%= @signaler.id_card_number %></td>
+  </tr>
+  <tr>
+    <th>Rilasciato da:</th>
+    <td><%= @signaler.municipality %></td>
+  </tr>
+
+  <tr>
+    <th>Rilasciato il:</th>
+    <td><%= @signaler.release_date.strftime("%d/%m/%Y") %></td>
+  </tr>
+
+  <tr>
+    <th>Scade il</th>
+    <td><%= @signaler.expiration_date.strftime("%d/%m/%Y") %></td>
+  </tr>
+</table>
+<br>
+
+<table style="width: 100%;">
+  <tr>
+    <th>Segnalazione:</th>
+  </tr>
+  <tr>
+    <th>Oggetto:</th>
+    <td><%= @report.object %></td>
+  </tr>
+
+  <tr>
+    <th>Tipo(Suggerimento/Segnalazione/Reclamo):</th>
+    <td><%= @report.report_type %></td>
+  </tr>
+
+  <tr>
+    <th>Tipo intervento:</th>
+    <td><%= @report.intervention_type %></td>
+  </tr>
+
+  <tr>
+    <th>Descrizione:</th>
+    <td><%= @report.description %></td>
+  </tr>
+
+  <tr>
+    <th>Data:</th>
+    <td><%= @report.created_at.strftime("%d/%m/%Y") %></td>
+  </tr>
+</table>
+<br>
+<table style="width: 100%;">
+  <tr>
+    <th>Note:</th>
+  </tr>
+  <% @report.observations.each do |observation| %>
+    <tr>
+      <th><%= observation.signaler.full_name %></th>
+      <td><%= observation.content %></td>
+    </tr>
+  <% end %>
+</table>
+
+</body>
+</html>

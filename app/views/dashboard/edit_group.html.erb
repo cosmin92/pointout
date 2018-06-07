@@ -1,0 +1,43 @@
+<div class="col-md-8 offset-md-2">
+  <div class="card">
+
+    <div class="card-header">
+      Edit Group
+    </div>
+
+    <div class="card-body">
+      <%= form_with(model: @group, local: true, url: update_group_path) do |form| %>
+        <% if @group.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@group.errors.count, "error") %> prohibited this tipology from being saved:</h2>
+
+            <ul>
+              <% @group.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-group">
+          <%= form.label :name %>
+          <%= form.text_field :name, id: :group_name, :class => "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :description %>
+          <%= form.text_area :description, id: :group_note, :class => "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :logo %>
+          <%= form.file_field :logo, id: :group_logo, :class => "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.submit "Update", class: "btn btn-primary mb-2" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

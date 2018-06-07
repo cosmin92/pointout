@@ -75,6 +75,7 @@ group :development, :test do
 
   # Guard::RSpec allows to automatically & intelligently launch specs when files are modified
   gem 'guard-rspec'
+
 end
 
 group :development do

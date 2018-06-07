@@ -1,28 +1,28 @@
 <table class="table table-striped" style="margin:0px;">
   <thead class="thead-dark">
-    <tr>
-      <th scope="col-3">Name</th>
-      <th scope="col-7">Note</th>
-      <th scope="col-1"></th>
-      <th scope="col-1"></th>
-    </tr>
+  <tr>
+    <th scope="col-3">Name</th>
+    <th scope="col-7">Note</th>
+    <th scope="col-1"></th>
+    <th scope="col-1"></th>
+  </tr>
   </thead>
   <tbody>
-    <% @address_books.each do |address_book| %>
-        <tr>
-            <td><%= address_book.name %></td>
-            <td><%= address_book.note %></td>
-            <td>
-              <% if current_forwarder.boss %>
-                <%= link_to 'Edit', edit_address_book_path(address_book) %>
-              <% end %>
-            </td>
-            <td>
-              <% if current_forwarder.boss %>
-                  <%= link_to 'Destroy', address_book, method: :delete, data: { confirm: 'Are you sure?' } %>
-              <% end %>
-            </td>
-        </tr>
-    <% end %>
+  <% @address_books.each do |address_book| %>
+    <tr>
+      <td><%= address_book.name %></td>
+      <td><%= address_book.note %></td>
+      <td>
+        <% if current_forwarder.boss %>
+          <%= link_to 'Edit', edit_address_book_path(address_book) %>
+        <% end %>
+      </td>
+      <td>
+        <% if current_forwarder.boss %>
+          <%= link_to 'Destroy', address_book, method: :delete, data: {confirm: 'Are you sure?'} %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
   </tbody>
 </table>

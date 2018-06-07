@@ -13,6 +13,7 @@
             <td><%= image_tag tipology.logo.dim_x50.url %></td>
             <td><%= tipology.name %></td>
             <td><%= tipology.description %></td>
+            <td><%= link_to "Create Occupation", create_occupation_path(tipology.id) %></td>
         </tr>
     <% end %>
   </tbody>

@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
-  before_action :set_report, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_signaler!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_report, only: [:show, :edit, :update, :destroy, :stores, :suspend, :not_suspend]
+  before_action :authenticate_signaler!, only: [:new, :create, :edit, :update, :destroy, :stores, :suspend, :not_suspend]
 
   # GET /reports
   # GET /reports.json
@@ -8,7 +8,7 @@ class ReportsController < ApplicationController
     @reports = Report.all
 
     if params.has_key?(:search)
-      search = params.require(:search).permit(:tipology_id, :report_type, :creation_date, :object,:address, :longitude, :latitude, :radius, :unit)
+      search = params.require(:search).permit(:tipology_id, :report_type, :creation_date, :object, :address, :longitude, :latitude, :radius, :unit)
 
       if search.has_key?(:tipology_id) && search[:tipology_id] != ""
 
@@ -20,23 +20,23 @@ class ReportsController < ApplicationController
       end
 
       if search.has_key?(:creation_date) && search[:creation_date] != ""
-          if search[:creation_date] == "asc"
-            @reports = @reports.ordered_by_creation_date_asc
-          end
+        if search[:creation_date] == "asc"
+          @reports = @reports.ordered_by_creation_date_asc
+        end
 
-          if search[:creation_date] == "desc"
-            @reports = @reports.ordered_by_creation_date_desc
-          end
+        if search[:creation_date] == "desc"
+          @reports = @reports.ordered_by_creation_date_desc
+        end
       end
 
       if search.has_key?(:object) && search[:object] != ""
-          if search[:object] == "asc"
-            @reports = @reports.ordered_by_object_asc
-          end
+        if search[:object] == "asc"
+          @reports = @reports.ordered_by_object_asc
+        end
 
-          if search[:object] == "desc"
-            @reports = @reports.ordered_by_object_desc
-          end
+        if search[:object] == "desc"
+          @reports = @reports.ordered_by_object_desc
+        end
       end
 
       if search.has_key?(:address) && search.has_key?(:longitude) && search.has_key?(:latitude) && search.has_key?(:radius) && search.has_key?(:unit) && search[:address] != "" && search[:longitude] != "" && search[:latitude] != "" && search[:radius] != "" && search[:unit] != ""
@@ -47,6 +47,7 @@ class ReportsController < ApplicationController
     else
       @reports = Report.all
     end
+    @reports = @reports.where("state <> ? AND state <> ?", "Suspended", "Archived")
   end
 
   # GET /reports/1
@@ -80,12 +81,11 @@ class ReportsController < ApplicationController
             Intervention.create(:report => @report, :signaler => current_signaler, :intervention_type => "Immediate")
           end
         end
-        #// TODO:cacas
-        format.html { redirect_to @report, notice: 'Report was successfully created.' }
-        format.json { render :show, status: :created, location: @report }
+        format.html {redirect_to @report, notice: 'Report was successfully created.'}
+        format.json {render :show, status: :created, location: @report}
       else
-        format.html { render :new }
-        format.json { render json: @report.errors, status: :unprocessable_entity }
+        format.html {render :new}
+        format.json {render json: @report.errors, status: :unprocessable_entity}
       end
     end
 
@@ -98,21 +98,21 @@ class ReportsController < ApplicationController
       if @report.update(report_params)
 
         if params[:intervention_type] != ""
-            inter = Intervention.where("report_id = ? AND signaler_id = ?", @report.id, @report.signaler.id ).first
+          inter = Intervention.where("report_id = ? AND signaler_id = ?", @report.id, @report.signaler.id).first
 
-            if inter.nil?
-              Intervention.create(:report => @report, :signaler => current_signaler, :intervention_type => params[:intervention_type])
-            else
-              inter.intervention_type = params[:intervention_type]
-              inter.save
-            end
+          if inter.nil?
+            Intervention.create(:report => @report, :signaler => current_signaler, :intervention_type => params[:intervention_type])
+          else
+            inter.intervention_type = params[:intervention_type]
+            inter.save
+          end
         end
 
-        format.html { redirect_to @report, notice: 'Report was successfully updated.' }
-        format.json { render :show, status: :ok, location: @report }
+        format.html {redirect_to @report, notice: 'Report was successfully updated.'}
+        format.json {render :show, status: :ok, location: @report}
       else
-        format.html { render :edit }
-        format.json { render json: @report.errors, status: :unprocessable_entity }
+        format.html {render :edit}
+        format.json {render json: @report.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -122,13 +122,32 @@ class ReportsController < ApplicationController
   def destroy
     @report.destroy
     respond_to do |format|
-      format.html { redirect_to reports_url, notice: 'Report was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html {redirect_to reports_url, notice: 'Report was successfully destroyed.'}
+      format.json {head :no_content}
     end
   end
 
+
+  def stores
+    @report.state = "Archivied"
+    @report.save
+    redirect_to signalers_timeline_path
+  end
+
+  def suspend
+    @report.state = "Suspended"
+    @report.save
+    redirect_to signalers_timeline_path
+  end
+
+  def not_suspend
+    @report.state = "Forwarded"
+    @report.save
+    redirect_to signalers_timeline_path
+  end
+
   private
-  
+
   # Use callbacks to share common setup or constraints between actions.
   def set_report
     @report = Report.find(params[:id])
@@ -136,21 +155,21 @@ class ReportsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def report_params
-    params.require(:report).permit(:object, :description, :address, :longitude, :latitude, :report_type, :intervention_type, :tipology_id, :tag_list, {images: []} )
+    params.require(:report).permit(:object, :description, :address, :longitude, :latitude, :report_type, :intervention_type, :tipology_id, :tag_list, {images: []})
   end
 
   def converter(radius, unit)
     if unit == "km"
-      return radius *1000
+      return radius * 1000
     elsif unit == "ft"
-      return radius/3.2808
+      return radius / 3.2808
     elsif unit == "yd"
-      return radius/1.0936
+      return radius / 1.0936
     elsif unit == "mi"
-      return radius/0.00062137
+      return radius / 0.00062137
     else
       return radius
     end
   end
-  
+
 end

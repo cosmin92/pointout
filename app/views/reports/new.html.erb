@@ -1,5 +1,16 @@
 <div class="container-fluid" style="padding:0;">
 <%= form_with(model: @report, local: true, :html => { :multipart => true }) do |form| %>
+    <% if @report.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@report.errors.count, "error") %> prohibited this tipology from being saved:</h2>
+
+        <ul>
+          <% @report.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
     <% errors = @report.errors.messages %>
     <%params.inspect%>
     <div class="row" style="margin:0px; padding-top:0px;">
@@ -21,7 +32,7 @@
                 <div class="form-group col-6">
                     <% field_class = errors.has_key?(:tipology) ? "form-control is-invalid" : "form-control" %>
                     <%= form.label :tipology_id %>:*<br>
-                    <%= form.collection_select :tipology_id, Tipology.all, :id, :name, {:include_blank => true}, {:class => field_class } %>
+                    <%= form.collection_select :tipology_id, Tipology.all, :id, :name, {:include_blank => true}, {:class => field_class, :id => "tipology" } %>
                     <% if errors.has_key?(:tipology) %>
                         <div class="invalid-feedback">
                             Please select tipology
@@ -80,7 +91,7 @@
             <div class="row" style="margin:0px;">
                 <div class="col-12">
                     <div class="text-right"><hr>
-                        <%= form.submit "Send Report", :class => "btn btn-secondary"%>
+                      <button type="submit" name="Send" class="btn btn-primary btn-block"> Send </button>
                     </div>
                 </div>
             </div>
@@ -169,8 +180,8 @@
             map.panTo(e.latLng);
             map.setZoom(17);
             marker.setPosition(e.latLng);
-            document.getElementById("report_longitude").value = e.latLng.lat();
-            document.getElementById("report_latitude").value = e.latLng.lng();
+            document.getElementById("report_latitude").value = e.latLng.lat();
+            document.getElementById("report_longitude").value = e.latLng.lng();
             
             var geocoder = new google.maps.Geocoder();
             geocoder.geocode({ 'location': e.latLng },

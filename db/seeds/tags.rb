@@ -5,7 +5,7 @@
 @palo_luce_rotto.tag_list.add("instamood", "style", "wcw", "family", "nofilter", "pretty", "hair", "sun", "webstagram", "iphoneonly", "amazing", "tflers", "follow4follow")
 @palo_luce_rotto.save
 
-@rifiuti.tag_list.add("art", "tweegram", "cool", "followback","instafollow", "instasize", "amazing", "tflers")
+@rifiuti.tag_list.add("art", "tweegram", "cool", "followback", "instafollow", "instasize", "amazing", "tflers")
 @rifiuti.save
 
 # os tags

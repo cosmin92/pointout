@@ -2,14 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Occupation, type: :model do
 
-  subject {described_class = create(:occupation) }
+  subject {described_class = create(:occupation)}
 
   context "Factory" do
 
     it "have not nil tipology" do
       expect(subject.tipology).not_to be_nil
     end
-  
+
     it "have not nil group" do
       expect(subject.group).not_to be_nil
     end
@@ -19,8 +19,8 @@ RSpec.describe Occupation, type: :model do
   context "Methods" do
 
     it "should create a new occupation record given valid attributes" do
-      expect{
-          subject.save 
+      expect {
+        subject.save
       }.to change(Occupation, :count).by(1)
     end
 
@@ -34,7 +34,7 @@ RSpec.describe Occupation, type: :model do
     end
 
   end # end Methods
-  
+
   context "Associations" do
 
     it "belongs to group" do
@@ -46,7 +46,7 @@ RSpec.describe Occupation, type: :model do
       association = Occupation.reflect_on_association(:tipology)
       expect(association.macro).to eq(:belongs_to)
     end
-    
+
   end # end Associations
 
 end

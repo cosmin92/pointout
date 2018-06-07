@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Signaler, type: :model do
 
-  subject { described_class = build(:signaler) }
+  subject {described_class = build(:signaler)}
 
   context "Factory" do
 
@@ -37,7 +37,7 @@ RSpec.describe Signaler, type: :model do
     it "have not nil number" do
       expect(subject.number).not_to be_nil
     end
-    
+
     it "have not nil city" do
       expect(subject.city).not_to be_nil
     end
@@ -74,12 +74,12 @@ RSpec.describe Signaler, type: :model do
 
       it "should be invalid without a first name" do
         subject.first_name = nil
-        expect(subject).to be_invalid   
+        expect(subject).to be_invalid
       end
 
       it "should have length in 1..30" do
         subject.first_name = "Error! This first name is too long!"
-        expect(subject).to be_invalid 
+        expect(subject).to be_invalid
       end
 
     end # end first name
@@ -92,16 +92,16 @@ RSpec.describe Signaler, type: :model do
 
       it "should be invalid without a last name" do
         subject.last_name = nil
-        expect(subject).to be_invalid   
+        expect(subject).to be_invalid
       end
 
       it "should have length in 1..30" do
         subject.last_name = "Error! This last name is too long!"
-        expect(subject).to be_invalid 
+        expect(subject).to be_invalid
       end
 
     end # end last name
-    
+
     context "phone" do
 
       it "should have a phone attribute" do
@@ -110,7 +110,7 @@ RSpec.describe Signaler, type: :model do
 
       it "should be invalid without a phone" do
         subject.phone = nil
-        expect(subject).to be_invalid   
+        expect(subject).to be_invalid
       end
 
       it "should have length in 4..15" do
@@ -307,14 +307,14 @@ RSpec.describe Signaler, type: :model do
   context "Methods" do
 
     it "should create a new signaler record given valid attributes" do
-      expect{
-          subject.save
+      expect {
+        subject.save
       }.to change(Signaler, :count).by(1)
     end
 
     it "should update a record" do
       create(:signaler, :first_name => "Pluto")
-      signaler =  Signaler.first
+      signaler = Signaler.first
       expect(signaler.first_name).to eq("Pluto")
       signaler.first_name = "Pippo"
       signaler.save

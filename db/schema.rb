@@ -140,8 +140,9 @@ ActiveRecord::Schema.define(version: 20180525085559) do
     t.integer "tipology_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "forwarder"
-    t.integer "agency"
+    t.integer "forwarder_id"
+    t.integer "agency_id"
+    t.date "forward_date"
     t.index ["address"], name: "index_reports_on_address"
     t.index ["longitude", "latitude"], name: "index_reports_on_longitude_and_latitude"
     t.index ["object"], name: "index_reports_on_object"

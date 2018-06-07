@@ -10,7 +10,7 @@ FactoryBot.define do
     zip_code "00159"
     note "Suspendisse pretium, lectus non luctus imperdiet, metus dolor vulputate sem, quis commodo erat nulla in orci. Suspendisse ornare sed risus nec tincidunt. Nam rhoncus ante eu nulla suscipit ornare ac quis urna. Duis convallis ante urna, et dictum sapien rutrum quis."
     web_site_url "http://www.stradeanas.it/it"
-    
+
     association :forwarder, :email => "agency@gmail.com", factory: :forwarder, strategy: :create
   end
 end
