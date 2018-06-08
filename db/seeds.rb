@@ -101,3 +101,4 @@ load File.join(Rails.root, "db", "seeds", "agencies.rb")
 load File.join(Rails.root, "db", "seeds", "contacts.rb")
 
 load File.join(Rails.root, "db", "seeds", "notices.rb")
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

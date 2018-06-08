@@ -1,0 +1,43 @@
+#language: it
+Funzionalità: Aggiorna account
+
+  Contesto: Il cittadino ha un account, ha effettuato l'accesso ed è nella pagina di modifica dell'account
+    Dato che mi sono precedentemente registrato e sono uno inoltratore con nome 'Pinco', cognome 'Pallino' email 'p.pallino@gmail.com' e password 'passwordsicura'
+    E ho effettuato l'accesso come inoltratore
+    E sono nella pagina modifica del profilo inoltratore
+
+  Schema dello scenario: Aggiornamento effettuato con successo
+    Quando inserisco <nome> nel campo nome del form di aggiornamento del profilo di uno inoltratore
+    E inserisco <cognome> nel campo cognome del form di aggiornamento del profilo di uno inoltratore
+    E inserisco <email> nel campo email del form di aggiornamento del profilo di uno inoltratore
+    E inserisco <password> sia nel campo nuova password sia nel campo passowrd di conferma del form di aggiornamento del profilo di uno inoltratore:
+    E inserisco 'passwordsicura' nel campo password del form di aggiornamento del profilo di uno inoltratore
+    Allora dovrei essere indirizzato alla pagina del mio profilo e vedere un messaggio che mi dica che la modifica è avvenuta con successo
+    E dovrei vedere il mio profilo aggiornato
+
+    Esempi:
+      | nome  | cognome | email                 | password      |
+      | Mario |         |                       |               |
+      |       | Rossi   |                       |               |
+      |       |         | mario.rossi@gmail.com |               |
+      |       |         |                       | nuovapassword |
+
+  Schema dello scenario: Aggiornamento fallito
+    Quando inserisco <nome> nel campo nome del form di aggiornamento del profilo di uno inoltratore
+    E inserisco <cognome> nel campo cognome del form di aggiornamento del profilo di uno inoltratore
+    E inserisco <email> nel campo email del form di aggiornamento del profilo di uno inoltratore
+    E inserisco <nuovapassword> campo nuova password e <confermapassword> nel campo di conferma della nuova passsword del form di aggiornamento del profilo di uno inoltratore:
+    E inserisco <password> sia nel campo password che nel campo password di conferma del form di aggiornamento del profilo di uno inoltratore
+    Allora le modifica non deve andare a buon fine e dovrei vedere un messaggio di errore sul relativo campo non valido
+
+    Esempi:
+      | nome  | cognome | email                 | nuovapassword | confermapassword | password       |
+      | Mari2 |         |                       |               |                  | passwordsicura |
+      | Mario |         |                       |               |                  | passworderrata |
+      |       | Ross2   |                       |               |                  | passworderrata |
+      |       | Rossi   |                       |               |                  | passworderrata |
+      |       |         | mario.rossi.gmail.com |               |                  | passwordsicura |
+      |       |         | mario.rossi@gmail.com |               |                  | passworderrata |
+      |       |         |                       | corta         | corta            | passwordsicura |
+      |       |         |                       | password      | noncorrisponde   | passwordsicura |
+      |       |         |                       | nuovapassword | nuovapassword    | passworderrata |

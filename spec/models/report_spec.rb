@@ -212,9 +212,9 @@ RSpec.describe Report, type: :model do
       signaler2 = create(:signaler, :email => "tizio.caio@gmail.com", :phone => "6543210", :id_card_number => "876543210")
 
       create(:report, :object => "z primo report inserito", :tipology => tipology)
-      create(:report, :object => "a secondo report inserito", :signaler => signaler, :tipology => tipology, :longitude => 41.932557, :latitude => 12.441541)
-      create(:report, :object => "s terzo report inserito", :signaler => signaler1, :tipology => tipology, :longitude => 41.933057, :latitude => 12.440896)
-      create(:report, :object => "t terzo report inserito", :signaler => signaler2, :tipology => tipology, :longitude => 41.931951, :latitude => 12.442558) #Via Trionfale, 6649-6551, 00135 Roma RM maggiore di 50m
+      create(:report, :object => "a secondo report inserito", :signaler => signaler, :tipology => tipology, :longitude => 12.424902, :latitude => 41.903894)
+      create(:report, :object => "s terzo report inserito", :signaler => signaler1, :tipology => tipology, :longitude => 12.425487, :latitude => 41.903554) # a 70 metri dal precedente
+      create(:report, :object => "t terzo report inserito", :signaler => signaler2, :tipology => tipology, :longitude => 12.425331, :latitude => 41.906125) # a 290 metri dal precedente ##Via Trionfale, 6649-6551, 00135 Roma RM maggiore di 50m
     end
 
     it "should get reports ordered by date asc" do
@@ -241,10 +241,16 @@ RSpec.describe Report, type: :model do
       expect(Report.ordered_by_object_desc.last.object).to eq("a secondo report inserito")
     end
 
-    it "should get only nearby reports" do
+    it "should get 2 nearby reports (100 m)" do
       setup_database
-      center = {:longitude => 41.93224524160291, :latitude => 12.440350581054645}
-      expect(Report.nearby(center, 200).count).to eq(3)
+      center = {:longitude => 12.425255, :latitude => 41.903545}
+      expect(Report.nearby(center, 100).count).to eq(2)
+    end
+
+    it "should get 3 nearby reports (300 m)" do
+      setup_database
+      center = {:longitude => 12.425255, :latitude => 41.903545}
+      expect(Report.nearby(center, 300).count).to eq(3)
     end
 
   end # end scopes

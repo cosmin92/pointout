@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   devise_for :signalers, controllers: {registrations: "signalers/registrations", sessions: "signalers/sessions", omniauth_callbacks: "signalers/omniauth_callbacks", passwords: "signalers/passwords", confirmations: "signalers/confirmations", unlocks: "signalers/unlocks"}
   devise_scope :signaler do
     get "signalers/profile", to: "signalers/registrations#profile"

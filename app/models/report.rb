@@ -48,14 +48,14 @@ class Report < ApplicationRecord
   end
 
   def self.nearby(center, radius)
-    reports = Array.new
+    ids = []
     all.each do |report|
       p2 = {:longitude => report.longitude.to_f, :latitude => report.latitude.to_f}
       if distance_in_meters(center, p2) <= radius
-        reports.push(report)
+        ids << report.id
       end
     end
-    return reports
+    return Report.where("id IN (?)",ids)
   end
 
   # Private methods
